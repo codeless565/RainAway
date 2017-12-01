@@ -7,13 +7,11 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.io.IOException;
-
 /**
  * Created by 164347E on 11/27/2017.
  */
 
-public class GamePage extends Activity {
+public class Page_Game extends Activity {
         @Override
         public void onCreate(Bundle instance)
         {
@@ -24,7 +22,7 @@ public class GamePage extends Activity {
             //GameView thingy
             setContentView(new GameView(this));
 
-            MediaPlayer myPlayer = MediaPlayer.create(GamePage.this, R.raw.ssr);
+            MediaPlayer myPlayer = MediaPlayer.create(Page_Game.this, R.raw.ssr);
             myPlayer.start();
         }
 

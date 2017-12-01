@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         //Splash page as Launch Screen "Loading..."
-        <activity android:name=".SplashPage"
+        <activity android:name=".Page_Splash"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -22,7 +22,7 @@
         </activity>
 
         //Main Menu
-        <activity android:name=".MainMenu"
+        <activity android:name=".Page_MainMenu"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
 
@@ -34,7 +34,7 @@
         </activity>
 
         //Stage Select
-        <activity android:name=".StageSelectPage"
+        <activity android:name=".Page_StageSelect"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -45,7 +45,7 @@
         </activity>
 
         //Help Screen
-        <activity android:name=".HelpPage"
+        <activity android:name=".Page_Help"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -56,7 +56,7 @@
         </activity>
 
         //Option Screen
-        <activity android:name=".OptionPage"
+        <activity android:name=".Page_Options"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -67,7 +67,7 @@
         </activity>
 
         //Game Screen
-        <activity android:name=".GamePage"
+        <activity android:name=".Page_Game"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

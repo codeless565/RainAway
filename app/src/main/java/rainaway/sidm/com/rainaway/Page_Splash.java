@@ -11,7 +11,7 @@ import android.view.WindowManager;
  * Created by 164347E on 11/20/2017.
  */
 
-public class SplashPage extends Activity{
+public class Page_Splash extends Activity{
     protected  boolean _active = true;
     protected int _splashTime = 5000; //time to display the splash screen in ms
 
@@ -46,7 +46,7 @@ public class SplashPage extends Activity{
                 finally
                 {
                     //Create new activity based on and intend with CurrentACtivity
-                    Intent intent = new Intent(SplashPage.this, MainMenu.class);
+                    Intent intent = new Intent(Page_Splash.this, Page_MainMenu.class);
                     startActivity(intent);
                 }
             }

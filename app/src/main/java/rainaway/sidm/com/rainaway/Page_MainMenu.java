@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
-public class MainMenu extends Activity implements OnClickListener {
+public class Page_MainMenu extends Activity implements OnClickListener {
 
 
     //define button as Object
@@ -49,15 +49,15 @@ public class MainMenu extends Activity implements OnClickListener {
 
         if (_view == btn_start)
         {
-            intent.setClass(this, GamePage.class); // stageSelect Page
+            intent.setClass(this, Page_Game.class); // stageSelect Page
         }
         else if(_view == btn_help)//For other button like Helppage
         {
-            intent.setClass(this, HelpPage.class);
+            intent.setClass(this, Page_Help.class);
         }
         else if (_view == btn_option)
         {
-            intent.setClass(this, OptionPage.class);
+            intent.setClass(this, Page_Options.class);
         }
         else if (_view == btn_exit)
         {

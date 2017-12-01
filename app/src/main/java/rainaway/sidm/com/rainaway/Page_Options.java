@@ -14,7 +14,7 @@ import android.widget.SeekBar;
 import android.view.View.OnClickListener;
 
 
-public class OptionPage extends Activity implements OnClickListener {
+public class Page_Options extends Activity implements OnClickListener {
 
     //define button as Object
     private Button btn_mainmenu;
@@ -49,7 +49,7 @@ public class OptionPage extends Activity implements OnClickListener {
 
         if(_view == btn_mainmenu)
         {
-            intent.setClass(this, MainMenu.class);
+            intent.setClass(this, Page_MainMenu.class);
         }
         startActivity(intent);
     }
