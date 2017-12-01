@@ -11,7 +11,9 @@
         android:theme="@style/AppTheme">
 
         //Splash page as Launch Screen "Loading..."
-        <activity android:name=".SplashPage" >
+        <activity android:name=".SplashPage"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +22,11 @@
         </activity>
 
         //Main Menu
-        <activity android:name=".MainMenu" >
-            <intent-filter>
+        <activity android:name=".MainMenu"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -29,7 +34,9 @@
         </activity>
 
         //Stage Select
-        <activity android:name=".StageSelectPage" >
+        <activity android:name=".StageSelectPage"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +45,9 @@
         </activity>
 
         //Help Screen
-        <activity android:name=".HelpPage" >
+        <activity android:name=".HelpPage"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +56,9 @@
         </activity>
 
         //Option Screen
-        <activity android:name=".OptionPage" >
+        <activity android:name=".OptionPage"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,7 +67,9 @@
         </activity>
 
         //Game Screen
-        <activity android:name=".GamePage" >
+        <activity android:name=".GamePage"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
