@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgnd"
+
+    tools:context="rainaway.sidm.com.rainaway.OptionPage"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="500dp"
+        android:layout_height="50dp"
+        android:text="Options"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="29dp"
+        android:layout_marginStart="114dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btn_mainmenu"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:text="Main Menu"
+        android:textColor="#EDFFCF"
+        android:layout_marginBottom="19dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:id="@+id/SFXSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="50dp"
+        android:layout_above="@+id/BGMText"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/SFXText"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:text="SFX"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/SFXSeekBar"
+        android:layout_toStartOf="@+id/SFXSeekBar" />
+
+    <TextView
+        android:id="@+id/BGMText"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/BGMSeekBar"
+        android:layout_toStartOf="@+id/BGMSeekBar"
+        android:text="BGM"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/BGMSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/SFXText"
+        android:layout_marginTop="113dp" />
+
+
+</RelativeLayout>
