@@ -53,17 +53,17 @@ public class EntityManager
         {
             EntityBase currEntity = entityList.get(i);
 
-            if(currEntity instanceof Collidable)
+            if(currEntity instanceof EntityCollidable)
             {
-                Collidable first = (Collidable) currEntity; //Casting to a collidable
+                EntityCollidable first = (EntityCollidable) currEntity; //Casting to a collidable
 
                 for (int j = i + 1; j < entityList.size(); ++j)
                 {
                     EntityBase otherEntity = entityList.get(j);
 
-                    if(otherEntity instanceof Collidable)
+                    if(otherEntity instanceof EntityCollidable)
                     {
-                        Collidable second = (Collidable) otherEntity;
+                        EntityCollidable second = (EntityCollidable) otherEntity;
 
                         //we got 2 collidable! Check collision here
                         if(Collision.SphereToSphere(first.GetPosX(),first.GetPosY(),first.GetRadius(),second.GetPosX(),second.GetPosY(),second.GetRadius()))
