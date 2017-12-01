@@ -14,7 +14,6 @@ public class MainMenu extends Activity implements OnClickListener {
 
     //define button as Object
     private Button btn_start;
-    private Button btn_help;
     private Button btn_option;
     private Button btn_exit;
 
@@ -34,8 +33,6 @@ public class MainMenu extends Activity implements OnClickListener {
         //Set Listener to button
         btn_start = (Button)findViewById(R.id.btn_start);
         btn_start.setOnClickListener(this);
-        btn_help = (Button)findViewById(R.id.btn_help);
-        btn_help.setOnClickListener(this);
         btn_option = (Button)findViewById(R.id.btn_option);
         btn_option.setOnClickListener(this);
         btn_exit = (Button)findViewById(R.id.btn_exit);
@@ -49,11 +46,7 @@ public class MainMenu extends Activity implements OnClickListener {
 
         if (_view == btn_start)
         {
-            intent.setClass(this, GamePage.class); // stageSelect Page
-        }
-        else if(_view == btn_help)//For other button like Helppage
-        {
-            intent.setClass(this, HelpPage.class);
+            intent.setClass(this, SelectionPage.class); // stageSelect Page
         }
         else if (_view == btn_option)
         {

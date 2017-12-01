@@ -29,7 +29,6 @@ public class EntityManager
         //List for object that needs to be deleted.
         LinkedList<EntityBase> removalList = new LinkedList<EntityBase>();
 
-        //TODO
         for (EntityBase currEntity :entityList)
         {
             currEntity.Update(_dt);
@@ -93,7 +92,6 @@ public class EntityManager
 
     public void Render(Canvas _canvas)
     {
-        //TODO
         //Render all the entities in our list
         for (EntityBase currEntity : entityList)
         {

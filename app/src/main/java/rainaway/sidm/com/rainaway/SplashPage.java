@@ -1,5 +1,5 @@
 package rainaway.sidm.com.rainaway;
-
+//TODO add in loading bar for 5s since splashTime is 5000 =5s
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

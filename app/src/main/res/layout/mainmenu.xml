@@ -28,23 +28,12 @@
         android:id="@+id/btn_start"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/btn_help"
+        android:layout_above="@+id/btn_option"
         android:layout_alignStart="@+id/btn_option"
         android:layout_marginBottom="13dp"
         android:background="@drawable/button"
         android:text="Start"
         android:textColor="#EDFFCF" />
-
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Help"
-        android:textColor="#EDFFCF"
-        android:background="@drawable/button"
-        android:id="@+id/btn_help"
-        android:layout_alignBottom="@+id/btn_option"
-        android:layout_alignStart="@+id/btn_option"
-        android:layout_marginBottom="61dp" />
 
     <Button
         android:id="@+id/btn_option"

@@ -1,5 +1,5 @@
 package rainaway.sidm.com.rainaway;
-
+//TODO vibration, sensitivity,control(by touch/tilt)?
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -38,7 +38,6 @@ public class OptionPage extends Activity implements OnClickListener {
         btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu);
        btn_mainmenu.setOnClickListener(this);
 
-        seekBar_volume = (SeekBar)findViewById(R.id.BGMSeekBar);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         initControls();
     }
@@ -72,7 +71,7 @@ public class OptionPage extends Activity implements OnClickListener {
     {
         try
         {
-
+            seekBar_volume = (SeekBar)findViewById(R.id.SFXSeekBar);
             audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             seekBar_volume.setMax(audioManager
                     .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
