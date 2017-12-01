@@ -66,6 +66,8 @@
             </intent-filter>
         </activity>
 
+
+
         //Game Screen
         <activity android:name=".Page_Game"
             android:configChanges="orientation"
@@ -76,7 +78,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

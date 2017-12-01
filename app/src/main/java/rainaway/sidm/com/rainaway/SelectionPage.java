@@ -1,10 +1,8 @@
 package rainaway.sidm.com.rainaway;
-
-// TODO DELETE THIS
-/**
- * Created by 164347E on 11/21/2017.
- */
-
+// TODO add in TA,A screens
+// TODO swiping for touchmanager? else, use left right arrow
+// TODO rename SelectionPage to like idk NORMALPAGE?
+// TODO HELP screen
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,18 +10,16 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 
-public class Page_StageSelect extends Activity implements OnClickListener {
+/**
+ * Created by 164353M on 12/1/2017.
+ */
 
-    //define button as Object
-    private Button btn_normal;
-    private Button btn_arcade;
-    private Button btn_time;
-    private Button btn_option;
+public class SelectionPage extends Activity implements View.OnClickListener {
+    private Button btn_start;
     private Button btn_back;
+    private Button btn_help;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -33,18 +29,18 @@ public class Page_StageSelect extends Activity implements OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //This is using layout! Not what we want!
-        setContentView(R.layout.stageselectpage); //We will use GameView instead
+        setContentView(R.layout.selectionpage); //We will use GameView instead
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_normal = (Button)findViewById(R.id.btn_normal);
-        btn_normal.setOnClickListener(this);
-        btn_arcade = (Button)findViewById(R.id.btn_arcade);
-        btn_arcade.setOnClickListener(this);
-        btn_time = (Button)findViewById(R.id.btn_time);
-        btn_time.setOnClickListener(this);
+        btn_start = (Button)findViewById(R.id.btn_start);
+        btn_start.setOnClickListener(this);
+
         btn_back = (Button)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
+
+        btn_help = (Button)findViewById(R.id.btn_help);
+        btn_help.setOnClickListener(this);
     }
 
     //Invoke a callback on clicked event on a view
@@ -52,22 +48,21 @@ public class Page_StageSelect extends Activity implements OnClickListener {
     {
         Intent intent = new Intent();
 
-        if (_view == btn_normal)
+        if (_view == btn_start)
         {
-            //start normal stage
+           intent.setClass(this, GamePage.class); // stageSelect Page
         }
-        else if(_view == btn_arcade)//For other button like Helppage
+        else if(_view == btn_back)//For other button like Helppage
         {
-            //start arcade stage
+            intent.setClass(this, MainMenu.class);
         }
-        else if (_view == btn_time)
-        {
-            //start time stage
-        }
-        else if (_view == btn_back)
-        {
-            intent.setClass(this, Page_MainMenu.class);
-        }
+        // TODO add in helppage for normal
+        //else if(_view == btn_help)//For other button like Helppage
+        //{
+        //    intent.setClass(this, HelpPage.class);
+        //}
+
+
         startActivity(intent);
     }
 
