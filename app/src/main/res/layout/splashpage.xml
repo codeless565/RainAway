@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgnd"
 
-    tools:context="rainaway.sidm.com.rainaway.SplashPage">
+    tools:context="rainaway.sidm.com.rainaway.Page_Splash">
 
     <TextView
         android:layout_width="wrap_content"

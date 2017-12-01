@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgnd"
 
-    tools:context="rainaway.sidm.com.rainaway.MainMenu">
+    tools:context="rainaway.sidm.com.rainaway.Page_MainMenu">
 
     <TextView
         android:id="@+id/MenuTitle"
