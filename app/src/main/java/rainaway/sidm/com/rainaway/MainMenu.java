@@ -11,7 +11,6 @@ import android.view.View.OnClickListener;
 
 public class MainMenu extends Activity implements OnClickListener {
 
-
     //define button as Object
     private Button btn_start;
     private Button btn_option;
@@ -26,7 +25,7 @@ public class MainMenu extends Activity implements OnClickListener {
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want!
+        //This is using layout! Not what we want
         setContentView(R.layout.mainmenu); //We will use GameView instead
         //setContentView(new GameView(this));
 
@@ -46,7 +45,7 @@ public class MainMenu extends Activity implements OnClickListener {
 
         if (_view == btn_start)
         {
-            intent.setClass(this, SelectionPage.class); // stageSelect Page
+            intent.setClass(this, STAGE_NORMALSCREEN.class); // stageSelect Page
         }
         else if (_view == btn_option)
         {
@@ -73,3 +72,4 @@ public class MainMenu extends Activity implements OnClickListener {
         super.onDestroy();
     }
 }
+

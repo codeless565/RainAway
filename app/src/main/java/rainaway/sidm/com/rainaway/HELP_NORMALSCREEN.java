@@ -1,10 +1,5 @@
 package rainaway.sidm.com.rainaway;
-
-// TODO DELETE THIS
-/**
- * Created by 164347E on 11/21/2017.
- */
-
+// TODO change to normal gamemode help
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,15 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.SeekBar;
 
-public class StageSelectPage extends Activity implements OnClickListener {
+public class HELP_NORMALSCREEN extends Activity implements OnClickListener {
 
     //define button as Object
-    private Button btn_normal;
-    private Button btn_arcade;
-    private Button btn_time;
-    private Button btn_option;
-    private Button btn_back;
+    private Button btn_mainmenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +25,12 @@ public class StageSelectPage extends Activity implements OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //This is using layout! Not what we want!
-        setContentView(R.layout.stageselectpage); //We will use GameView instead
+        setContentView(R.layout.help_normalscreen); //We will use GameView instead
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_normal = (Button)findViewById(R.id.btn_normal);
-        btn_normal.setOnClickListener(this);
-        btn_arcade = (Button)findViewById(R.id.btn_arcade);
-        btn_arcade.setOnClickListener(this);
-        btn_time = (Button)findViewById(R.id.btn_time);
-        btn_time.setOnClickListener(this);
-        btn_back = (Button)findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(this);
+        btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu);
+        btn_mainmenu.setOnClickListener(this);
     }
 
     //Invoke a callback on clicked event on a view
@@ -52,19 +38,7 @@ public class StageSelectPage extends Activity implements OnClickListener {
     {
         Intent intent = new Intent();
 
-        if (_view == btn_normal)
-        {
-            //start normal stage
-        }
-        else if(_view == btn_arcade)//For other button like Helppage
-        {
-            //start arcade stage
-        }
-        else if (_view == btn_time)
-        {
-            //start time stage
-        }
-        else if (_view == btn_back)
+        if(_view == btn_mainmenu)
         {
             intent.setClass(this, MainMenu.class);
         }
