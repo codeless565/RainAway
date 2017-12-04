@@ -33,6 +33,17 @@
             </intent-filter>
         </activity>
 
+        //Options Menu
+        <activity android:name=".Page_Options"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
 
         //Stage Select
