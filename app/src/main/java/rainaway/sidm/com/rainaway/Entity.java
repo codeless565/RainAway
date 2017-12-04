@@ -20,14 +20,21 @@ public class Entity implements EntityBase, EntityCollidable
     ENTITYTYPE m_type;
     private Bitmap bmp = null;
     private boolean isDone = false;
-    private float xPos, yPos, xDir, yDir, lifeTime;
+    public Vector2 Pos, Dir;
+    private float lifeTime;
+
     private int Life;
 
     //Our global create function
     //So anyone can create "SampleEntities"
-    public static Entity Create()
+    public static Entity Create(ENTITYTYPE _type, Vector2 pos, Vector2 dir)
     {
         Entity result = new Entity();
+        result.m_type = _type;
+        result.Pos = pos;
+        result.Dir = dir;
+
+
         EntityManager.Instance.AddEntity(result);
         return result;
     }
@@ -45,27 +52,32 @@ public class Entity implements EntityBase, EntityCollidable
         Random ranGen = new Random();
 
         //Init variable
-        xPos = ranGen.nextFloat() * _view.getWidth(); //nextFloat will generate a float from 0.f to 1.f;
-        yPos = ranGen.nextFloat() * _view.getHeight();
+        if (m_type == ENTITYTYPE.ENTITY_PLAYER)
+        {
+            return;
+        }
 
-        xDir = ranGen.nextFloat() * 100.f - 50.f;
-        yDir = ranGen.nextFloat() * 100.f - 50.f;
+        Pos.x = ranGen.nextFloat() * _view.getWidth(); //nextFloat will generate a float from 0.f to 1.f;
+        Pos.y = ranGen.nextFloat() * _view.getHeight();
+
+        Dir.x = ranGen.nextFloat() * 100.f - 50.f;
+        Dir.y = ranGen.nextFloat() * 100.f - 50.f;
     }
 
     @Override
     public void Update(float _dt)
     {
-        lifeTime -= _dt;
+        //lifeTime -= _dt;
         if(lifeTime < 0.0f)
             SetIsDone(true);
 
-        xPos += xDir * _dt;
-        yPos += yDir * _dt;
+        Pos.x += Dir.x * _dt;
+        Pos.y += Dir.y * _dt;
 
         if(TouchManager.Instance.isDown())
         {
             float imgRadius = bmp.getHeight() * 0.5f;
-            if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f,xPos,yPos,imgRadius))
+            if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f,Pos.x,Pos.y,imgRadius))
                 SetIsDone(true);
         }
     }
@@ -73,7 +85,7 @@ public class Entity implements EntityBase, EntityCollidable
     @Override
     public void Render(Canvas _canvas)
     {
-        _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(bmp, Pos.x - bmp.getWidth() * 0.5f, Pos.y - bmp.getHeight() * 0.5f, null);
     }
 
     @Override
@@ -99,12 +111,12 @@ public class Entity implements EntityBase, EntityCollidable
 
     @Override
     public float GetPosX() {
-        return xPos;
+        return Pos.x;
     }
 
     @Override
     public float GetPosY() {
-        return yPos;
+        return Pos.y;
     }
 
     @Override
