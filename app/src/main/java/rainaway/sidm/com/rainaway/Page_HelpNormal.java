@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.SeekBar;
 
-public class HELP_NORMALSCREEN extends Activity implements OnClickListener {
+public class Page_HelpNormal extends Activity implements OnClickListener {
 
     //define button as Object
     private Button btn_mainmenu;
@@ -40,7 +40,7 @@ public class HELP_NORMALSCREEN extends Activity implements OnClickListener {
 
         if(_view == btn_mainmenu)
         {
-            intent.setClass(this, MainMenu.class);
+            intent.setClass(this, Page_MainMenu.class);
         }
         startActivity(intent);
     }

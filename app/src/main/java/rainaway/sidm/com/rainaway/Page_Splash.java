@@ -12,14 +12,10 @@ import android.widget.ProgressBar;
  * Created by 164347E on 11/20/2017.
  */
 
-<<<<<<< HEAD:app/src/main/java/rainaway/sidm/com/rainaway/Page_Splash.java
 public class Page_Splash extends Activity{
-=======
-public class SplashPage extends Activity{
     private ProgressBar loading_bar;
     private int mStatus=0;
 
->>>>>>> master:app/src/main/java/rainaway/sidm/com/rainaway/SplashPage.java
     protected  boolean _active = true;
     protected int _splashTime = 5000; //time to display the splash screen in ms
 
@@ -59,12 +55,8 @@ public class SplashPage extends Activity{
                 }
                 if (loading_bar.getProgress() >= 100)
                 {
-<<<<<<< HEAD:app/src/main/java/rainaway/sidm/com/rainaway/Page_Splash.java
                     //Create new activity based on and intend with CurrentACtivity
                     Intent intent = new Intent(Page_Splash.this, Page_MainMenu.class);
-=======
-                    Intent intent = new Intent(SplashPage.this, MainMenu.class);
->>>>>>> master:app/src/main/java/rainaway/sidm/com/rainaway/SplashPage.java
                     startActivity(intent);
                 }
             }

@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
  * Created by Administrator on 3/12/2017.
  */
 
-public class STAGE_ARCADESCREEN extends Activity implements OnClickListener{
+public class Page_StageArcade extends Activity implements OnClickListener{
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
@@ -63,15 +63,15 @@ public class STAGE_ARCADESCREEN extends Activity implements OnClickListener{
         // TODO Complete Arcade Help Screen
         else if(_view == btn_help)//For other button like Helppage
         {
-            intent.setClass(this, HELP_ARCADESCREEN.class);
+            intent.setClass(this, Page_HelpArcade.class);
         }
         else if(_view == btn_next)//For other button like Helppage
         {
-            intent.setClass(this, STAGE_NORMALSCREEN.class);
+            intent.setClass(this, Page_StageNormal.class);
         }
         else if(_view == btn_before)//For other button like Helppage
         {
-            intent.setClass(this, STAGE_TIMEATTACKSCREEN.class);
+            intent.setClass(this, Page_StageTimeAttack.class);
         }
 
 

@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgnd"
 
-    tools:context="rainaway.sidm.com.rainaway.HELP_NORMALSCREEN"
+    tools:context="rainaway.sidm.com.rainaway.Page_HelpNormal"
     android:weightSum="1">
 
     <TextView

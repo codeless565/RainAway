@@ -13,7 +13,6 @@ public class Page_MainMenu extends Activity implements OnClickListener {
 
     //define button as Object
     private Button btn_start;
-    private Button btn_help;
     private Button btn_option;
     private Button btn_exit;
 
@@ -33,8 +32,6 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         //Set Listener to button
         btn_start = (Button)findViewById(R.id.btn_start);
         btn_start.setOnClickListener(this);
-        btn_help = (Button)findViewById(R.id.btn_help);
-        btn_help.setOnClickListener(this);
         btn_option = (Button)findViewById(R.id.btn_option);
         btn_option.setOnClickListener(this);
         btn_exit = (Button)findViewById(R.id.btn_exit);
@@ -48,15 +45,7 @@ public class Page_MainMenu extends Activity implements OnClickListener {
 
         if (_view == btn_start)
         {
-<<<<<<< HEAD:app/src/main/java/rainaway/sidm/com/rainaway/Page_MainMenu.java
-            intent.setClass(this, Page_Game.class); // stageSelect Page
-        }
-        else if(_view == btn_help)//For other button like Helppage
-        {
-            intent.setClass(this, Page_Help.class);
-=======
-            intent.setClass(this, STAGE_NORMALSCREEN.class); // stageSelect Page
->>>>>>> master:app/src/main/java/rainaway/sidm/com/rainaway/MainMenu.java
+            intent.setClass(this, Page_StageNormal.class); // stageSelect Page
         }
         else if (_view == btn_option)
         {

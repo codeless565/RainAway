@@ -13,7 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class STAGE_NORMALSCREEN extends Activity implements OnClickListener {
+public class Page_StageNormal extends Activity implements OnClickListener {
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
@@ -58,20 +58,20 @@ public class STAGE_NORMALSCREEN extends Activity implements OnClickListener {
             intent.setClass(this, Page_Game.class); // stageSelect Page
         } else if (_view == btn_back)//For other button like Helppage
         {
-            intent.setClass(this, MainMenu.class);
+            intent.setClass(this, Page_MainMenu.class);
         }
         // TODO Complete Normal Help Screen
         else if(_view == btn_help)//For other button like Helppage
         {
-            intent.setClass(this, HELP_NORMALSCREEN.class);
+            intent.setClass(this, Page_HelpNormal.class);
         }
         else if(_view == btn_next)//For other button like Helppage
         {
-            intent.setClass(this, STAGE_TIMEATTACKSCREEN.class);
+            intent.setClass(this, Page_StageTimeAttack.class);
         }
         else if(_view == btn_before)//For other button like Helppage
         {
-            intent.setClass(this, STAGE_ARCADESCREEN.class);
+            intent.setClass(this, Page_StageArcade.class);
         }
 
 

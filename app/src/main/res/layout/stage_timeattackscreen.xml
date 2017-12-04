@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgnd"
 
-    tools:context="rainaway.sidm.com.rainaway.STAGE_TIMEATTACKSCREEN"
+    tools:context="rainaway.sidm.com.rainaway.Page_StageTimeAttack"
     android:weightSum="1">
 
     <!-- Gamemode Title -->

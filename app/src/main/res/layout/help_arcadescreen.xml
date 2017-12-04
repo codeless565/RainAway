@@ -1,4 +1,3 @@
-<<<<<<< HEAD:app/src/main/res/layout/helppage.xml
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,49 +9,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgnd"
 
-    tools:context="rainaway.sidm.com.rainaway.Page_Help"
-    android:weightSum="1">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="500dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="86dp"
-        android:text="HOW TO PLAY"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="77dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/btn_mainmenu"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button"
-        android:text="Main Menu"
-        android:textColor="#EDFFCF"
-        android:layout_marginBottom="19dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/backgnd"
-
-    tools:context="rainaway.sidm.com.rainaway.HELP_ARCADESCREEN"
+    tools:context="rainaway.sidm.com.rainaway.Page_HelpArcade"
     android:weightSum="1">
 
     <TextView
@@ -82,5 +39,4 @@
         android:layout_centerHorizontal="true" />
 
 
->>>>>>> master:app/src/main/res/layout/help_arcadescreen.xml
 </RelativeLayout>

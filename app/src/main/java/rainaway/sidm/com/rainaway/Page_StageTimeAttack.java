@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
  * Created by Administrator on 3/12/2017.
  */
 
-public class STAGE_TIMEATTACKSCREEN extends Activity implements OnClickListener{
+public class Page_StageTimeAttack extends Activity implements OnClickListener{
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
@@ -58,20 +58,20 @@ public class STAGE_TIMEATTACKSCREEN extends Activity implements OnClickListener{
             intent.setClass(this, Page_Game.class); // stageSelect Page
         } else if (_view == btn_back)//For other button like Helppage
         {
-            intent.setClass(this, MainMenu.class);
+            intent.setClass(this, Page_MainMenu.class);
         }
         // TODO Complete Time Attack Help Screen
         else if(_view == btn_help)//For other button like Helppage
         {
-            intent.setClass(this, HELP_TIMEATTACKSCREEN.class);
+            intent.setClass(this, Page_HelpTimeAttack.class);
         }
         else if(_view == btn_next)//For other button like Helppage
         {
-            intent.setClass(this, STAGE_ARCADESCREEN.class);
+            intent.setClass(this, Page_StageArcade.class);
         }
         else if(_view == btn_before)//For other button like Helppage
         {
-            intent.setClass(this, STAGE_NORMALSCREEN.class);
+            intent.setClass(this, Page_StageNormal.class);
         }
 
 
