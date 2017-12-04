@@ -8,8 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.SeekBar;
 
-public class Page_Help extends Activity implements OnClickListener {
+public class HELP_TIMEATTACKSCREEN extends Activity implements OnClickListener {
 
     //define button as Object
     private Button btn_mainmenu;
@@ -24,7 +25,7 @@ public class Page_Help extends Activity implements OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //This is using layout! Not what we want!
-        setContentView(R.layout.helppage); //We will use GameView instead
+        setContentView(R.layout.help_timeattackscreen); //We will use GameView instead
         //setContentView(new GameView(this));
 
         //Set Listener to button
@@ -39,7 +40,7 @@ public class Page_Help extends Activity implements OnClickListener {
 
         if(_view == btn_mainmenu)
         {
-            intent.setClass(this, Page_MainMenu.class);
+            intent.setClass(this, MainMenu.class);
         }
         startActivity(intent);
     }
