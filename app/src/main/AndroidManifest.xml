@@ -33,22 +33,12 @@
             </intent-filter>
         </activity>
 
-        //Stage Select
-        <activity android:name=".Page_StageSelect"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        ////////////////////////////////////////////////////////////
 
         //Stage Select
 
         ////////////////////////////////////////////////////////////
-        <activity android:name=".STAGE_NORMALSCREEN" >
+        <activity android:name=".Page_StageNormal" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,7 +47,7 @@
         </activity>
 
 
-        <activity android:name=".STAGE_TIMEATTACKSCREEN" >
+        <activity android:name=".Page_StageTimeAttack" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,7 +56,7 @@
         </activity>
 
 
-        <activity android:name=".STAGE_ARCADESCREEN" >
+        <activity android:name=".Page_StageArcade" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,7 +71,7 @@
         ////////////////////////////////////////////////////////////
 
 
-        <activity android:name=".HELP_NORMALSCREEN" >
+        <activity android:name=".Page_HelpNormal" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -89,7 +79,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HELP_TIMEATTACKSCREEN" >
+        <activity android:name=".Page_HelpTimeAttack" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -97,7 +87,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HELP_ARCADESCREEN" >
+        <activity android:name=".Page_HelpArcade" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
