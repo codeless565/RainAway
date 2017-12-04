@@ -7,6 +7,7 @@ package rainaway.sidm.com.rainaway;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -77,7 +78,19 @@ public class Page_StageNormal extends Activity implements OnClickListener {
 
         startActivity(intent);
     }
+    // TODO SWIPE
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
 
+
+        TouchManager.Instance.Update(x, y,event.getAction());
+
+
+        return true;
+    }
     @Override
     protected void onPause() {
         super.onPause();

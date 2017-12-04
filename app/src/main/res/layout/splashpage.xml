@@ -25,10 +25,13 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
+        android:layout_marginBottom="19dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:scrollbarSize="500dp" />
+        android:scaleY="6"
+        android:progressTint="@color/colorRed"
+        />
 
 </RelativeLayout>
