@@ -29,7 +29,7 @@ public class SampleGame
         timer += _dt;
         if (timer >=0.5f)
         {
-            Entity.Create();
+            //ntity.Create();
             timer = 0.f;
         }
 
