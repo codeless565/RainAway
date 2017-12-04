@@ -1,8 +1,6 @@
 package rainaway.sidm.com.rainaway;
 
-// TODO add in TA,A screens
-// TODO swiping for touchmanager? else, use left right arrow
-// TODO HELP screen
+// TODO Implement TouchManager Better
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,8 +17,6 @@ public class Page_StageNormal extends Activity implements OnClickListener {
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
-    private Button btn_next;
-    private Button btn_before;
 
     private Vector2 CurrTouch, RecordedTouch;
     private boolean touching = false;
@@ -47,8 +43,6 @@ public class Page_StageNormal extends Activity implements OnClickListener {
 
         btn_help = (Button) findViewById(R.id.btn_normalhelp);
         btn_help.setOnClickListener(this);
-        //TODO Put text to indicate slideable
-        //TODO same for the rest
     }
         //Invoke a callback on clicked event on a view
 
@@ -61,7 +55,6 @@ public class Page_StageNormal extends Activity implements OnClickListener {
         {
             intent.setClass(this, Page_MainMenu.class);
         }
-        // TODO Complete Normal Help Screen
         else if(_view == btn_help)//For other button like Helppage
         {
             intent.setClass(this, Page_HelpNormal.class);
@@ -91,11 +84,12 @@ public class Page_StageNormal extends Activity implements OnClickListener {
             CurrTouch = new Vector2(x, y);
         }
 
-        if(!touching && CurrTouch.x < RecordedTouch.x) {
+        if(!touching && CurrTouch.x < RecordedTouch.x) { // Swipe Left
             intent.setClass(this, Page_StageArcade.class);
             startActivity(intent);
         }
-        else if (!touching && CurrTouch.x > RecordedTouch.x) {
+        else if (!touching && CurrTouch.x > RecordedTouch.x) { // Swipe right
+
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }

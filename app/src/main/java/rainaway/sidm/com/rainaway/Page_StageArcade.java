@@ -3,6 +3,7 @@ package rainaway.sidm.com.rainaway;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,8 +18,9 @@ public class Page_StageArcade extends Activity implements OnClickListener{
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
-    private Button btn_next;
-    private Button btn_before;
+
+    private Vector2 CurrTouch, RecordedTouch;
+    private boolean touching = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +36,15 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_start = (Button) findViewById(R.id.btn_normalstart);
+        btn_start = (Button) findViewById(R.id.btn_arcadestart);
         btn_start.setOnClickListener(this);
 
-        btn_back = (Button) findViewById(R.id.btn_normalback);
+        btn_back = (Button) findViewById(R.id.btn_arcadeback);
         btn_back.setOnClickListener(this);
 
-        btn_help = (Button) findViewById(R.id.btn_normalhelp);
+        btn_help = (Button) findViewById(R.id.btn_arcadehelp);
         btn_help.setOnClickListener(this);
 
-        btn_next = (Button) findViewById(R.id.btn_nextstagescreen);
-        btn_next.setOnClickListener(this);
-
-        btn_before = (Button) findViewById(R.id.btn_beforestagescreen);
-        btn_before.setOnClickListener(this);
     }
     //Invoke a callback on clicked event on a view
 
@@ -60,23 +57,48 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         {
             intent.setClass(this, Page_MainMenu.class);
         }
-        // TODO Complete Arcade Help Screen
         else if(_view == btn_help)//For other button like Helppage
         {
             intent.setClass(this, Page_HelpArcade.class);
-        }
-        else if(_view == btn_next)//For other button like Helppage
-        {
-            intent.setClass(this, Page_StageNormal.class);
-        }
-        else if(_view == btn_before)//For other button like Helppage
-        {
-            intent.setClass(this, Page_StageTimeAttack.class);
         }
 
 
         startActivity(intent);
     }
+
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        Intent intent = new Intent();
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        TouchManager.Instance.Update(x, y, event.getAction());
+
+        if (TouchManager.Instance.HasTouch() && !touching)
+        {
+            touching = true;
+            RecordedTouch = new Vector2(x, y);
+            CurrTouch = RecordedTouch;
+
+        }
+        else
+        {
+            touching = false;
+            CurrTouch = new Vector2(x, y);
+        }
+
+        if(!touching && CurrTouch.x < RecordedTouch.x) {
+            intent.setClass(this, Page_StageTimeAttack.class);
+            startActivity(intent);
+        }
+        else if (!touching && CurrTouch.x > RecordedTouch.x) {
+            intent.setClass(this, Page_StageNormal.class);
+            startActivity(intent);
+        }
+
+        return true;
+    }
+
 
     @Override
     protected void onPause() {
