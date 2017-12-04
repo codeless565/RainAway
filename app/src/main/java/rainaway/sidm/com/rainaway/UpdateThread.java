@@ -39,7 +39,7 @@ public class UpdateThread extends Thread
                 //Scene = Game_TimeAttack.Instance; break;
         }
 
-        Scene.Init(view);
+
     }
 
     public boolean IsRunning(){return isRunning;}
@@ -67,6 +67,8 @@ public class UpdateThread extends Thread
         long startTime = 0;
         // we need another variable to calculate delta time
         long prevTime = System.nanoTime();
+
+        Scene.Init(view);
 
         while (isRunning)
         {
