@@ -16,38 +16,23 @@
         android:id="@+id/textView"
         android:layout_width="500dp"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:text="NORMAL MODE"
+        android:layout_marginTop="86dp"
+        android:text="normal Help???"
         android:textSize="36sp"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="77dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-// TODO on touch hold image wil lshow information
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="500dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="100dp"
-        android:text="Complete the level within 3 lives!
-
-Touch left and right to move
-Collect Powerups
-// insert image
-Dodge Traps
-// insert image"
-        android:textSize="24sp"
-        android:textAlignment="center" />
 
     <Button
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_mainmenu"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@drawable/button"
-        android:text="Back"
+        android:text="Main Menu"
         android:textColor="#EDFFCF"
         android:layout_marginBottom="19dp"
         android:layout_alignParentBottom="true"

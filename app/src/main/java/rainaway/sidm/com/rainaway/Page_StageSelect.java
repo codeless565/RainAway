@@ -1,5 +1,10 @@
 package rainaway.sidm.com.rainaway;
 
+// TODO DELETE THIS
+/**
+ * Created by 164347E on 11/21/2017.
+ */
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +14,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
-public class Page_MainMenu extends Activity implements OnClickListener {
+public class Page_StageSelect extends Activity implements OnClickListener {
 
     //define button as Object
-    private Button btn_start;
+    private Button btn_normal;
+    private Button btn_arcade;
+    private Button btn_time;
     private Button btn_option;
-    private Button btn_exit;
+    private Button btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +32,19 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want
-        setContentView(R.layout.mainmenu); //We will use GameView instead
+        //This is using layout! Not what we want!
+        setContentView(R.layout.stageselectpage); //We will use GameView instead
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_start = (Button)findViewById(R.id.btn_start);
-        btn_start.setOnClickListener(this);
-        btn_option = (Button)findViewById(R.id.btn_option);
-        btn_option.setOnClickListener(this);
-        btn_exit = (Button)findViewById(R.id.btn_exit);
-        btn_exit.setOnClickListener(this);
+        btn_normal = (Button)findViewById(R.id.btn_normal);
+        btn_normal.setOnClickListener(this);
+        btn_arcade = (Button)findViewById(R.id.btn_arcade);
+        btn_arcade.setOnClickListener(this);
+        btn_time = (Button)findViewById(R.id.btn_time);
+        btn_time.setOnClickListener(this);
+        btn_back = (Button)findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
     }
 
     //Invoke a callback on clicked event on a view
@@ -43,17 +52,21 @@ public class Page_MainMenu extends Activity implements OnClickListener {
     {
         Intent intent = new Intent();
 
-        if (_view == btn_start)
+        if (_view == btn_normal)
         {
-            intent.setClass(this, Page_StageNormal.class); // stageSelect Page
+            //start normal stage
         }
-        else if (_view == btn_option)
+        else if(_view == btn_arcade)//For other button like Helppage
         {
-            intent.setClass(this, Page_Options.class);
+            //start arcade stage
         }
-        else if (_view == btn_exit)
+        else if (_view == btn_time)
         {
-            System.exit(1); // exits the app
+            //start time stage
+        }
+        else if (_view == btn_back)
+        {
+            intent.setClass(this, Page_MainMenu.class);
         }
         startActivity(intent);
     }
@@ -72,4 +85,3 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         super.onDestroy();
     }
 }
-

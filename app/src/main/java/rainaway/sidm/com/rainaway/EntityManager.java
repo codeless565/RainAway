@@ -74,6 +74,9 @@ public class EntityManager
                         }
                     }
                 }
+
+                if(first.GetPosX() > view.getWidth() + first.GetRadius() || first.GetPosX() < -first.GetRadius() || first.GetPosY() > view.getHeight()+ first.GetRadius() || first.GetPosY() < -first.GetRadius())
+                    currEntity.SetIsDone(true);
             }
 
             if(currEntity.IsDone())

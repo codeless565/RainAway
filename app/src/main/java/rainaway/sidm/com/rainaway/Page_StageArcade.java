@@ -60,6 +60,7 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         {
             intent.setClass(this, Page_MainMenu.class);
         }
+        // TODO Complete Arcade Help Screen
         else if(_view == btn_help)//For other button like Helppage
         {
             intent.setClass(this, Page_HelpArcade.class);
@@ -72,6 +73,7 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         {
             intent.setClass(this, Page_StageTimeAttack.class);
         }
+
 
         startActivity(intent);
     }

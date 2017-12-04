@@ -47,21 +47,25 @@ public class Entity implements EntityBase, EntityCollidable
     @Override
     public void Init(SurfaceView _view)
     {
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ship2_1);
+        if(m_type == ENTITYTYPE.ENTITY_OBSTACLE)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.stone);
+        else if (m_type == ENTITYTYPE.ENTITY_PLAYER)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player);
+
         lifeTime = 100.5f;
         Random ranGen = new Random();
 
         //Init variable
-        if (m_type == ENTITYTYPE.ENTITY_PLAYER)
-        {
-            return;
-        }
-
-        Pos.x = ranGen.nextFloat() * _view.getWidth(); //nextFloat will generate a float from 0.f to 1.f;
-        Pos.y = ranGen.nextFloat() * _view.getHeight();
-
-        Dir.x = ranGen.nextFloat() * 100.f - 50.f;
-        Dir.y = ranGen.nextFloat() * 100.f - 50.f;
+//        if (m_type == ENTITYTYPE.ENTITY_PLAYER)
+//        {
+//            return;
+//        }
+//
+//        Pos.x = ranGen.nextFloat() * _view.getWidth(); //nextFloat will generate a float from 0.f to 1.f;
+//        Pos.y = ranGen.nextFloat() * _view.getHeight();
+//
+//        Dir.x = ranGen.nextFloat() * 100.f - 50.f;
+//        Dir.y = ranGen.nextFloat() * 100.f - 50.f;
     }
 
     @Override

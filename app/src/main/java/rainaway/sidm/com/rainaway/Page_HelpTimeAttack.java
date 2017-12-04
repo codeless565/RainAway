@@ -13,7 +13,7 @@ import android.widget.SeekBar;
 public class Page_HelpTimeAttack extends Activity implements OnClickListener {
 
     //define button as Object
-    private Button btn_back;
+    private Button btn_mainmenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,8 @@ public class Page_HelpTimeAttack extends Activity implements OnClickListener {
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_back = (Button)findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(this);
+        btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu);
+        btn_mainmenu.setOnClickListener(this);
     }
 
     //Invoke a callback on clicked event on a view
@@ -38,9 +38,9 @@ public class Page_HelpTimeAttack extends Activity implements OnClickListener {
     {
         Intent intent = new Intent();
 
-        if(_view == btn_back)
+        if(_view == btn_mainmenu)
         {
-            intent.setClass(this, Page_StageTimeAttack.class);
+            intent.setClass(this, Page_MainMenu.class);
         }
         startActivity(intent);
     }

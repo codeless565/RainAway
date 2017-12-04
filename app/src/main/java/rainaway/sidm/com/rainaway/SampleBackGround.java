@@ -31,10 +31,10 @@ public class SampleBackGround implements EntityBase
 
     @Override
     public void Update(float _dt) {
-        offset -= _dt * bmp.getWidth() * 0.5f;
+        offset -= _dt * bmp.getHeight() * 0.2f;
 
-        if(offset <= -bmp.getWidth() * 0.2f)
-            offset = bmp.getWidth() * 0.2f;
+        if(offset <= -bmp.getHeight() * 0.25f)
+            offset = bmp.getHeight() * 0.25f;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class SampleBackGround implements EntityBase
 
         //float xOffset = (float)Math.sin(offset) * bmp.getWidth() * 0.3f; //this give the bckgnd moving back and forth
 
-        _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f + offset, yPos - bmp.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f + offset, null);
     }
 
     public static SampleBackGround Create()

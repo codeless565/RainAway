@@ -50,7 +50,6 @@ public class TouchManager
         posX = _posX;
         posY = _posY;
 
-
         //Android Version of Stuff
         switch (motionEventStatus)
         {
