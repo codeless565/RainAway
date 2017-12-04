@@ -29,7 +29,7 @@ public class Game_Normal implements Game_Scene
         view = _view;
         // now can create
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(),0.1f * _view.getHeight());
-        Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0,0));
+        Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0,0));
     }
 
     public void Update(float _dt)
@@ -43,12 +43,12 @@ public class Game_Normal implements Game_Scene
         //}
         if(TouchManager.Instance.isDown() && TouchManager.Instance.GetPosX() >= view.getWidth()* 0.5f)
         {
-            Player.Pos.x += 100 * _dt;
+            Player.Pos.x += 1000 * _dt;
         }
 
         if(TouchManager.Instance.isDown() && TouchManager.Instance.GetPosX() < view.getWidth()* 0.5f)
         {
-            Player.Pos.x -= 100 * _dt;
+            Player.Pos.x -= 1000 * _dt;
         }
 
         EntityManager.Instance.Update(_dt);
