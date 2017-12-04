@@ -1,5 +1,6 @@
 package rainaway.sidm.com.rainaway;
-// TODO change to normal gamemode help
+// TODO on touch hold image wil lshow information
+// TODO is this additonal poewrups or replace powerups
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.SeekBar;
 public class Page_HelpArcade extends Activity implements OnClickListener {
 
     //define button as Object
-    private Button btn_mainmenu;
+    private Button btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,8 @@ public class Page_HelpArcade extends Activity implements OnClickListener {
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu);
-        btn_mainmenu.setOnClickListener(this);
+        btn_back = (Button)findViewById(R.id.btn_arcadehelpback);
+        btn_back.setOnClickListener(this);
     }
 
     //Invoke a callback on clicked event on a view
@@ -38,9 +39,9 @@ public class Page_HelpArcade extends Activity implements OnClickListener {
     {
         Intent intent = new Intent();
 
-        if(_view == btn_mainmenu)
+        if(_view == btn_back)
         {
-            intent.setClass(this, Page_MainMenu.class);
+            intent.setClass(this, Page_StageArcade.class);
         }
         startActivity(intent);
     }
