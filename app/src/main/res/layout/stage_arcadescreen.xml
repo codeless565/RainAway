@@ -59,7 +59,7 @@
 
     <!-- Start Button -->
     <Button
-        android:id="@+id/btn_normalstart"
+        android:id="@+id/btn_arcadestart"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@drawable/button"
@@ -71,8 +71,8 @@
 
     <!-- Back Button-->
     <Button
-        android:id="@+id/btn_normalback"
-        android:layout_width="30dp"
+        android:id="@+id/btn_arcadeback"
+        android:layout_width="50dp"
         android:layout_height="40dp"
         android:background="@drawable/button"
         android:text="BACK"
@@ -82,8 +82,8 @@
 
     <!-- Help Button-->
     <Button
-        android:id="@+id/btn_normalhelp"
-        android:layout_width="30dp"
+        android:id="@+id/btn_arcadehelp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
         android:background="@drawable/button"
         android:text="HELP"
@@ -92,27 +92,15 @@
         android:layout_toStartOf="@+id/btn_normalstart"
         android:layout_alignParentEnd="true" />
 
-    <!-- Next stage Button-->
-    <Button
-        android:id="@+id/btn_nextstagescreen"
-        android:layout_width="100dp"
+    <TextView
+        android:id="@+id/normalswipe"
+        android:layout_width="500dp"
         android:layout_height="100dp"
-        android:background="@drawable/button"
-        android:text="Right Arrow"
-        android:textColor="#EDFFCF"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
-
-    <!-- Before stage Button-->
-    <Button
-        android:id="@+id/btn_beforestagescreen"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/button"
-        android:text="Left Arrow"
-        android:textColor="#EDFFCF"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_marginTop="100dp"
+        android:text="Swipe Left/Right for Other Game Modes"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_alignTop="@+id/Highscore3"/>
 
 
 </RelativeLayout>
