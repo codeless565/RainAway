@@ -21,6 +21,7 @@ public class EntityManager
     {
         //This function is only called once at the start of our update Thread
         //Cannot be used to init our objects
+        entityList.clear();//Clear everything and set to default
         view = _view;
     }
 
@@ -52,7 +53,7 @@ public class EntityManager
         {
             EntityBase currEntity = entityList.get(i);
 
-            if(currEntity instanceof EntityCollidable)
+            if(currEntity instanceof EntityCollidable) // if 1st object is collidable
             {
                 EntityCollidable first = (EntityCollidable) currEntity; //Casting to a collidable
 
@@ -60,7 +61,7 @@ public class EntityManager
                 {
                     EntityBase otherEntity = entityList.get(j);
 
-                    if(otherEntity instanceof EntityCollidable)
+                    if(otherEntity instanceof EntityCollidable) // if 2nd object is a collidable
                     {
                         EntityCollidable second = (EntityCollidable) otherEntity;
 
