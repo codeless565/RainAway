@@ -43,11 +43,45 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        ////////////////////////////////////////////////////////////
+
+        //Stage Select
+
+        ////////////////////////////////////////////////////////////
+        <activity android:name=".STAGE_NORMALSCREEN" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".STAGE_TIMEATTACKSCREEN" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".STAGE_ARCADESCREEN" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        ////////////////////////////////////////////////////////////
 
         //Help Screen
-        <activity android:name=".Page_Help"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
+
+        ////////////////////////////////////////////////////////////
+
+
+        <activity android:name=".HELP_NORMALSCREEN" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,16 +89,23 @@
             </intent-filter>
         </activity>
 
-        //Option Screen
-        <activity android:name=".Page_Options"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
+        <activity android:name=".HELP_TIMEATTACKSCREEN" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".HELP_ARCADESCREEN" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
 
 
 

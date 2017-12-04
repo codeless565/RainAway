@@ -1,17 +1,25 @@
 package rainaway.sidm.com.rainaway;
-//TODO add in loading bar for 5s since splashTime is 5000 =5s
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 /**
  * Created by 164347E on 11/20/2017.
  */
 
+<<<<<<< HEAD:app/src/main/java/rainaway/sidm/com/rainaway/Page_Splash.java
 public class Page_Splash extends Activity{
+=======
+public class SplashPage extends Activity{
+    private ProgressBar loading_bar;
+    private int mStatus=0;
+
+>>>>>>> master:app/src/main/java/rainaway/sidm/com/rainaway/SplashPage.java
     protected  boolean _active = true;
     protected int _splashTime = 5000; //time to display the splash screen in ms
 
@@ -24,6 +32,9 @@ public class Page_Splash extends Activity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splashpage);
 
+        loading_bar = (ProgressBar)findViewById(R.id.progressBar);
+        loading_bar.setMax(100);
+
         //thread for displaying the Splash Screen
         Thread splashThread = new Thread(){
             @Override
@@ -35,7 +46,10 @@ public class Page_Splash extends Activity{
                         sleep(200);
                         if(_active)
                         {
+                            mStatus+=5;
                             waited += 200;
+
+                            loading_bar.setProgress(mStatus);
                         }
                     }
                 }
@@ -43,10 +57,14 @@ public class Page_Splash extends Activity{
                 {
                     //Do nothing
                 }
-                finally
+                if (loading_bar.getProgress() >= 100)
                 {
+<<<<<<< HEAD:app/src/main/java/rainaway/sidm/com/rainaway/Page_Splash.java
                     //Create new activity based on and intend with CurrentACtivity
                     Intent intent = new Intent(Page_Splash.this, Page_MainMenu.class);
+=======
+                    Intent intent = new Intent(SplashPage.this, MainMenu.class);
+>>>>>>> master:app/src/main/java/rainaway/sidm/com/rainaway/SplashPage.java
                     startActivity(intent);
                 }
             }
