@@ -10,17 +10,36 @@ import android.view.SurfaceHolder;
 
 public class UpdateThread extends Thread
 {
+    enum GAMEMODE
+    {
+        GAME_NONE,
+        GAME_NORMAL,
+        GAME_ARCADE,
+        GAME_TIME
+    }
+
+    GAMEMODE currGameMode = GAMEMODE.GAME_NONE;
+    Game_Scene Scene;
     static final long targetFPS = 60;
     private GameView view = null;
     private SurfaceHolder holder = null;
     private boolean isRunning = false; //Start not running
 
-    public UpdateThread(GameView _view)
+    public UpdateThread(GameView _view, GAMEMODE CurrGameMode)
     {
         view = _view;
         holder = _view.getHolder();
 
-        SampleGame.Instance.Init(view);
+        switch (CurrGameMode){
+            case GAME_NORMAL:
+                Scene = Game_Normal.Instance; break;
+            case GAME_ARCADE:
+                //Scene = Game_Arcade.Instance; break;
+            case GAME_TIME:
+                //Scene = Game_TimeAttack.Instance; break;
+        }
+
+        Scene.Init(view);
     }
 
     public boolean IsRunning(){return isRunning;}
@@ -29,6 +48,11 @@ public class UpdateThread extends Thread
     {
         isRunning = true;
         //Sample
+    }
+
+    public void SetGameMode(GAMEMODE newMode)
+    {
+        currGameMode = newMode;
     }
 
     public void Terminate()
@@ -58,7 +82,7 @@ public class UpdateThread extends Thread
             prevTime = CurrTime;
 
             // we wanna have this awesome update
-            SampleGame.Instance.Update(deltaTime);
+            Scene.Update(deltaTime);
 
             //render
             Canvas canvas = holder.lockCanvas(null);
@@ -71,7 +95,7 @@ public class UpdateThread extends Thread
                     canvas.drawColor(Color.BLACK);
 
                     //Insert stuff here
-                    SampleGame.Instance.Render(canvas);
+                    Scene.Render(canvas);
                     // EntityManager.Instance.Render(canvas);
                 }
                 holder.unlockCanvasAndPost(canvas);
