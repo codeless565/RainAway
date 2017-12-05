@@ -1,6 +1,7 @@
 package rainaway.sidm.com.rainaway;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -35,5 +36,16 @@ public class Page_Game extends Activity {
             TouchManager.Instance.Update(x, y, event.getAction());
 
             return true;
+        }
+
+        public void Update(int Life)
+        {
+            Intent intent = new Intent();
+
+            if (Life <= 0)
+            {
+                intent.setClass(this, Page_MainMenu.class);
+            }
+            startActivity(intent);
         }
 }
