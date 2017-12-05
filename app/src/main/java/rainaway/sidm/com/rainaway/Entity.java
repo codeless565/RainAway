@@ -23,7 +23,7 @@ public class Entity implements EntityBase, EntityCollidable
     public Vector2 Pos, Dir;
     private float lifeTime;
 
-    private int Life;
+    public int Life;
 
     //Our global create function
     //So anyone can create "SampleEntities"
