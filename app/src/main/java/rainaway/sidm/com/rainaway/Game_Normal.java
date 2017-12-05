@@ -5,6 +5,9 @@ package rainaway.sidm.com.rainaway;
  */
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.annotation.ColorInt;
 import android.util.Log;
 import android.view.SurfaceView;
 
@@ -14,6 +17,7 @@ public class Game_Normal implements Game_Scene
 {
     public final static Game_Normal Instance = new Game_Normal(); // Singleton
     private float timer;
+    float Score;
 
     SurfaceView view;
     Entity Player;
@@ -33,7 +37,6 @@ public class Game_Normal implements Game_Scene
         // now can create
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(),0.1f * _view.getHeight());
         Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0,0));
-
         /********************
         TODO
          - Countdown
@@ -41,11 +44,19 @@ public class Game_Normal implements Game_Scene
          - Init Score to 0
          - Update Score as player keep playing
         *********************/
+        Player.Life = 1;
+        Score = 0;
     }
 
     public void Update(float _dt)
     {
+        if (Player.Life <= 0)
+            return;
+
         //SAMPLE STUFF DONT DO THIS
+        /****************************************
+         * OBJECT *
+         *****************************************/
         timer += _dt;
         if (timer >= 1.f)
         {
@@ -58,6 +69,11 @@ public class Game_Normal implements Game_Scene
             timer = 0.f;
         }
 
+        Score += 10 * _dt;
+
+        /****************************************
+         * CONTROLS *
+        *****************************************/
         //Start Accelerating towards direction
         if(TouchManager.Instance.HasTouch())
         {
@@ -94,13 +110,32 @@ public class Game_Normal implements Game_Scene
             Player.Dir.x = 0;
         }
 
+        /****************************************
+         * ENTITY MANAGER *
+         *****************************************/
         //Update all the Entity in the List
         EntityManager.Instance.Update(_dt);
+
+        /****************************************
+         * TRANSITION *
+         *****************************************/
+
     }
 
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(60);
+        _canvas.drawText("Lives: " + String.valueOf(Player.Life), paint.getTextSize(), paint.getTextSize(), paint);
+
+        Paint score = new Paint();
+        score.setColor(Color.BLACK);
+        score.setTextSize(60);
+        _canvas.drawText("Score: " + String.valueOf((int)Score), view.getWidth() * 0.6f, score.getTextSize(), score);
+
     }
 
 }
