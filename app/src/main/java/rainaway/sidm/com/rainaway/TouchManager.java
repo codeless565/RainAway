@@ -1,69 +1,91 @@
 package rainaway.sidm.com.rainaway;
 
+import android.text.method.Touch;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class TouchManager
 {
     public final static TouchManager Instance = new TouchManager();
 
-    public enum TouchState
+    public enum TouchResult
     {
         NONE,
-        DOWN,
-        MOVE
+        TAP,
+        DOUBLETAP,
+        HOLD,
+        SWIPELEFT,
+        SWIPERIGHT,
     }
 
-    private TouchState status = TouchState.NONE;
-    private int posX, posY;
+    private TouchResult status = TouchResult.NONE;
+
+    private Vector2 CurrTouch,RecordedTouch;
+    private boolean Touching,Swiping;
+    float TouchTimer;
+
 
     private TouchManager()
     {
-        posX = 0;
-        posY = 0;
+//        posX = 0;
+//        posY = 0;
+        CurrTouch = new Vector2(0,0);
+        RecordedTouch= new Vector2(0,0);
+        Touching=false;
+        Swiping=false;
+        TouchTimer=0.0f;
     }
 
     //Check if have finger / click or holds
-    public boolean HasTouch()
-    {
-        return status == TouchState.DOWN ||
-               status == TouchState.MOVE;
-    }
+    public boolean getTouch() {return Touching;}
+    public boolean getSwiping() {return Swiping;}
+    public Vector2 getCurrTouch() {return CurrTouch;}
+    public Vector2 getRecordedTouch() {return RecordedTouch;}
+    public TouchResult getTouchResult() {return status;}
+    public void setCurrTouch(Vector2 _currTouch) { CurrTouch=_currTouch;}
+    public void setRecordedTouch(Vector2 _RecordedTouch) {RecordedTouch=_RecordedTouch;}
+    public void setTouching(boolean _Touching) {Touching =_Touching;}
+    public void setSwiping(boolean _Swiping) {Swiping=_Swiping;}
 
-    //Check for clicks
-    public boolean isDown()
+    public void Update(MotionEvent event)
     {
-        return status == TouchState.DOWN;
-    }
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+           Touching=true;
+        else if (event.getAction() == MotionEvent.ACTION_UP)
+            Touching=false;
 
-    public int GetPosX()
-    {
-        return posX;
-    }
-
-    public int GetPosY()
-    {
-        return posY;
-    }
-
-    public void Update(int _posX, int _posY, int motionEventStatus)
-    {
-        posX = _posX;
-        posY = _posY;
-
-        //Android Version of Stuff
-        switch (motionEventStatus)
+        if (Touching && !Swiping)
         {
-            case MotionEvent.ACTION_DOWN:
-                status = TouchState.DOWN;
-                break;
+            Swiping=true;
+            RecordedTouch=new Vector2(event.getX(),event.getY());
+            CurrTouch=RecordedTouch;
+        }
+        else
+        {
+            Swiping=false;
+            CurrTouch=new Vector2(event.getX(),event.getY());
+        }
 
-            case MotionEvent.ACTION_MOVE:
-                status = TouchState.MOVE;
-                break;
+        if (!Touching && status != TouchResult.NONE)
+        {
+            CurrTouch=new Vector2(0,0);
+            RecordedTouch=new Vector2(0,0);
+            TouchTimer=0.0f;
+            status = TouchResult.NONE;
+        }
+        else
+            TouchTimer+=0.1f;
 
-            case MotionEvent.ACTION_UP:
-                status = TouchState.NONE;
-                break;
+        if (TouchTimer>0.5f && Touching)
+            status = TouchResult.HOLD;
+        else if (TouchTimer<0.5f && Touching) // swipe left
+        {
+            if (CurrTouch.x <RecordedTouch.x)
+                status = TouchResult.SWIPELEFT;
+            else if (CurrTouch.x >RecordedTouch.x)
+                status = TouchResult.SWIPERIGHT;
+            else
+                status = TouchResult.TAP;
         }
     }
 }
