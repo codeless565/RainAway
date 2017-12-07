@@ -69,29 +69,18 @@ public class Page_StageArcade extends Activity implements OnClickListener{
     public boolean onTouchEvent(MotionEvent event)
     {
         Intent intent = new Intent();
-        int x = (int) event.getX();
-        int y = (int) event.getY();
 
-        TouchManager.Instance.Update(x, y, event.getAction());
+        TouchManager.Instance.Update(event);
 
-        if (TouchManager.Instance.HasTouch() && !touching)
+
+        // SWITCH ACTIVITY
+        if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {
-            touching = true;
-            RecordedTouch = new Vector2(x, y);
-            CurrTouch = RecordedTouch;
-
-        }
-        else
-        {
-            touching = false;
-            CurrTouch = new Vector2(x, y);
-        }
-
-        if(!touching && CurrTouch.x < RecordedTouch.x) {
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }
-        else if (!touching && CurrTouch.x > RecordedTouch.x) {
+        else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
+        {
             intent.setClass(this, Page_StageNormal.class);
             startActivity(intent);
         }

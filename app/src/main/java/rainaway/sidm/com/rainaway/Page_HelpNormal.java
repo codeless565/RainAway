@@ -3,17 +3,21 @@ package rainaway.sidm.com.rainaway;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.Touch;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class Page_HelpNormal extends Activity implements OnClickListener {
 
     //define button as Object
     private Button btn_back;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class Page_HelpNormal extends Activity implements OnClickListener {
         //Set Listener to button
         btn_back = (Button)findViewById(R.id.btn_normalhelpback);
         btn_back.setOnClickListener(this);
+
+        text =(TextView)findViewById(R.id.textView2);
     }
 
     //Invoke a callback on clicked event on a view
@@ -43,6 +49,21 @@ public class Page_HelpNormal extends Activity implements OnClickListener {
             intent.setClass(this, Page_StageNormal.class);
         }
         startActivity(intent);
+    }
+
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        TouchManager.Instance.Update(event);
+        if (TouchManager.Instance.getTouch())
+        {
+            if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.HOLD)
+                text.setVisibility(View.VISIBLE);
+        }
+        else
+            text.setVisibility(View.INVISIBLE);
+
+
+        return true;
     }
 
     @Override

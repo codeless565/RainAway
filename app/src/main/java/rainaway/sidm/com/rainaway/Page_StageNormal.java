@@ -1,10 +1,10 @@
 package rainaway.sidm.com.rainaway;
 
-// TODO Implement TouchManager Better
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -66,33 +66,23 @@ public class Page_StageNormal extends Activity implements OnClickListener {
     public boolean onTouchEvent(MotionEvent event)
     {
         Intent intent = new Intent();
-        int x = (int) event.getX();
-        int y = (int) event.getY();
 
-        TouchManager.Instance.Update(x, y, event.getAction());
+        TouchManager.Instance.Update(event);
 
-        if (TouchManager.Instance.HasTouch() && !touching)
+
+        // SWITCH ACTIVITY
+        if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {
-            touching = true;
-            RecordedTouch = new Vector2(x, y);
-            CurrTouch = RecordedTouch;
-
-        }
-        else
-        {
-            touching = false;
-            CurrTouch = new Vector2(x, y);
-        }
-
-        if(!touching && CurrTouch.x < RecordedTouch.x) { // Swipe Left
             intent.setClass(this, Page_StageArcade.class);
             startActivity(intent);
         }
-        else if (!touching && CurrTouch.x > RecordedTouch.x) { // Swipe right
-
+        else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
+        {
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }
+        // TODO TAP FOR BUTTON TO REMOVE ON CLICK LISTENER
+        // https://developer.android.com/reference/android/view/View.html#getLocationOnScreen%28int%5B%5D%29
 
         return true;
     }

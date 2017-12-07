@@ -44,7 +44,7 @@ public class Game_Normal implements Game_Scene
          - Init Score to 0
          - Update Score as player keep playing
         *********************/
-        Player.Life = 1;
+        Player.Life = 3;
         Score = 0;
     }
 
@@ -75,12 +75,12 @@ public class Game_Normal implements Game_Scene
          * CONTROLS *
         *****************************************/
         //Start Accelerating towards direction
-        if(TouchManager.Instance.HasTouch())
+        if(TouchManager.Instance.getTouch())
         {
-            if (TouchManager.Instance.GetPosX() >= view.getWidth()* 0.5f)
+            if (TouchManager.Instance.getCurrTouch().x >= view.getWidth()* 0.5f)
                 Player.Dir.x += MovementSpeed * _dt;
 
-            if (TouchManager.Instance.GetPosX() < view.getWidth()* 0.5f)
+            if (TouchManager.Instance.getCurrTouch().x < view.getWidth()* 0.5f)
                 Player.Dir.x -= MovementSpeed * _dt;
 
             if(Player.Dir.x >= MovementSpeed)

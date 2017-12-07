@@ -33,7 +33,7 @@ public class Page_Game extends Activity {
             int x = (int) event.getX();
             int y = (int) event.getY();
 
-            TouchManager.Instance.Update(x, y, event.getAction());
+            TouchManager.Instance.Update(event);
 
             return true;
         }
