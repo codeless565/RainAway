@@ -3,6 +3,7 @@ package rainaway.sidm.com.rainaway;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.method.Touch;
 import android.util.Log;
@@ -14,12 +15,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 public class Page_StageNormal extends Activity implements OnClickListener {
+    private static final String TAG = "StageNormal";
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
 
-    private Vector2 CurrTouch, RecordedTouch;
-    private boolean touching = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,8 @@ public class Page_StageNormal extends Activity implements OnClickListener {
         btn_help = (Button) findViewById(R.id.btn_normalhelp);
         btn_help.setOnClickListener(this);
     }
-        //Invoke a callback on clicked event on a view
 
+        //Invoke a callback on clicked event on a view
     public void onClick(View _view) {
         Intent intent = new Intent();
 

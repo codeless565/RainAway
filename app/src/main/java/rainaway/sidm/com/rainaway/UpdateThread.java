@@ -86,6 +86,8 @@ public class UpdateThread extends Thread
             // we wanna have this awesome update
             Scene.Update(deltaTime);
 
+
+
             //render
             Canvas canvas = holder.lockCanvas(null);
             if(canvas != null)
