@@ -37,7 +37,7 @@ public class TouchManager
     }
 
     //Check if have finger / click or holds
-    public boolean getTouch() {return Touching;}
+    public boolean HasTouch() {return Touching;}
     public boolean getSwiping() {return Swiping;}
     public Vector2 getCurrTouch() {return CurrTouch;}
     public Vector2 getRecordedTouch() {return RecordedTouch;}
@@ -51,7 +51,7 @@ public class TouchManager
     {
         if (event.getAction() == MotionEvent.ACTION_DOWN)
            Touching=true;
-        else if (event.getAction() == MotionEvent.ACTION_UP)
+        if (event.getAction() == MotionEvent.ACTION_UP)
             Touching=false;
 
         if (Touching && !Swiping)

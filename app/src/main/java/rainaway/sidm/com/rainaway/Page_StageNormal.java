@@ -69,7 +69,6 @@ public class Page_StageNormal extends Activity implements OnClickListener {
 
         TouchManager.Instance.Update(event);
 
-
         // SWITCH ACTIVITY
         if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {

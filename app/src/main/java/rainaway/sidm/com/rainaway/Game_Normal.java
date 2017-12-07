@@ -75,7 +75,7 @@ public class Game_Normal implements Game_Scene
          * CONTROLS *
         *****************************************/
         //Start Accelerating towards direction
-        if(TouchManager.Instance.getTouch())
+        if(TouchManager.Instance.HasTouch())
         {
             if (TouchManager.Instance.getCurrTouch().x >= view.getWidth()* 0.5f)
                 Player.Dir.x += MovementSpeed * _dt;

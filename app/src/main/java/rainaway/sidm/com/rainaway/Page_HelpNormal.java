@@ -54,7 +54,7 @@ public class Page_HelpNormal extends Activity implements OnClickListener {
     public boolean onTouchEvent(MotionEvent event)
     {
         TouchManager.Instance.Update(event);
-        if (TouchManager.Instance.getTouch())
+        if (TouchManager.Instance.HasTouch())
         {
             if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.HOLD)
                 text.setVisibility(View.VISIBLE);
