@@ -78,12 +78,12 @@ public class Entity implements EntityBase, EntityCollidable
         Pos.x += Dir.x * _dt;
         Pos.y += Dir.y * _dt;
 
-        if(TouchManager.Instance.HasTouch())
-        {
-            float imgRadius = bmp.getHeight() * 0.5f;
-            if(Collision.SphereToSphere(TouchManager.Instance.getCurrTouch().x, TouchManager.Instance.getCurrTouch().y, 0.0f,Pos.x,Pos.y,imgRadius))
-                SetIsDone(true);
-        }
+//        if(TouchManager.Instance.HasTouch())
+//        {
+//            float imgRadius = bmp.getHeight() * 0.5f;
+//            if(Collision.SphereToSphere(TouchManager.Instance.getCurrTouch().x, TouchManager.Instance.getCurrTouch().y, 0.0f,Pos.x,Pos.y,imgRadius))
+//                SetIsDone(true);
+//        }
     }
 
     @Override
