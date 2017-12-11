@@ -39,7 +39,7 @@ public class UpdateThread extends Thread
                 //Scene = Game_TimeAttack.Instance; break;
         }
 
-
+        AudioManager.Instance.Init(_view);
     }
 
     public boolean IsRunning(){return isRunning;}
@@ -87,7 +87,6 @@ public class UpdateThread extends Thread
             Scene.Update(deltaTime);
 
 
-
             //render
             Canvas canvas = holder.lockCanvas(null);
             if(canvas != null)
@@ -119,3 +118,8 @@ public class UpdateThread extends Thread
         }
     }
 }
+
+// To implement pause using the state manager
+// Create a class State pause -> use it then
+// .. somewhere in your object code: StateManager.Instance.Changestate(new StatePause());
+//
