@@ -1,5 +1,6 @@
 package rainaway.sidm.com.rainaway;
 //TODO vibration, sensitivity,control(by touch/tilt)?
+// https://stackoverflow.com/questions/29208366/how-to-enable-and-disable-vibration-mode-programmatically
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
