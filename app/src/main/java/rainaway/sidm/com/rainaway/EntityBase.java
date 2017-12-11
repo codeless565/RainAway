@@ -14,4 +14,6 @@ public interface EntityBase
 
     boolean IsDone();
     void SetIsDone(boolean _IsDone);
+    int getEntityLayer();
+    void setEntityLayer(int _EntityLayer);
 }

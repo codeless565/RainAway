@@ -3,6 +3,8 @@ package rainaway.sidm.com.rainaway;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class EntityManager
@@ -96,6 +98,14 @@ public class EntityManager
 
     public void Render(Canvas _canvas)
     {
+        // We willl use the new "rendering layer" to sort the render orfer
+        Collections.sort(entityList, new Comparator<EntityBase>() {
+            @Override
+            public int compare(EntityBase o1, EntityBase o2) {
+                return o1.getEntityLayer() - o2.getEntityLayer();
+            }
+        });
+
         //Render all the entities in our list
         for (EntityBase currEntity : entityList)
         {
