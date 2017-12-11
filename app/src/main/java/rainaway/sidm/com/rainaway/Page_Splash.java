@@ -3,6 +3,7 @@ package rainaway.sidm.com.rainaway;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,16 +49,16 @@ public class Page_Splash extends Activity{
                             loading_bar.setProgress(mStatus);
                         }
                     }
+                    if (loading_bar.getProgress() >= 100 || !_active)
+                    {
+                        //Create new activity based on and intend with CurrentACtivity
+                        Intent intent = new Intent(Page_Splash.this, Page_MainMenu.class);
+                        startActivity(intent);
+                    }
                 }
                 catch (InterruptedException e)
                 {
                     //Do nothing
-                }
-                if (loading_bar.getProgress() >= 100)
-                {
-                    //Create new activity based on and intend with CurrentACtivity
-                    Intent intent = new Intent(Page_Splash.this, Page_MainMenu.class);
-                    startActivity(intent);
                 }
             }
         };
@@ -67,11 +68,15 @@ public class Page_Splash extends Activity{
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+//     if (TouchManager.Instance.HasTouch())
+//         _active=false;
+
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
             _active = false;
         }
-        return true;
+//
+      return true;
     }
 
     @Override

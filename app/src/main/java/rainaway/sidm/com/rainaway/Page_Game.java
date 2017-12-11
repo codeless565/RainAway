@@ -22,9 +22,6 @@ public class Page_Game extends Activity {
 
             //GameView thingy
             setContentView(new GameView(this));
-
-            MediaPlayer myPlayer = MediaPlayer.create(Page_Game.this, R.raw.ssr);
-            myPlayer.start();
         }
 
         @Override
