@@ -71,7 +71,7 @@ public class UpdateThread extends Thread
         long prevTime = System.nanoTime();
 
         Scene.Init(view);
-        StateManager.Instance.Start("Default");
+        //StateManager.Instance.Start("Default");
 
 
         while (isRunning)
@@ -92,7 +92,7 @@ public class UpdateThread extends Thread
             Scene.Update(deltaTime);
 
 
-            StateManager.Instance.Update(deltaTime);
+            //StateManager.Instance.Update(deltaTime);
 
             //render
             Canvas canvas = holder.lockCanvas(null);
@@ -108,7 +108,7 @@ public class UpdateThread extends Thread
                     //TODO remove
                     Scene.Render(canvas);
 
-                    StateManager.Instance.Render(canvas);
+                    //StateManager.Instance.Render(canvas);
                     // EntityManager.Instance.Render(canvas);
                     //StateManager.Instance.Init(_view);
                 }

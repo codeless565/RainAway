@@ -46,8 +46,11 @@ public class Page_Options extends Activity implements OnClickListener {
         btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu);
        btn_mainmenu.setOnClickListener(this);
 
-//        vibration = (CheckBox)findViewById(R.id.Vibration);
-//        vibration.setOnClickListener(this);
+        vibration = (CheckBox)findViewById(R.id.Vibration);
+        if (vibration.isChecked())
+            TouchManager.Instance.setVibration(true);
+        else
+            TouchManager.Instance.setVibration(false);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         initControls();
@@ -61,13 +64,6 @@ public class Page_Options extends Activity implements OnClickListener {
         {
             intent.setClass(this, Page_MainMenu.class);
         }
-//        else if (_view == vibration)
-//        {
-//            if (vibration.isChecked())
-//                TouchManager.Instance.setVibration(true);
-//            else
-//                TouchManager.Instance.setVibration(false);
-//        }
         startActivity(intent);
     }
 

@@ -118,16 +118,6 @@ public class Entity implements EntityBase, EntityCollidable
 
             Pos.x += Dir.x * _dt;
             Pos.y += Dir.y * _dt;
-
-//        if(TouchManager.Instance.HasTouch())
-//        {
-//            float imgRadius = bmp.getHeight() * 0.5f;
-//            if(Collision.SphereToSphere(TouchManager.Instance.getCurrTouch().x, TouchManager.Instance.getCurrTouch().y, 0.0f,Pos.x,Pos.y,imgRadius))
-//if (TouchManager.Instance.getVibration())
-            // TODO StartVibrate();
-            // TODO TEST VIBRATION OPTIONS using LOG
-//                SetIsDone(true);
-//        }
         }
     }
 
@@ -197,6 +187,14 @@ public class Entity implements EntityBase, EntityCollidable
                     --Life;
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
+
+                    if (TouchManager.Instance.getVibration())
+                    {
+                        startVibrate();
+                        String tag = "Entity - ";
+                        String text = "Vibration";
+                        Log.d(tag, text);
+                    }
                     break;
                 }
                 case POWERUP_SLOWTIME:
