@@ -1,6 +1,8 @@
 package rainaway.sidm.com.rainaway;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.SurfaceView;
 import java.util.HashMap;
 
@@ -14,6 +16,7 @@ public class ResourceManager {
 
     private HashMap<Integer,Bitmap> resourceMap = new HashMap<Integer, Bitmap>();
     private SurfaceView view = null;
+    private Resources res = null;
 
     private ResourceManager()
     {
@@ -22,6 +25,17 @@ public class ResourceManager {
     public void Init(SurfaceView _view)
     {
         view = _view;
+        res = _view.getResources();
+    }
+
+    public Bitmap GetBitmap(int _id)
+    {
+        if (resourceMap.containsKey(_id))
+            return resourceMap.get(_id);
+
+        Bitmap result = BitmapFactory.decodeResource(res, _id);
+        resourceMap.put(_id, result);
+        return result;
     }
 
     public void PlayAudio(int _id)
