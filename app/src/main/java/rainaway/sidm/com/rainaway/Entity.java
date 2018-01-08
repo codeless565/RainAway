@@ -193,6 +193,8 @@ public class Entity implements EntityBase, EntityCollidable
                     Game_Normal.Instance.S_Multiplier = 1.f;
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
+                    if (TouchManager.Instance.getVibration())
+                        startVibrate();
                     break;
                 }
 
@@ -204,12 +206,7 @@ public class Entity implements EntityBase, EntityCollidable
                     OtherEntity.SetIsDone(true);
 
                     if (TouchManager.Instance.getVibration())
-                    {
                         startVibrate();
-                        String tag = "Entity - ";
-                        String text = "Vibration";
-                        Log.d(tag, text);
-                    }
                     break;
                 }
                 case POWERUP_SLOWTIME:
