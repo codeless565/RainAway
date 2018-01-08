@@ -45,4 +45,34 @@ public class AudioManager {
     {
         return false;
     }
+
+    public void StopAudio(int _id)
+    {
+        if (audioMap.containsKey(_id))
+        {
+            MediaPlayer curr = audioMap.get(_id);
+            curr.stop();
+        }
+    }
+
+    public void StopAllAudio()
+    {
+        if (!audioMap.isEmpty())
+        {
+            for (int i : audioMap.keySet()) {
+                MediaPlayer curr = audioMap.get(i);
+                curr.stop();
+            }
+        }
+    }
+
+    public HashMap<Integer,MediaPlayer> getAudioMap(){return audioMap;}
+
+    public MediaPlayer getAudio(int _id)
+    {
+        if (audioMap.containsKey(_id))
+            return audioMap.get(_id);
+
+        return null;
+    }
 }

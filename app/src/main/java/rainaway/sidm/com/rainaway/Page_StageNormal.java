@@ -81,8 +81,6 @@ public class Page_StageNormal extends Activity implements OnClickListener {
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }
-        // TODO TAP FOR BUTTON TO REMOVE ON CLICK LISTENER
-        // https://developer.android.com/reference/android/view/View.html#getLocationOnScreen%28int%5B%5D%29
 
         return true;
     }

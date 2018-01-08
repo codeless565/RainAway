@@ -40,6 +40,8 @@ public class UpdateThread extends Thread
         }
 
         AudioManager.Instance.Init(_view);
+        StateManager.Instance.Init(_view);
+        EntityManager.Instance.Init(_view);
     }
 
     public boolean IsRunning(){return isRunning;}
@@ -69,6 +71,8 @@ public class UpdateThread extends Thread
         long prevTime = System.nanoTime();
 
         Scene.Init(view);
+        //StateManager.Instance.Start("Default");
+
 
         while (isRunning)
         {
@@ -84,8 +88,11 @@ public class UpdateThread extends Thread
             prevTime = CurrTime;
 
             // we wanna have this awesome update
+            //TODO remove
             Scene.Update(deltaTime);
 
+
+            //StateManager.Instance.Update(deltaTime);
 
             //render
             Canvas canvas = holder.lockCanvas(null);
@@ -98,8 +105,12 @@ public class UpdateThread extends Thread
                     canvas.drawColor(Color.BLACK);
 
                     //Insert stuff here
+                    //TODO remove
                     Scene.Render(canvas);
+
+                    //StateManager.Instance.Render(canvas);
                     // EntityManager.Instance.Render(canvas);
+                    //StateManager.Instance.Init(_view);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }
@@ -119,7 +130,7 @@ public class UpdateThread extends Thread
     }
 }
 
-// To implement pause using the state manager
+// TODO implement pause using the state manager
 // Create a class State pause -> use it then
 // .. somewhere in your object code: StateManager.Instance.Changestate(new StatePause());
 //

@@ -254,3 +254,17 @@ public class Game_Normal implements Game_Scene {
     }
 
 }
+
+// TODO
+//public class GameSystem
+//{
+//    // singleton
+//    // ispause = false
+//
+//    public void Init (SurfaceView _view)
+//    {
+//        // Game specific stuff here! eg add our game states here
+//        StateManager.Instance.AddState(new MainGameState());
+//        StateManager.Instance.AddState(new IntroState());
+//    }
+//}
