@@ -1,6 +1,5 @@
 package rainaway.sidm.com.rainaway;
 
-import android.text.method.Touch;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -24,6 +23,7 @@ public class TouchManager
     private Vector2 RecordedTouch;  // Position of Recorded Touch
     private boolean Touching;       // Boolean for touch on screen
     private boolean Swiping;        // Boolean for Swiping gesture
+    private boolean Vibration;
 
     // Constructor
     private TouchManager()
@@ -32,6 +32,7 @@ public class TouchManager
         RecordedTouch= new Vector2(0,0);
         Touching=false;
         Swiping=false;
+        Vibration=false;
     }
 
     // Getters
@@ -40,11 +41,13 @@ public class TouchManager
     public Vector2 getCurrTouch() {return CurrTouch;}
     public Vector2 getRecordedTouch() {return RecordedTouch;}
     public TouchResult getTouchResult() {return status;}
+    public boolean getVibration() {return Vibration;}
     // Setters
     public void setCurrTouch(Vector2 _currTouch) { CurrTouch=_currTouch;}
     public void setRecordedTouch(Vector2 _RecordedTouch) {RecordedTouch=_RecordedTouch;}
     public void setTouching(boolean _Touching) {Touching =_Touching;}
     public void setSwiping(boolean _Swiping) {Swiping=_Swiping;}
+    public void setVibration(boolean _Vibration) {Vibration=_Vibration;}
 
     public void Update(MotionEvent event)
     {
