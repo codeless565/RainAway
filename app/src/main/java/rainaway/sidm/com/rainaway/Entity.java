@@ -25,6 +25,7 @@ public class Entity implements EntityBase, EntityCollidable
         POWERUP_SLOWSPEED,
         POWERUP__FREEZE,
         POWERUP_SHROUD,
+        POWERUP_ADDHP,
 
 
         OBSTACLE_ROCK
@@ -36,7 +37,6 @@ public class Entity implements EntityBase, EntityCollidable
     private float lifeTime;
     private int EntityLayer=0;
 
-    // TODO MOVE TO TOUCHMANAGER VIRBRATION FOR FEEDBACK
     public Vibrator _vibrator;
 
     // TODO CREATE PLAYER AND EXTEND ENTITY EG SAMPLEBACKGROUND
@@ -90,7 +90,6 @@ public class Entity implements EntityBase, EntityCollidable
         _vibrator = (Vibrator)_view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
     }
 
-    // TODO MOVE TO TOUCHMANAGER VIRBRATION FOR FEEDBACK
     // Vibrator Event
     public void startVibrate(){
         long pattern[] = {0,50,0};
@@ -124,7 +123,9 @@ public class Entity implements EntityBase, EntityCollidable
 //        {
 //            float imgRadius = bmp.getHeight() * 0.5f;
 //            if(Collision.SphereToSphere(TouchManager.Instance.getCurrTouch().x, TouchManager.Instance.getCurrTouch().y, 0.0f,Pos.x,Pos.y,imgRadius))
+//if (TouchManager.Instance.getVibration())
             // TODO StartVibrate();
+            // TODO TEST VIBRATION OPTIONS using LOG
 //                SetIsDone(true);
 //        }
         }
@@ -198,15 +199,45 @@ public class Entity implements EntityBase, EntityCollidable
                     OtherEntity.SetIsDone(true);
                     break;
                 }
+                case POWERUP_SLOWTIME:
+                {
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
+                case POWERUP_SLOWSPEED:
+                {
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
+                case POWERUP__FREEZE:
+                {
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
+                case POWERUP_SHROUD:
+                {
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
+                case POWERUP_ADDHP:
+                {
+                    ++Life;
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
             }
 
             /***********************************************
             TODO
-             - Collision with HP item
-             - Collision with Slow Time
-             - Collision with Freeze Time
-             - Collision with Shroud
-             - Collision with Slow Speed
+             - Collision Effect with Slow Time
+             - Collision Effect with Freeze Time
+             - Collision Effect with Shroud
+             - Collision Effect with Slow Speed
              - Collision with
             ***********************************************/
 
