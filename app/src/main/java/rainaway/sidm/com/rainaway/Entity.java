@@ -20,14 +20,15 @@ public class Entity implements EntityBase, EntityCollidable
         ENTITY_NONE,
         ENTITY_PLAYER,
 
-
         POWERUP_SLOWTIME,
         POWERUP_SLOWSPEED,
         POWERUP__FREEZE,
         POWERUP_SHROUD,
 
+        OBSTACLE_ROCK,
+        OBSTACLE_GOAL,
 
-        OBSTACLE_ROCK
+        GHOST_INDICATOR
     }
     ENTITYTYPE m_type;
     private Bitmap bmp = null;
@@ -72,6 +73,10 @@ public class Entity implements EntityBase, EntityCollidable
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.stone);
         else if (m_type == ENTITYTYPE.ENTITY_PLAYER)
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player);
+        else if (m_type == ENTITYTYPE.OBSTACLE_GOAL)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.goal);
+        else if (m_type == ENTITYTYPE.GHOST_INDICATOR)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.indicator);
 
         lifeTime = 100.5f;
         Random ranGen = new Random();
@@ -193,7 +198,17 @@ public class Entity implements EntityBase, EntityCollidable
             {
                 case OBSTACLE_ROCK:
                 {
-                    --Life;
+                    //--Life;
+                    Game_Normal.Instance.S_Multiplier = 1.f;
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
+
+                case OBSTACLE_GOAL:
+                {
+                    Game_Normal.Instance.Score += 100;
+                    Game_Normal.Instance.S_Multiplier += 1.f;
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
