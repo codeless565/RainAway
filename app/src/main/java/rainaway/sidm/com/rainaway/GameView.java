@@ -41,6 +41,7 @@ public class GameView extends SurfaceView
                 @Override
                 public void surfaceDestroyed(SurfaceHolder holder) {
                     //CLEAN UP
+                    AudioManager.Instance.StopAllAudio();
                     updateThread.Terminate();
                 }
 
