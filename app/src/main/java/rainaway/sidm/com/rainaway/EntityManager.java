@@ -77,7 +77,8 @@ public class EntityManager
                     }
                 }
 
-                if(first.GetPosX() > view.getWidth() + first.GetRadius() || first.GetPosX() < -first.GetRadius() || first.GetPosY() > view.getHeight()+ first.GetRadius() || first.GetPosY() < -first.GetRadius())
+                //Out Of Bound
+                if(first.GetPosX() > view.getWidth() + first.GetRadius() || first.GetPosX() < -first.GetRadius() || first.GetPosY() > view.getHeight() * 2 + first.GetRadius() || first.GetPosY() < -first.GetRadius())
                     currEntity.SetIsDone(true);
             }
 
