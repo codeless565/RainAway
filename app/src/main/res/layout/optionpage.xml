@@ -82,7 +82,8 @@
         android:layout_below="@+id/BGMSeekBar"
         android:layout_marginTop="31dp"
         android:layout_toEndOf="@+id/BGMText"
-        android:text="Vibrate" />
+        android:text="Vibrate"
+        android:checked="true"/>
 
 
 </RelativeLayout>

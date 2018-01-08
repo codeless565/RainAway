@@ -32,7 +32,7 @@ public class TouchManager
         RecordedTouch= new Vector2(0,0);
         Touching=false;
         Swiping=false;
-        Vibration=false;
+        Vibration=true;
     }
 
     // Getters
