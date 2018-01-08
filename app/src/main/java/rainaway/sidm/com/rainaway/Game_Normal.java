@@ -19,10 +19,9 @@ public class Game_Normal implements Game_Scene {
     public final static Game_Normal Instance = new Game_Normal(); // Singleton
     private float timer, goalTimer, eTime, ResumeTimer;
     float Score, S_Multiplier;
-
-
     SurfaceView view;
     Entity Player;
+
     float MovementSpeed = 10.f;
     private boolean isPaused;
 
@@ -48,7 +47,6 @@ public class Game_Normal implements Game_Scene {
     public void Init(SurfaceView _view) {
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
-        SamplePauseButton.Create();
         view = _view;
         // now can create
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(), 0.1f * _view.getHeight());
@@ -186,6 +184,7 @@ public class Game_Normal implements Game_Scene {
             if(Goal.GetPosY() < Goal.GetRadius()) //Player missed the goal
             {
                 --Player.Life;
+                Goal.startVibrate();
                 Goal.SetIsDone(true);
             }
 
