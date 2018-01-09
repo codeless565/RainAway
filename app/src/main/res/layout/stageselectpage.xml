@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgnd"
+
+    tools:context="rainaway.sidm.com.rainaway.Page_MainMenu">
+
+    <TextView
+        android:id="@+id/MenuTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="RAIN AWAY"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    />
+
+    <Button
+        android:id="@+id/btn_normal"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:text="Normal"
+        android:textColor="#EDFFCF"
+        android:layout_marginBottom="53dp"
+        android:layout_above="@+id/btn_arcade"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_arcade"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Arcade"
+        android:textColor="#EDFFCF"
+        android:background="@drawable/button"
+        android:layout_marginBottom="92dp"
+        android:layout_above="@+id/btn_back"
+        android:layout_toStartOf="@+id/btn_normal" />
+
+    <Button
+        android:id="@+id/btn_time"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:text="Time"
+        android:textColor="#EDFFCF"
+        android:layout_below="@+id/btn_normal"
+        android:layout_toEndOf="@+id/btn_normal" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:text="Back"
+        android:textColor="#EDFFCF"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/btn_arcade" />
+
+
+</RelativeLayout>
