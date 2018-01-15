@@ -13,6 +13,8 @@ import android.view.WindowManager;
  */
 
 public class Page_Game extends Activity {
+    public static Page_Game Instance;
+
         @Override
         public void onCreate(Bundle instance)
         {

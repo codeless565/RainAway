@@ -89,6 +89,9 @@ public class Game_Normal implements Game_Scene {
                 if(getIsPaused())
                     ResumeTimer = 3.5f;
 
+                // Trigger our pause confirmation
+                PauseconfirmDialogFragment newPauseConfirm = new PauseconfirmDialogFragment();
+                newPauseConfirm.show(Page_Game.Instance.getFragmentManager(),"PauseConfirm");
                 setIsPaused(!getIsPaused());
                 eTime = 0.f;
             }
