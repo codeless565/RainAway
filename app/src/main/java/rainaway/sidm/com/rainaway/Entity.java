@@ -195,6 +195,7 @@ public class Entity implements EntityBase, EntityCollidable
                     OtherEntity.SetIsDone(true);
                     if (TouchManager.Instance.getVibration())
                         startVibrate();
+                    AudioManager.Instance.PlayAudio(R.raw.airhorn,false);
                     break;
                 }
 
