@@ -1,6 +1,6 @@
 package rainaway.sidm.com.rainaway;
-//TODO vibration, sensitivity,control(by touch/tilt)?
-// https://stackoverflow.com/questions/29208366/how-to-enable-and-disable-vibration-mode-programmatically
+//TODO sensitivity, control(by touch/tilt)?
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +24,7 @@ public class Page_Options extends Activity implements OnClickListener {
     //define button as Object
     private Button btn_mainmenu;
     private SeekBar seekBar_volume;
+
     private AudioManager audioManager;
     private CheckBox vibration;
 

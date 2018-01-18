@@ -36,7 +36,7 @@ public class UpdateThread extends Thread
             case GAME_ARCADE:
                 //Scene = Game_Arcade.Instance; break;
             case GAME_TIME:
-                //Scene = Game_TimeAttack.Instance; break;
+                Scene = Game_TimeAttack.Instance; break;
         }
 
         AudioManager.Instance.Init(_view);

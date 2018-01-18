@@ -1,5 +1,4 @@
 package rainaway.sidm.com.rainaway;
-//TODO pause button
 /**
  * Created by 164347E on 11/20/2017.
  */

@@ -1,31 +1,32 @@
 package rainaway.sidm.com.rainaway;
-/**
- * Created by 164347E on 12/4/2017.
- */
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class Game_Normal implements Game_Scene {
-    public final static Game_Normal Instance = new Game_Normal(); // Singleton
-    private float timer, goalTimer, eTime, ResumeTimer;
-    float Score, S_Multiplier;
+/**
+ * Created by Administrator on 18/1/2018.
+ */
+
+public class Game_TimeAttack implements Game_Scene {
+    public final static Game_TimeAttack Instance = new Game_TimeAttack(); // Singleton
+    private float timer, eTime, ResumeTimer;
     SurfaceView view;
     Entity Player;
+
+    private float ClockSec;
+    private int ClockMin;
 
     float MovementSpeed = 10.f;
     private boolean isPaused;
 
     // FONT
     Typeface myfont;
-
-    //Game Indicator
-    Entity Indicator, Goal;
 
     public boolean getIsPaused() {
         return isPaused;
@@ -36,7 +37,7 @@ public class Game_Normal implements Game_Scene {
     }
 
     // this is to not allow anyone else to create another game instance
-    private Game_Normal() {
+    private Game_TimeAttack() {
 
     }
 
@@ -53,17 +54,13 @@ public class Game_Normal implements Game_Scene {
          - Update Score as player keep playing for pickup
          *********************/
         eTime = 0.f;
-        goalTimer = 0.f;
         ResumeTimer = 3.5f;
 
         Player.Life = 1;
-        Score = 0;
-        S_Multiplier = 1;
         isPaused = false;
 
-        //OBJ
-        Indicator = null;
-        Goal = null;
+        ClockSec=0;
+        ClockMin=0;
 
         //Audio
         AudioManager.Instance.PlayAudio(R.raw.ssr,true);
@@ -71,8 +68,8 @@ public class Game_Normal implements Game_Scene {
     }
 
     public void Update(float _dt) {
-         if (Player.Life <= 0) // player dies, go to game over screen
-             return;
+        if (Player.Life <= 0) // player dies, go to game over screen
+            return;
 
         eTime += _dt; // Elapsed Time / Bounce Time
 
@@ -100,32 +97,25 @@ public class Game_Normal implements Game_Scene {
          * RUNNING TIMER *
          *****************************************/
         timer += _dt;
-        goalTimer += _dt;
         ResumeTimer -= _dt;
+        ClockSec += _dt;
+
 
         if (ResumeTimer > 0.f)
             return;
 
         /****************************************
-         * OBJECT * (Spawns only 1 obj at 1 time)
+         * RUNNING Clock *
          *****************************************/
-        //Goal Spawn
-        if (goalTimer >= 10.f)
+        if (ClockSec>=60.f)
         {
-            Random ranGen = new Random();
-            Goal = Entity.Create(Entity.ENTITYTYPE.OBSTACLE_GOAL,
-                    new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight() * 1.5f),
-                    new Vector2(0, -view.getHeight() * 0.5f)); //type, pos, dir
-
-            //Indicator
-            Indicator = Entity.Create(Entity.ENTITYTYPE.GHOST_INDICATOR,
-                    new Vector2(Goal.GetPosX(), view.getHeight() * 0.9f),
-                    new Vector2(0, 0)); //type, pos, dir
-
-            goalTimer = 0.f;
-            timer = -1.f;
+            ++ClockMin;
+            ClockSec=0;
         }
 
+        /****************************************
+         * OBJECT * (Spawns only 1 obj at 1 time)
+         ****************************************/
         //Random Object Spawn
         if (timer >= 1.f) {
             Random ranGen = new Random();
@@ -135,8 +125,6 @@ public class Game_Normal implements Game_Scene {
 
             timer = 0.f;
         }
-
-        Score += 10 * _dt * S_Multiplier;
 
         /****************************************
          * CONTROLS *
@@ -177,21 +165,6 @@ public class Game_Normal implements Game_Scene {
         }
 
         /****************************************
-         * GAME LOGIC * Goals
-         ****************************************/
-        if(Goal != null)
-            if(Goal.GetPosY() < Goal.GetRadius()) //Player missed the goal
-            {
-                --Player.Life;
-                Goal.startVibrate();
-                Goal.SetIsDone(true);
-            }
-
-        if(Indicator != null)
-            if(Goal.GetPosY() < view.getHeight())
-                Indicator.SetIsDone(true);
-
-        /****************************************
          * ENTITY MANAGER *
          *****************************************/
         //Update all the Entity in the List
@@ -214,13 +187,13 @@ public class Game_Normal implements Game_Scene {
         score.setColor(Color.BLACK);
         score.setTextSize(60);
         score.setTypeface(myfont);
-        _canvas.drawText("Score: " + String.valueOf((int) Score), view.getWidth() * 0.6f, score.getTextSize(), score);
+        _canvas.drawText("ClockMin: " + String.valueOf((int) timer), view.getWidth() * 0.6f, score.getTextSize(), score);
 
         Paint multiplier = new Paint();
         multiplier.setColor(Color.BLACK);
         multiplier.setTextSize(60);
         multiplier.setTypeface(myfont);
-        _canvas.drawText("    X: " + String.valueOf((int) S_Multiplier), view.getWidth() * 0.6f, score.getTextSize() + multiplier.getTextSize(), multiplier);
+        _canvas.drawText("    ClockSec: " + String.valueOf((int) ClockSec), view.getWidth() * 0.6f, score.getTextSize() + multiplier.getTextSize(), multiplier);
 
         if(ResumeTimer >= 0.f)
         {
@@ -252,17 +225,3 @@ public class Game_Normal implements Game_Scene {
     }
 
 }
-
-// TODO
-//public class GameSystem
-//{
-//    // singleton
-//    // ispause = false
-//
-//    public void Init (SurfaceView _view)
-//    {
-//        // Game specific stuff here! eg add our game states here
-//        StateManager.Instance.AddState(new MainGameState());
-//        StateManager.Instance.AddState(new IntroState());
-//    }
-//}

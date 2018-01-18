@@ -46,7 +46,7 @@ public class MainGameState implements StateBase
         Score = 0;
         isPaused = false;
 
-        AudioManager.Instance.PlayAudio(R.raw.ssr);
+        AudioManager.Instance.PlayAudio(R.raw.ssr,true);
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(),"fonts/Gemcut.otf");
     }
 

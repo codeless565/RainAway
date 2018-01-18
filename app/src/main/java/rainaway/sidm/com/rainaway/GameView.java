@@ -11,7 +11,7 @@ import android.view.SurfaceView;
 public class GameView extends SurfaceView
 {
     private SurfaceHolder holder = null;
-    private UpdateThread updateThread = new UpdateThread(this, UpdateThread.GAMEMODE.GAME_NORMAL);
+    private UpdateThread updateThread = new UpdateThread(this, UpdateThread.GAMEMODE.GAME_TIME);
 
     public GameView(Context _context)
     {
