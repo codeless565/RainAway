@@ -96,5 +96,7 @@ public class UpdateThread extends Thread
             }
             //should have something to limit frame rate
         }
+        // TODO Destroy on finish();
+        // Can call our DE-INT FUNCTUON for all managers
     }
 }

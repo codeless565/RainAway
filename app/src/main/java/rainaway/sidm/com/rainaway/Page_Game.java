@@ -13,7 +13,7 @@ import android.view.WindowManager;
  */
 
 public class Page_Game extends Activity {
-    public static Page_Game Instance;
+    public static Page_Game Instance =null;
 
         @Override
         public void onCreate(Bundle instance)
@@ -22,6 +22,7 @@ public class Page_Game extends Activity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+            Instance=this;
             //GameView thingy
             setContentView(new GameView(this));
         }

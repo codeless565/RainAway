@@ -205,7 +205,7 @@ public class Entity implements EntityBase, EntityCollidable
                     MainGameState.Instance.S_Multiplier += 1.f;
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
-
+                    AudioManager.Instance.PlayAudio(R.raw.ssr,false);
                     if (TouchManager.Instance.getVibration())
                         startVibrate();
                     break;

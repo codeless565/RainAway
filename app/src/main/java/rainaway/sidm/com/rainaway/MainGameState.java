@@ -64,12 +64,31 @@ public class MainGameState implements StateBase
         Goal = null;
 
         //Audio
-        AudioManager.Instance.PlayAudio(R.raw.ssr);
+        AudioManager.Instance.PlayAudio(R.raw.ssr,true);
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
     }
 
     @Override
     public void OnExit() {
+        // TODO Solution 1:
+        // Step 1: Write all the delete and clean up functions for all other managers
+        // Step 2: Call them here
+
+        // TODO Solution 2:
+        // Go to any entity -> only show if it is main game state -> Entity->Update
+//        {
+//            if StateManager.Instance.GetCurrentState() != "MainGame")
+//            return;
+//        }
+
+        // TODO Solution 3:
+        // Increase StateManager functions eg void ResetCurrentState()
+//        {
+//            if (currState == null)
+//                return;
+//            else currState.Reset();
+//        }
+        // require reset method for all functions
     }
 
     @Override

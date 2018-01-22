@@ -32,6 +32,7 @@ public class PauseconfirmDialogFragment extends DialogFragment
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // TODO -> for example Page_Game.Instance.finish();
                         isShown=false;
                     }
                 });
