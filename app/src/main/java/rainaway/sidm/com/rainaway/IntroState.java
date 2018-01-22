@@ -28,7 +28,6 @@ public class IntroState implements StateBase
 
     @Override
     public void OnExit() {
-
     }
 
     @Override

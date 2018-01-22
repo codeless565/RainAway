@@ -51,6 +51,18 @@
             </intent-filter>
         </activity>
 
+        // HighScore
+        <activity android:name=".Page_HighScore"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
 
         //Stage Select
 

@@ -47,4 +47,7 @@ public class Page_Game extends Activity {
             }
             startActivity(intent);
         }
+
+    @Override
+    protected void onDestroy() {super.onDestroy(); }
 }

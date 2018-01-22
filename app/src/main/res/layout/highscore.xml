@@ -2,11 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <com.facebook.logi.widget.LoginButton
+    <com.facebook.login.widget.LoginButton
         android:id = "@+id/fblogin"
         android:layout_width = "fill_parent"
         android:layout_height = "wrap_content"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:id="@+id/BackButton"
+        android:background="@drawable/back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="40dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:id="@+id/ShareButton"
+        android:background="@color/com_facebook_blue"
+        android:layout_alignTop="@+id/BackButton"
+        android:layout_alignParentEnd="true" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/fblogin"
+        android:layout_toStartOf="@+id/ShareButton"
+        android:layout_marginTop="84dp"/>
 
 
 </RelativeLayout>

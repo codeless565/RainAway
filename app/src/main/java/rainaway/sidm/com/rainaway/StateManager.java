@@ -22,7 +22,7 @@ public class StateManager {
     private StateManager()
     {
     }
-
+    public HashMap<String,StateBase> getHashMap() {return stateMap;}
     public void Init(SurfaceView _view)
     {
         view = _view;

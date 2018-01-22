@@ -116,7 +116,7 @@ public class Entity implements EntityBase, EntityCollidable
     @Override
     public void Update(float _dt)
     {
-        if (!Game_Normal.Instance.getIsPaused()) {
+        if (!MainGameState.Instance.getIsPaused()) {
             //lifeTime -= _dt;
             if (lifeTime < 0.0f)
                 SetIsDone(true);
@@ -190,7 +190,7 @@ public class Entity implements EntityBase, EntityCollidable
                 case OBSTACLE_ROCK:
                 {
                     //--Life;
-                    Game_Normal.Instance.S_Multiplier = 1.f;
+                    MainGameState.Instance.S_Multiplier = 1.f;
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     if (TouchManager.Instance.getVibration())
@@ -201,8 +201,8 @@ public class Entity implements EntityBase, EntityCollidable
 
                 case OBSTACLE_GOAL:
                 {
-                    Game_Normal.Instance.Score += 100;
-                    Game_Normal.Instance.S_Multiplier += 1.f;
+                    MainGameState.Instance.Score += 100;
+                    MainGameState.Instance.S_Multiplier += 1.f;
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
 

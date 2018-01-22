@@ -58,7 +58,7 @@ public class SampleBackGround implements EntityBase
 
     @Override
     public void Update(float _dt) {
-        if (!Game_Normal.Instance.getIsPaused()) {
+        if (!MainGameState.Instance.getIsPaused()) {
 
             offset -= _dt * bmp.getHeight() * 0.2f;
 
