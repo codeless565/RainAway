@@ -51,6 +51,7 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
         Intent intent = new Intent();
 
         if (_view == btn_start) {
+            Game_System.Instance.setGameChoice(Game_System.GameChoice.TIMEATTACK);
             intent.setClass(this, Page_Game.class); // stageSelect Page
         } else if (_view == btn_back)//For other button like Helppage
         {

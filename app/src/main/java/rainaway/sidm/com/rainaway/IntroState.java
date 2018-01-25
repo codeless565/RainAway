@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.os.Debug;
+import android.util.Log;
 import android.view.SurfaceView;
 
 /**
@@ -12,6 +14,7 @@ import android.view.SurfaceView;
 
 public class IntroState implements StateBase
 {
+    private final String Tag = "IntroState";
     private float timer=5.f;
     private Bitmap logo = null;
 
@@ -36,7 +39,14 @@ public class IntroState implements StateBase
         if (timer <= 0.0f)
         {
             //we are done change to next state
-            StateManager.Instance.ChangeState("MainGame");
+            if (Game_System.Instance.getGameChoice() == Game_System.GameChoice.NORMAL) {
+                Log.d(Tag,"MainGame");
+                StateManager.Instance.ChangeState("MainGame");
+            }
+            else if (Game_System.Instance.getGameChoice() == Game_System.GameChoice.TIMEATTACK){
+                Log.d(Tag,"TimeAttackGame");
+                StateManager.Instance.ChangeState("TimeAttackGame");
+            }
         }
 
     }

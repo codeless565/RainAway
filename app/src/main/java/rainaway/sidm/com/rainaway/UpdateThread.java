@@ -78,8 +78,6 @@ public class UpdateThread extends Thread
                     canvas.drawColor(Color.BLACK);
 
                     StateManager.Instance.Render(canvas);
-                    // EntityManager.Instance.Render(canvas);
-                    //StateManager.Instance.Init(_view);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }

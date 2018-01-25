@@ -116,7 +116,7 @@ public class Entity implements EntityBase, EntityCollidable
     @Override
     public void Update(float _dt)
     {
-        if (!MainGameState.Instance.getIsPaused()) {
+        if (!Game_System.Instance.getIsPaused()) {
             //lifeTime -= _dt;
             if (lifeTime < 0.0f)
                 SetIsDone(true);

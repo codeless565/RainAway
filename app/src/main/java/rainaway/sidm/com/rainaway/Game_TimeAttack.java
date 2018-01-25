@@ -13,8 +13,9 @@ import java.util.Random;
  * Created by Administrator on 18/1/2018.
  */
 
-public class Game_TimeAttack implements Game_Scene {
-    public final static Game_TimeAttack Instance = new Game_TimeAttack(); // Singleton
+public class Game_TimeAttack implements StateBase {
+    public final static Game_TimeAttack Instance = new Game_TimeAttack();
+
     private float timer, eTime, ResumeTimer;
     SurfaceView view;
     Entity Player;
@@ -23,25 +24,19 @@ public class Game_TimeAttack implements Game_Scene {
     private int ClockMin;
 
     float MovementSpeed = 10.f;
-    private boolean isPaused;
 
     // FONT
     Typeface myfont;
 
-    public boolean getIsPaused() {
-        return isPaused;
+
+
+    @Override
+    public String GetName() {
+        return "TimeAttackGame";
     }
 
-    public void setIsPaused(boolean _isPaused) {
-        isPaused = _isPaused;
-    }
-
-    // this is to not allow anyone else to create another game instance
-    private Game_TimeAttack() {
-
-    }
-
-    public void Init(SurfaceView _view) {
+    @Override
+    public void OnEnter(SurfaceView _view) {
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
         view = _view;
@@ -57,7 +52,6 @@ public class Game_TimeAttack implements Game_Scene {
         ResumeTimer = 3.5f;
 
         Player.Life = 1;
-        isPaused = false;
 
         ClockSec=0;
         ClockMin=0;
@@ -67,6 +61,12 @@ public class Game_TimeAttack implements Game_Scene {
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
     }
 
+    @Override
+    public void OnExit() {
+
+    }
+
+    @Override
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
             return;
@@ -79,17 +79,17 @@ public class Game_TimeAttack implements Game_Scene {
         if (TouchManager.Instance.HasTouch())
             if (TouchManager.Instance.getCurrTouch().y <= view.getWidth() * 0.3f && eTime >= 0.5f && ResumeTimer < 0.f) {
 
-                if(getIsPaused())
+                if(Game_System.Instance.getIsPaused())
                     ResumeTimer = 3.5f;
 
                 // Trigger our pause confirmation
                 PauseconfirmDialogFragment newPauseConfirm = new PauseconfirmDialogFragment();
                 newPauseConfirm.show(Page_Game.Instance.getFragmentManager(),"PauseConfirm");
-                setIsPaused(!getIsPaused());
+                Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
                 eTime = 0.f;
             }
 
-        if (getIsPaused()) {
+        if (Game_System.Instance.getIsPaused()) {
             return;
         }
 
@@ -174,7 +174,7 @@ public class Game_TimeAttack implements Game_Scene {
          * TRANSITION *
          *****************************************/
     }
-
+    @Override
     public void Render(Canvas _canvas) {
         EntityManager.Instance.Render(_canvas);
 
@@ -204,7 +204,7 @@ public class Game_TimeAttack implements Game_Scene {
             _canvas.drawText(String.valueOf((int) ResumeTimer), view.getWidth() * 0.5f, view.getWidth() * 0.4f + Resume.getTextSize(), Resume);
         }
 
-        if(isPaused)
+        if(Game_System.Instance.getIsPaused())
         {
             Paint Pause = new Paint();
             Pause.setColor(Color.BLACK);

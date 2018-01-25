@@ -24,7 +24,7 @@ public class PauseconfirmDialogFragment extends DialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         //todo -trigger pause
                         // GameSystem.Instance.SetIsPaused
-                        MainGameState.Instance.setIsPaused(!MainGameState.Instance.getIsPaused());
+                        Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
                         isShown=false;
                     }
                 })

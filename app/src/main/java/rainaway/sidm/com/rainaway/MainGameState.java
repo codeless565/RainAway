@@ -17,7 +17,6 @@ public class MainGameState implements StateBase
     Entity Player;
 
     float MovementSpeed = 10.f;
-    private boolean isPaused;
 
     // FONT
     Typeface myfont;
@@ -25,13 +24,6 @@ public class MainGameState implements StateBase
     //Game Indicator
     Entity Indicator, Goal;
 
-
-    public boolean getIsPaused() {
-        return isPaused;
-    }
-    public void setIsPaused(boolean _isPaused) {
-        isPaused=_isPaused;
-    }
     @Override
     public String GetName() {
         return "MainGame";
@@ -57,7 +49,6 @@ public class MainGameState implements StateBase
         Player.Life = 1;
         Score = 0;
         S_Multiplier = 1;
-        isPaused = false;
 
         //OBJ
         Indicator = null;
@@ -104,17 +95,17 @@ public class MainGameState implements StateBase
         if (TouchManager.Instance.HasTouch())
             if (TouchManager.Instance.getCurrTouch().y <= view.getWidth() * 0.3f && eTime >= 0.5f && ResumeTimer < 0.f) {
 
-                if(getIsPaused())
+                if(Game_System.Instance.getIsPaused())
                     ResumeTimer = 3.5f;
 
                 // Trigger our pause confirmation
                 PauseconfirmDialogFragment newPauseConfirm = new PauseconfirmDialogFragment();
                 newPauseConfirm.show(Page_Game.Instance.getFragmentManager(),"PauseConfirm");
-                setIsPaused(!getIsPaused());
+                Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
                 eTime = 0.f;
             }
 
-        if (getIsPaused()) {
+        if (Game_System.Instance.getIsPaused()) {
             return;
         }
 
@@ -254,7 +245,7 @@ public class MainGameState implements StateBase
             _canvas.drawText(String.valueOf((int) ResumeTimer), view.getWidth() * 0.5f, view.getWidth() * 0.4f + Resume.getTextSize(), Resume);
         }
 
-        if(isPaused)
+        if(Game_System.Instance.getIsPaused())
         {
             Paint Pause = new Paint();
             Pause.setColor(Color.BLACK);
