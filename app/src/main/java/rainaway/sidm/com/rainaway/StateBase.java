@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 public interface StateBase
 {
     String GetName();
+    void CollisionResponse(Entity.ENTITYTYPE type);
     void OnEnter(SurfaceView _view);
     void OnExit();
     void Update(float _dt);

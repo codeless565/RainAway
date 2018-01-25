@@ -1,13 +1,11 @@
 package rainaway.sidm.com.rainaway;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -40,7 +38,6 @@ public class Entity implements EntityBase, EntityCollidable
 
     public Vibrator _vibrator;
 
-    // TODO CREATE PLAYER AND EXTEND ENTITY EG SAMPLEBACKGROUND
     public int Life;
 
     //Our global create function
@@ -189,8 +186,8 @@ public class Entity implements EntityBase, EntityCollidable
             {
                 case OBSTACLE_ROCK:
                 {
-                    //--Life;
-                    MainGameState.Instance.S_Multiplier = 1.f;
+                    //In Game Collision Response differs by its game type
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.OBSTACLE_ROCK);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     if (TouchManager.Instance.getVibration())
@@ -198,11 +195,9 @@ public class Entity implements EntityBase, EntityCollidable
                     AudioManager.Instance.PlayAudio(R.raw.airhorn,false);
                     break;
                 }
-
                 case OBSTACLE_GOAL:
                 {
-                    MainGameState.Instance.Score += 100;
-                    MainGameState.Instance.S_Multiplier += 1.f;
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.OBSTACLE_GOAL);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     AudioManager.Instance.PlayAudio(R.raw.ssr,false);
@@ -212,31 +207,35 @@ public class Entity implements EntityBase, EntityCollidable
                 }
                 case POWERUP_SLOWTIME:
                 {
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_SLOWTIME);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
                 }
                 case POWERUP_SLOWSPEED:
                 {
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_SLOWSPEED);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
                 }
                 case POWERUP__FREEZE:
                 {
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP__FREEZE);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
                 }
                 case POWERUP_SHROUD:
                 {
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_SHROUD);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
                 }
                 case POWERUP_ADDHP:
                 {
-                    ++Life;
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_ADDHP);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
