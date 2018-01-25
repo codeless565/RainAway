@@ -49,7 +49,7 @@ public class UpdateThread extends Thread
         long prevTime = System.nanoTime();
 
         //Scene.Init(view);
-        StateManager.Instance.Start("Default");
+        StateManager.Instance.Start("GameState_Intro");
         String Tag = "Update thread -- ";
         String text = StateManager.Instance.GetCurrentState();
         Log.d(Tag,text);
