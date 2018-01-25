@@ -121,5 +121,10 @@ public class EntityManager
     }
 
     //Terminate (Should write this but leave this to you. "Up to you")
+    public void Terminate()
+    {
+        view = null;
+        entityList.clear();
+    }
 }
 
