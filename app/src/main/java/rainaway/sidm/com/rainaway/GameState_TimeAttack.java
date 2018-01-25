@@ -8,25 +8,38 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class MainGameState implements StateBase
-{
-    public final static MainGameState Instance = new MainGameState();
-    private float timer, goalTimer, eTime, ResumeTimer;
-    float Score, S_Multiplier;
+/**
+ * Created by Administrator on 18/1/2018.
+ */
+
+public class GameState_TimeAttack implements StateBase {
+    public final static GameState_TimeAttack Instance = new GameState_TimeAttack();
+
+    private float timer, eTime, ResumeTimer;
     SurfaceView view;
     Entity Player;
+
+    private float ClockSec;
+    private int ClockMin;
 
     float MovementSpeed = 10.f;
 
     // FONT
     Typeface myfont;
 
-    //Game Indicator
-    Entity Indicator, Goal;
+
 
     @Override
     public String GetName() {
-        return "MainGame";
+        return "TimeAttackGame";
+    }
+
+    @Override
+    public void CollisionResponse(Entity.ENTITYTYPE type) {
+        switch (type) {
+            case OBSTACLE_ROCK:
+
+        }
     }
 
     @Override
@@ -43,16 +56,12 @@ public class MainGameState implements StateBase
          - Update Score as player keep playing for pickup
          *********************/
         eTime = 0.f;
-        goalTimer = 0.f;
         ResumeTimer = 3.5f;
 
         Player.Life = 1;
-        Score = 0;
-        S_Multiplier = 1;
 
-        //OBJ
-        Indicator = null;
-        Goal = null;
+        ClockSec=0;
+        ClockMin=0;
 
         //Audio
         AudioManager.Instance.PlayAudio(R.raw.ssr,true);
@@ -61,25 +70,7 @@ public class MainGameState implements StateBase
 
     @Override
     public void OnExit() {
-        // TODO Solution 1:
-        // Step 1: Write all the delete and clean up functions for all other managers
-        // Step 2: Call them here
 
-        // TODO Solution 2:
-        // Go to any entity -> only show if it is main game state -> Entity->Update
-//        {
-//            if StateManager.Instance.GetCurrentState() != "MainGame")
-//            return;
-//        }
-
-        // TODO Solution 3:
-        // Increase StateManager functions eg void ResetCurrentState()
-//        {
-//            if (currState == null)
-//                return;
-//            else currState.Reset();
-//        }
-        // require reset method for all functions
     }
 
     @Override
@@ -113,32 +104,25 @@ public class MainGameState implements StateBase
          * RUNNING TIMER *
          *****************************************/
         timer += _dt;
-        goalTimer += _dt;
         ResumeTimer -= _dt;
+        ClockSec += _dt;
+
 
         if (ResumeTimer > 0.f)
             return;
 
         /****************************************
-         * OBJECT * (Spawns only 1 obj at 1 time)
+         * RUNNING Clock *
          *****************************************/
-        //Goal Spawn
-        if (goalTimer >= 10.f)
+        if (ClockSec>=60.f)
         {
-            Random ranGen = new Random();
-            Goal = Entity.Create(Entity.ENTITYTYPE.OBSTACLE_GOAL,
-                    new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight() * 1.5f),
-                    new Vector2(0, -view.getHeight() * 0.5f)); //type, pos, dir
-
-            //Indicator
-            Indicator = Entity.Create(Entity.ENTITYTYPE.GHOST_INDICATOR,
-                    new Vector2(Goal.GetPosX(), view.getHeight() * 0.9f),
-                    new Vector2(0, 0)); //type, pos, dir
-
-            goalTimer = 0.f;
-            timer = -1.f;
+            ++ClockMin;
+            ClockSec=0;
         }
 
+        /****************************************
+         * OBJECT * (Spawns only 1 obj at 1 time)
+         ****************************************/
         //Random Object Spawn
         if (timer >= 1.f) {
             Random ranGen = new Random();
@@ -148,8 +132,6 @@ public class MainGameState implements StateBase
 
             timer = 0.f;
         }
-
-        Score += 10 * _dt * S_Multiplier;
 
         /****************************************
          * CONTROLS *
@@ -190,21 +172,6 @@ public class MainGameState implements StateBase
         }
 
         /****************************************
-         * GAME LOGIC * Goals
-         ****************************************/
-        if(Goal != null)
-            if(Goal.GetPosY() < Goal.GetRadius()) //Player missed the goal
-            {
-                --Player.Life;
-                Goal.startVibrate();
-                Goal.SetIsDone(true);
-            }
-
-        if(Indicator != null)
-            if(Goal.GetPosY() < view.getHeight())
-                Indicator.SetIsDone(true);
-
-        /****************************************
          * ENTITY MANAGER *
          *****************************************/
         //Update all the Entity in the List
@@ -214,7 +181,6 @@ public class MainGameState implements StateBase
          * TRANSITION *
          *****************************************/
     }
-
     @Override
     public void Render(Canvas _canvas) {
         EntityManager.Instance.Render(_canvas);
@@ -228,13 +194,13 @@ public class MainGameState implements StateBase
         score.setColor(Color.BLACK);
         score.setTextSize(60);
         score.setTypeface(myfont);
-        _canvas.drawText("Score: " + String.valueOf((int) Score), view.getWidth() * 0.6f, score.getTextSize(), score);
+        _canvas.drawText("ClockMin: " + String.valueOf((int) timer), view.getWidth() * 0.6f, score.getTextSize(), score);
 
         Paint multiplier = new Paint();
         multiplier.setColor(Color.BLACK);
         multiplier.setTextSize(60);
         multiplier.setTypeface(myfont);
-        _canvas.drawText("    X: " + String.valueOf((int) S_Multiplier), view.getWidth() * 0.6f, score.getTextSize() + multiplier.getTextSize(), multiplier);
+        _canvas.drawText("    ClockSec: " + String.valueOf((int) ClockSec), view.getWidth() * 0.6f, score.getTextSize() + multiplier.getTextSize(), multiplier);
 
         if(ResumeTimer >= 0.f)
         {
@@ -262,5 +228,7 @@ public class MainGameState implements StateBase
             GameOver.setTypeface(myfont);
             _canvas.drawText("GAME OVER", view.getWidth() * 0.5f - GameOver.getTextSize() * 2.5f, view.getWidth() * 0.4f + GameOver.getTextSize(), GameOver);
         }
+
     }
+
 }

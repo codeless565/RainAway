@@ -12,25 +12,34 @@ import android.view.SurfaceView;
  * Created by 164353M on 1/8/2018.
  */
 
-public class IntroState implements StateBase
+public class GameState_Intro implements StateBase
 {
-    private final String Tag = "IntroState";
-    private float timer=5.f;
+    private final String Tag = "GameState_Intro";
+    private float timer;
     private Bitmap logo = null;
 
     @Override
     public String GetName() {
-        return "Default";
+        return "GameState_Intro";
+    }
+
+    @Override
+    public void CollisionResponse(Entity.ENTITYTYPE type) {
+        //No Collisions at all
     }
 
     @Override
     public void OnEnter(SurfaceView _view) {
         //TODO  resource manager
-        logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.stone);
+        //Can u remember to set the initial value here instead of it in the declaration??????? Bad practice - PS
+        timer = 5.f;
+        logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.player);
     }
 
     @Override
-    public void OnExit() {
+    public void OnExit()
+    {
+        logo = null;
     }
 
     @Override
@@ -40,11 +49,9 @@ public class IntroState implements StateBase
         {
             //we are done change to next state
             if (Game_System.Instance.getGameChoice() == Game_System.GameChoice.NORMAL) {
-                Log.d(Tag,"MainGame");
-                StateManager.Instance.ChangeState("MainGame");
+                StateManager.Instance.ChangeState("GameNormal");
             }
             else if (Game_System.Instance.getGameChoice() == Game_System.GameChoice.TIMEATTACK){
-                Log.d(Tag,"TimeAttackGame");
                 StateManager.Instance.ChangeState("TimeAttackGame");
             }
         }
