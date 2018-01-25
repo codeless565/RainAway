@@ -50,5 +50,14 @@ public class Page_Game extends Activity {
         }
 
     @Override
-    protected void onDestroy() {super.onDestroy(); }
+    protected void onDestroy()
+    {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        StateManager.Instance.ChangeState("GameState_Intro");
+        super.onBackPressed();
+    }
 }
