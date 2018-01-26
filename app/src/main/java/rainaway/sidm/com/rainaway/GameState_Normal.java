@@ -12,8 +12,9 @@ import java.util.Random;
 public class GameState_Normal implements StateBase
 {
     public final static GameState_Normal Instance = new GameState_Normal();
-    private float timer, goalTimer, eTime, ResumeTimer;
-    float Score, S_Multiplier;
+    private float obstacleSpawnTimer, goalTimer, pauseBounceTime, ResumeTimer;
+    private float gameTime;
+    private float Score, S_Multiplier;
     SurfaceView view;
     Entity Player;
 
@@ -50,7 +51,7 @@ public class GameState_Normal implements StateBase
 
     @Override
     public void OnEnter(SurfaceView _view) {
-        Log.d("tag","GameState_Normal onEnter");
+        Log.d("GameState_Normal","onEnter");
 
 
         EntityManager.Instance.Init(_view);
@@ -65,7 +66,8 @@ public class GameState_Normal implements StateBase
          - Countdown
          - Update Score as player keep playing for pickup
          *********************/
-        eTime = 0.f;
+        gameTime = 0.f;
+        pauseBounceTime = 0.f;
         goalTimer = 0.f;
         ResumeTimer = 3.5f;
 
@@ -84,7 +86,7 @@ public class GameState_Normal implements StateBase
 
     @Override
     public void OnExit() {
-        Log.d("tag","GameState_Normal onExit");
+        Log.d("GameState_Normal","onExit");
         // TODO
         // Step 1: Write all the delete and clean up functions for all other managers
         // Step 2: Call them here
@@ -95,40 +97,43 @@ public class GameState_Normal implements StateBase
     @Override
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
-        {
-            Game_Data.Instance.setGameTime(eTime);
+        {//Saves data over to scene_Data
+            Game_Data.Instance.setGameTime(gameTime);
             Game_Data.Instance.setScore(Score);
             Game_Data.Instance.setScoreMultiplier(S_Multiplier);
+
+            //Go to GameOverScreen
             return;
         }
-        eTime += _dt; // Elapsed Time / Bounce Time
 
         /****************************************
          * PAUSE *
          *****************************************/
+        pauseBounceTime += _dt; //Bounce Time
         if (TouchManager.Instance.HasTouch())
-            if (TouchManager.Instance.getCurrTouch().y <= view.getWidth() * 0.3f && eTime >= 0.5f && ResumeTimer < 0.f) {
+            if (TouchManager.Instance.getCurrTouch().y <= view.getWidth() * 0.3f && pauseBounceTime >= 0.5f && ResumeTimer < 0.f) {
 
                 if(Game_System.Instance.getIsPaused())
                     ResumeTimer = 3.5f;
 
                 // Trigger our pause confirmation
-                PauseconfirmDialogFragment newPauseConfirm = new PauseconfirmDialogFragment();
-                newPauseConfirm.show(Page_Game.Instance.getFragmentManager(),"PauseConfirm");
                 Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
-                eTime = 0.f;
+                pauseBounceTime = 0.f;
             }
 
-        if (Game_System.Instance.getIsPaused()) {
+        if (Game_System.Instance.getIsPaused())
             return;
-        }
+
+        ResumeTimer -= _dt;
+        if (ResumeTimer > 0.f)
+            return;
 
         /****************************************
          * RUNNING TIMER *
          *****************************************/
-        timer += _dt;
+        gameTime += _dt;
+        obstacleSpawnTimer += _dt;
         goalTimer += _dt;
-        ResumeTimer -= _dt;
 
         if (ResumeTimer > 0.f)
             return;
@@ -150,17 +155,17 @@ public class GameState_Normal implements StateBase
                     new Vector2(0, 0)); //type, pos, dir
 
             goalTimer = 0.f;
-            timer = -1.f;
+            obstacleSpawnTimer = -1.f;
         }
 
         //Random Object Spawn
-        if (timer >= 1.f) {
+        if (obstacleSpawnTimer >= 1.f) {
             Random ranGen = new Random();
             Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                     new Vector2(0, -view.getHeight() * 0.5f)); //type, pos, dir
 
-            timer = 0.f;
+            obstacleSpawnTimer = 0.f;
         }
 
         Score += 10 * _dt * S_Multiplier;
