@@ -41,6 +41,8 @@ public class Entity implements EntityBase, EntityCollidable
 
     public int Life;
 
+    boolean isShrouded;
+
     //Our global create function
     //So anyone can create "SampleEntities"
     public static Entity Create(ENTITYTYPE _type, Vector2 pos, Vector2 dir)
@@ -75,6 +77,20 @@ public class Entity implements EntityBase, EntityCollidable
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.goal);
         else if (m_type == ENTITYTYPE.GHOST_INDICATOR)
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.indicator);
+        else if (m_type == ENTITYTYPE.POWERUP_SLOWDOWN)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.slowdown);
+        else if (m_type == ENTITYTYPE.POWERUP_SLOWSPEED)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.slowspeed);
+        else if (m_type == ENTITYTYPE.POWERUP_FREEZE)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.freezetime);
+        else if (m_type == ENTITYTYPE.POWERUP_SHROUD)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.shroud);
+        else if (m_type == ENTITYTYPE.POWERUP_ADDHP)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.health);
+        else if (m_type == ENTITYTYPE.POWERUP_ADDMULTIPLIER)
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.multiplier);
+
+
 
         lifeTime = 100.5f;
         Random ranGen = new Random();
@@ -185,6 +201,9 @@ public class Entity implements EntityBase, EntityCollidable
             {
                 case OBSTACLE_ROCK:
                 {
+                    if (isShrouded)
+                        return;
+
                     //In Game Collision Response differs by its game type
                     StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.OBSTACLE_ROCK);
                     EntityBase OtherEntity = (EntityBase) _other;
