@@ -15,12 +15,13 @@ import java.util.Random;
 public class GameState_TimeAttack implements StateBase {
     public final static GameState_TimeAttack Instance = new GameState_TimeAttack();
 
-    private float timer, eTime, ResumeTimer;
+    private float obstacleSpawnTimer, pauseBounceTime, ResumeTimer;
+    private float gameTime;
     SurfaceView view;
     Entity Player;
 
     private float ClockSec;
-    private int ClockMin;
+    private float ClockMin;
 
     float MovementSpeed = 10.f;
 
@@ -31,7 +32,7 @@ public class GameState_TimeAttack implements StateBase {
 
     @Override
     public String GetName() {
-        return "TimeAttackGame";
+        return "GameTimeAttack";
     }
 
     @Override
@@ -55,7 +56,8 @@ public class GameState_TimeAttack implements StateBase {
          - Countdown
          - Update Score as player keep playing for pickup
          *********************/
-        eTime = 0.f;
+        gameTime = 0.f;
+        pauseBounceTime = 0.f;
         ResumeTimer = 3.5f;
 
         Player.Life = 1;
@@ -70,40 +72,51 @@ public class GameState_TimeAttack implements StateBase {
 
     @Override
     public void OnExit() {
-
+        // TODO
+        // Step 1: Write all the delete and clean up functions for all other managers
+        // Step 2: Call them here
+        EntityManager.Instance.Terminate();
+        AudioManager.Instance.StopAllAudio();
     }
 
     @Override
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
-            return;
+        {//Saves data over to scene_Data
+            Game_Data.Instance.setGameTime(gameTime);
 
-        eTime += _dt; // Elapsed Time / Bounce Time
+            //Go to GameOver Screen
+            return;
+        }
 
         /****************************************
          * PAUSE *
          *****************************************/
+        pauseBounceTime += _dt; // Elapsed Time / Bounce Time
         if (TouchManager.Instance.HasTouch())
-            if (TouchManager.Instance.getCurrTouch().y <= view.getWidth() * 0.3f && eTime >= 0.5f && ResumeTimer < 0.f) {
+            if (TouchManager.Instance.getCurrTouch().y <= view.getWidth() * 0.3f && pauseBounceTime >= 0.5f && ResumeTimer < 0.f) {
 
                 if(Game_System.Instance.getIsPaused())
                     ResumeTimer = 3.5f;
 
                 // Trigger our pause confirmation
-                PauseconfirmDialogFragment newPauseConfirm = new PauseconfirmDialogFragment();
-                newPauseConfirm.show(Page_Game.Instance.getFragmentManager(),"PauseConfirm");
                 Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
-                eTime = 0.f;
+                pauseBounceTime = 0.f;
             }
 
-        if (Game_System.Instance.getIsPaused()) {
+        //Game is Paused, Dont process anything after this
+        if (Game_System.Instance.getIsPaused())
             return;
-        }
+
+        ResumeTimer -= _dt;
+        if (ResumeTimer > 0.f)
+            return;
 
         /****************************************
          * RUNNING TIMER *
          *****************************************/
-        timer += _dt;
+        gameTime += _dt;
+        obstacleSpawnTimer += _dt;
         ResumeTimer -= _dt;
         ClockSec += _dt;
 
@@ -124,13 +137,13 @@ public class GameState_TimeAttack implements StateBase {
          * OBJECT * (Spawns only 1 obj at 1 time)
          ****************************************/
         //Random Object Spawn
-        if (timer >= 1.f) {
+        if (obstacleSpawnTimer >= 1.f) {
             Random ranGen = new Random();
             Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                     new Vector2(0, -view.getHeight() * 0.5f)); //type, pos, dir
 
-            timer = 0.f;
+            obstacleSpawnTimer = 0.f;
         }
 
         /****************************************
@@ -194,7 +207,7 @@ public class GameState_TimeAttack implements StateBase {
         score.setColor(Color.BLACK);
         score.setTextSize(60);
         score.setTypeface(myfont);
-        _canvas.drawText("ClockMin: " + String.valueOf((int) timer), view.getWidth() * 0.6f, score.getTextSize(), score);
+        _canvas.drawText("ClockMin: " + String.valueOf((int) ClockMin), view.getWidth() * 0.6f, score.getTextSize(), score);
 
         Paint multiplier = new Paint();
         multiplier.setColor(Color.BLACK);
