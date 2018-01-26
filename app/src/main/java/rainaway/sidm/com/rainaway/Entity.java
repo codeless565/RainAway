@@ -18,11 +18,12 @@ public class Entity implements EntityBase, EntityCollidable
         ENTITY_NONE,
         ENTITY_PLAYER,
 
-        POWERUP_SLOWTIME,
+        POWERUP_SLOWDOWN,
         POWERUP_SLOWSPEED,
-        POWERUP__FREEZE,
+        POWERUP_FREEZE,
         POWERUP_SHROUD,
         POWERUP_ADDHP,
+        POWERUP_ADDMULTIPLIER,
 
         OBSTACLE_ROCK,
         OBSTACLE_GOAL,
@@ -170,8 +171,6 @@ public class Entity implements EntityBase, EntityCollidable
         return Pos.y;
     }
 
-
-
     @Override
     public float GetRadius() {
         return bmp.getHeight() * 0.5f;
@@ -205,9 +204,9 @@ public class Entity implements EntityBase, EntityCollidable
                         startVibrate();
                     break;
                 }
-                case POWERUP_SLOWTIME:
+                case POWERUP_SLOWDOWN:
                 {
-                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_SLOWTIME);
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_SLOWDOWN);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
@@ -219,9 +218,9 @@ public class Entity implements EntityBase, EntityCollidable
                     OtherEntity.SetIsDone(true);
                     break;
                 }
-                case POWERUP__FREEZE:
+                case POWERUP_FREEZE:
                 {
-                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP__FREEZE);
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_FREEZE);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
                     break;
@@ -240,6 +239,14 @@ public class Entity implements EntityBase, EntityCollidable
                     OtherEntity.SetIsDone(true);
                     break;
                 }
+                case POWERUP_ADDMULTIPLIER:
+                {
+                    StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.POWERUP_ADDMULTIPLIER);
+                    EntityBase OtherEntity = (EntityBase) _other;
+                    OtherEntity.SetIsDone(true);
+                    break;
+                }
+
             }
 
             /***********************************************
