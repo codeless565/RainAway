@@ -56,6 +56,9 @@ public class Page_HighScore extends Activity implements OnClickListener {
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // Initalize for FB
+        FacebookSdk.setApplicationId(getString(R.string.app_id));
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         //This is using layout! Not what we want!
         setContentView(R.layout.highscore); //We will use GameView instead
@@ -75,7 +78,7 @@ public class Page_HighScore extends Activity implements OnClickListener {
         _callbackmanager = CallbackManager.Factory.create();
 
         // TODO GetHighscore
-        // week 15/13 shared preferenced
+        // week 13 shared preferenced
         //highscore = GameSystem.Instance.GetIntFromSave("Score");
 
         AccessTokenTracker accessTokenTracker = new AccessTokenTracker()
