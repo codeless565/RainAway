@@ -46,17 +46,14 @@ public class GameState_Arcade implements StateBase
         switch (type) {
             case OBSTACLE_ROCK:
             {
-                if (shroudTimer > 0.f)
-                    return;
-
                 --Player.Life;
                 S_Multiplier = 1.f;
                 break;
             }
             case POWERUP_SLOWDOWN:
             {
-                objectSpeed /= 2; //Decrease speed
-                objectSpawnDelay *= 2; //increase spawn delay
+                objectSpeed *= 0.9f; //Decrease speed
+                objectSpawnDelay *= 1.05f; //increase spawn delay
                 break;
             }
             case POWERUP_SLOWSPEED: //slow player move speed by half for period of time
@@ -74,6 +71,7 @@ public class GameState_Arcade implements StateBase
             case POWERUP_SHROUD: // player invincible for awhile
             {
                 shroudTimer = 5.f;
+                Player.isShrouded = true;
                 break;
             }
             case POWERUP_ADDHP: //Add hp
@@ -110,6 +108,7 @@ public class GameState_Arcade implements StateBase
         ResumeTimer = 3.5f;
 
         Player.Life = 3;
+        Player.isShrouded = false;
         Score = 0;
         S_Multiplier = 1;
         m_speed = 1.f;
@@ -119,7 +118,7 @@ public class GameState_Arcade implements StateBase
         objectSpeed = 0.3f;
 
         //Buff timers
-        buffSpawnDelay = 2.f;
+        buffSpawnDelay = 5.f;
         buffBounceTimer = 0.f;
 
         slowplayerTimer = 0.f;
@@ -183,6 +182,8 @@ public class GameState_Arcade implements StateBase
          * RUNNING TIMER *
          *****************************************/
         gameTime += _dt * m_speed;
+        buffBounceTimer += _dt * m_speed;
+        buffSpawnDelay += 0.01 * _dt * m_speed;
         objectBounceTimer += _dt * m_speed;
         objectSpeed += 0.01 * _dt * m_speed;
         objectSpawnDelay -= 0.01 * _dt * m_speed;
@@ -200,6 +201,8 @@ public class GameState_Arcade implements StateBase
 
         if (shroudTimer >= 0.f)
             shroudTimer -= _dt;
+        else if (shroudTimer < 0.f && Player.isShrouded)
+            Player.isShrouded = false;
         /****************************************
          * OBJECT * (Spawns only 1 obj at 1 time)
          *****************************************/
@@ -209,15 +212,14 @@ public class GameState_Arcade implements StateBase
             Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                     new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
-
             objectBounceTimer = 0.f;
         }
 
         if (buffBounceTimer >= buffSpawnDelay) {
             Random ranGen = new Random(); //random x position
 
-            int randomBuff = ranGen.nextInt(6);
-            Entity.ENTITYTYPE buffType;
+            int randomBuff = ranGen.nextInt(7);
+            Entity.ENTITYTYPE buffType = null;
 
             if (randomBuff == 0)
                 buffType = Entity.ENTITYTYPE.POWERUP_SLOWDOWN;
@@ -229,14 +231,17 @@ public class GameState_Arcade implements StateBase
                 buffType = Entity.ENTITYTYPE.POWERUP_SHROUD;
             else if (randomBuff == 4)
                 buffType = Entity.ENTITYTYPE.POWERUP_ADDHP;
-            else
+            else if (randomBuff == 5)
                 buffType = Entity.ENTITYTYPE.POWERUP_ADDMULTIPLIER;
 
-            Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
-                    new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
-                    new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
+            if (buffType != null) {
+                Entity.Create(buffType,
+                        new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
+                        new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
+            }
+            buffSpawnDelay -= 0.1f;
 
-            objectBounceTimer = 0.f;
+            buffBounceTimer = 0.f;
         }
 
         Score += (10 + objectSpeed) * S_Multiplier  * _dt * m_speed;
