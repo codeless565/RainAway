@@ -51,7 +51,8 @@ public class Page_StageArcade extends Activity implements OnClickListener{
     public void onClick(View _view) {
         Intent intent = new Intent();
 
-        if (_view == btn_start) {
+        if (_view == btn_start) {//Start Game here
+            Game_System.Instance.setGameChoice(Game_System.GameChoice.ARCADE);
             intent.setClass(this, Page_Game.class); // stageSelect Page
         } else if (_view == btn_back)//For other button like Helppage
         {
@@ -76,12 +77,12 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         // SWITCH ACTIVITY
         if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {
-            intent.setClass(this, Page_StageTimeAttack.class);
+            intent.setClass(this, Page_StageNormal.class);
             startActivity(intent);
         }
         else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
         {
-            intent.setClass(this, Page_StageNormal.class);
+            intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }
 

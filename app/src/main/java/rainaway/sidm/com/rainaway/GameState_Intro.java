@@ -31,7 +31,6 @@ public class GameState_Intro implements StateBase
     @Override
     public void OnEnter(SurfaceView _view) {
         //TODO  resource manager
-        //Can u remember to set the initial value here instead of it in the declaration??????? Bad practice - PS
         timer = 5.f;
         logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.player);
     }
@@ -52,7 +51,10 @@ public class GameState_Intro implements StateBase
                 StateManager.Instance.ChangeState("GameNormal");
             }
             else if (Game_System.Instance.getGameChoice() == Game_System.GameChoice.TIMEATTACK){
-                StateManager.Instance.ChangeState("TimeAttackGame");
+                StateManager.Instance.ChangeState("GameTimeAttack");
+            }
+            else if (Game_System.Instance.getGameChoice() == Game_System.GameChoice.ARCADE){
+                StateManager.Instance.ChangeState("GameArcade");
             }
         }
 

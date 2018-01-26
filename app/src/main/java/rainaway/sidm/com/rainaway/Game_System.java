@@ -18,6 +18,7 @@ public class Game_System{
     {
         NORMAL,
         TIMEATTACK,
+        ARCADE,
         TOTAL
     }
 
@@ -44,9 +45,10 @@ public class Game_System{
 
     public void Init(SurfaceView _view)
     {
-        StateManager.Instance.AddState(new GameState_TimeAttack());
-        StateManager.Instance.AddState(new GameState_Normal());
         StateManager.Instance.AddState(new GameState_Intro());
+        StateManager.Instance.AddState(new GameState_Normal());
+        StateManager.Instance.AddState(new GameState_TimeAttack());
+        StateManager.Instance.AddState(new GameState_Arcade());
     }
 
     public void Update(float _dt) {
