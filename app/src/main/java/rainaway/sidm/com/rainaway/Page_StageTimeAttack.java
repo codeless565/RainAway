@@ -9,6 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Administrator on 3/12/2017.
@@ -18,10 +21,10 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
+    private TextView text;
 
 
-    private Vector2 CurrTouch, RecordedTouch;
-    private boolean touching = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,12 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
 
         btn_help = (Button) findViewById(R.id.btn_timeattackhelp);
         btn_help.setOnClickListener(this);
+
+        text = (TextView)findViewById(R.id.THighscore1);
+        float timemin = Game_Data.Instance.getTgameTime()/60;
+        float timesec = Game_Data.Instance.getTgameTime()/(60*(int)timemin);
+
+        text.setText(String.valueOf((int)timemin) + ":" + String.valueOf((int)timesec*10) + " Mins");
     }
     //Invoke a callback on clicked event on a view
 
