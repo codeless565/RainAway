@@ -82,6 +82,10 @@ public class Page_StageNormal extends Activity implements OnClickListener {
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }
+        else if (!touching && CurrTouch.x > RecordedTouch.x) {
+            intent.setClass(this, Page_StageTimeAttack.class);
+            startActivity(intent);
+        }
 
         return true;
     }
