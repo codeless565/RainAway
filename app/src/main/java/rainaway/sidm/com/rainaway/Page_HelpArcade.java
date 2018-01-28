@@ -1,6 +1,5 @@
 package rainaway.sidm.com.rainaway;
-// TODO on touch hold image wil lshow information
-// TODO is this additonal poewrups or replace powerups
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

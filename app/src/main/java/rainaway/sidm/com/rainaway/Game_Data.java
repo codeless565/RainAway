@@ -9,7 +9,9 @@ public class Game_Data {
 
     //Variables
     private float gameTime;
+    private float TgameTime;
     private float score;
+    private float Ascore;
     private float scoreMultiplier;
     private int enemiesDefeated;
     private int goalPassed;
@@ -17,6 +19,14 @@ public class Game_Data {
     //=========================================
     //Setters
     //=========================================
+
+    public void setTgameTime(float tgameTime) {
+        TgameTime = tgameTime;
+    }
+
+    public void setAscore(float ascore) {
+        Ascore = ascore;
+    }
     public void setGameTime(float newValue)
     {gameTime = newValue;}
 
@@ -35,6 +45,15 @@ public class Game_Data {
     //=========================================
     //Getters
     //=========================================
+
+    public float getTgameTime() {
+        return TgameTime;
+    }
+
+    public float getAscore() {
+        return Ascore;
+    }
+
     public float getGameTime ()
     {return gameTime;}
 

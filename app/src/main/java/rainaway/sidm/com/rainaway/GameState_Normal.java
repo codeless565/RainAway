@@ -1,5 +1,7 @@
 package rainaway.sidm.com.rainaway;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,7 +11,7 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class GameState_Normal implements StateBase
+public class GameState_Normal extends Activity implements StateBase
 {
     public final static GameState_Normal Instance = new GameState_Normal();
     private float obstacleSpawnTimer, goalTimer, pauseBounceTime, ResumeTimer;
@@ -98,8 +100,10 @@ public class GameState_Normal implements StateBase
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
         {//Saves data over to scene_Data
+            if (Score > Game_Data.Instance.getScore())
+                Game_Data.Instance.setScore(Score);
+
             Game_Data.Instance.setGameTime(gameTime);
-            Game_Data.Instance.setScore(Score);
             Game_Data.Instance.setScoreMultiplier(S_Multiplier);
 
             //Go to GameOverScreen

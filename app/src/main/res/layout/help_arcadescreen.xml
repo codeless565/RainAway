@@ -46,9 +46,9 @@ Collect Powerup \t\t Dodge Trap"
         android:layout_height="70dp"
         android:src="@drawable/stone"
         android:id="@+id/StoneButton"
-        android:layout_marginStart="15dp"
-        android:layout_alignTop="@+id/FreezeButton"
-        android:layout_toEndOf="@+id/btn_arcadehelpback" />
+        android:layout_marginLeft="300dp"
+        android:layout_marginBottom="200dp"
+        android:layout_alignParentBottom="true" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -56,52 +56,48 @@ Collect Powerup \t\t Dodge Trap"
         android:src="@drawable/slowdown"
         android:id="@+id/SlowButton"
         android:layout_alignTop="@+id/FreezeButton"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginStart="65dp" />
 
     <ImageButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/freezetime"
         android:id="@id/FreezeButton"
-
-        android:layout_above="@+id/slowspeedButton"
-        android:layout_alignStart="@+id/slowspeedButton" />
+        android:layout_alignTop="@+id/StoneButton"
+        android:layout_alignStart="@+id/ShroudButton" />
 
     <ImageButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/shroud"
         android:id="@+id/ShroudButton"
-
         android:layout_below="@+id/SlowButton"
-        android:layout_toStartOf="@+id/FreezeButton" />
+        android:layout_alignStart="@+id/textView" />
 
     <ImageButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/health"
         android:id="@+id/healthButton"
-        android:layout_alignTop="@+id/SlowButton"
-
-        android:layout_alignStart="@+id/multiplierButton" />
+        android:layout_alignTop="@+id/FreezeButton"
+        android:layout_toStartOf="@+id/SlowButton" />
 
     <ImageButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/multiplier"
         android:id="@+id/multiplierButton"
-
-        android:layout_below="@+id/SlowButton"
-        android:layout_toStartOf="@+id/ShroudButton" />
-
+        android:layout_alignTop="@+id/ShroudButton"
+        android:layout_alignStart="@+id/healthButton" />
     <ImageButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/slowspeed"
         android:id="@+id/slowspeedButton"
-        android:layout_alignBottom="@+id/Agamedes"
-        android:layout_marginTop=""
-        android:layout_alignStart="@+id/btn_arcadehelpback" />
+
+        android:layout_below="@+id/SlowButton"
+        android:layout_toEndOf="@+id/ShroudButton" />
 
 
     <TextView
@@ -112,9 +108,9 @@ Collect Powerup \t\t Dodge Trap"
         android:textSize="20sp"
         android:textAlignment="center"
         android:visibility="invisible"
-        android:layout_below="@+id/Agamedes"
-        android:layout_alignParentStart="true" />
-
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentBottom="true"
+        />
 
     <Button
         android:id="@+id/btn_arcadehelpback"
@@ -123,9 +119,9 @@ Collect Powerup \t\t Dodge Trap"
         android:background="@drawable/button"
         android:text="Back"
         android:textColor="#EDFFCF"
+        android:layout_marginBottom="12dp"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/SlowButton"
-        android:layout_marginBottom="10dp"/>
+        android:layout_toEndOf="@+id/ShroudButton" />
 
 
 </RelativeLayout>

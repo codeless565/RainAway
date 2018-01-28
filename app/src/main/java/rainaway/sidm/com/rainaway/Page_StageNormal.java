@@ -13,12 +13,14 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Page_StageNormal extends Activity implements OnClickListener {
     private static final String TAG = "StageNormal";
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
+    private TextView text;
 
 
 
@@ -44,6 +46,9 @@ public class Page_StageNormal extends Activity implements OnClickListener {
 
         btn_help = (Button) findViewById(R.id.btn_normalhelp);
         btn_help.setOnClickListener(this);
+
+        text= (TextView)findViewById(R.id.NHighscore1);
+        text.setText(String.valueOf((int)Game_Data.Instance.getScore()));
     }
 
         //Invoke a callback on clicked event on a view
@@ -79,10 +84,6 @@ public class Page_StageNormal extends Activity implements OnClickListener {
         }
         else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
         {
-            intent.setClass(this, Page_StageTimeAttack.class);
-            startActivity(intent);
-        }
-        else if (!touching && CurrTouch.x > RecordedTouch.x) {
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }

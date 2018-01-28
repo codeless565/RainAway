@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 /**
  * Created by Administrator on 3/12/2017.
@@ -18,9 +19,7 @@ public class Page_StageArcade extends Activity implements OnClickListener{
     private Button btn_start;
     private Button btn_back;
     private Button btn_help;
-
-    private Vector2 CurrTouch, RecordedTouch;
-    private boolean touching = false;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,8 @@ public class Page_StageArcade extends Activity implements OnClickListener{
 
         btn_help = (Button) findViewById(R.id.btn_arcadehelp);
         btn_help.setOnClickListener(this);
+        text= (TextView)findViewById(R.id.AHighscore1);
+        text.setText(String.valueOf((int)Game_Data.Instance.getAscore()));
 
     }
     //Invoke a callback on clicked event on a view
@@ -77,12 +78,12 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         // SWITCH ACTIVITY
         if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {
-            intent.setClass(this, Page_StageNormal.class);
+            intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
         }
         else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
         {
-            intent.setClass(this, Page_StageTimeAttack.class);
+            intent.setClass(this, Page_StageNormal.class);
             startActivity(intent);
         }
 

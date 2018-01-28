@@ -52,6 +52,7 @@ public class Page_Game extends Activity {
     @Override
     protected void onDestroy()
     {
+        StateManager.Instance.ChangeState("GameState_Intro");
         super.onDestroy();
     }
 

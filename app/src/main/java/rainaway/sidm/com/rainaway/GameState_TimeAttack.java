@@ -128,7 +128,8 @@ public class GameState_TimeAttack implements StateBase
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
         {//Saves data over to scene_Data
-            Game_Data.Instance.setGameTime(gameTime);
+            if (gameTime > Game_Data.Instance.getTgameTime())
+                Game_Data.Instance.setTgameTime(gameTime);
 
             //Go to GameOverScreen
             return;

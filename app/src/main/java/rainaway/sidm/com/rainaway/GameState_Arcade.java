@@ -145,7 +145,8 @@ public class GameState_Arcade implements StateBase
         if (Player.Life <= 0) // player dies, go to game over screen
         {//Saves data over to scene_Data
             Game_Data.Instance.setGameTime(gameTime);
-            Game_Data.Instance.setScore(Score);
+            if (Score > Game_Data.Instance.getAscore())
+                Game_Data.Instance.setAscore(Score);
             Game_Data.Instance.setScoreMultiplier(S_Multiplier);
 
             //Go to GameOverScreen
