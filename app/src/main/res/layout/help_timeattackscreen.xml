@@ -26,22 +26,68 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-    // TODO on touch hold image wil lshow information
-    // TODO is this additonal poewrups or replace powerups
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="500dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="100dp"
-        android:text="Survive as long as you can!
 
-Collect Powerups
-// insert image
-Siam Traps
-// insert image"
+
+    <TextView
+        android:id="@+id/Tgamedes"
+        android:layout_width="500dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="100dp"
+        android:text="Complete the level within 3 lives!
+
+Touch left and right to move
+
+Collect Powerup    Dodge Trap"
         android:textSize="24sp"
         android:textAlignment="center" />
 
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/stone"
+        android:id="@id/StoneButton"
+        android:layout_marginStart="26dp"
+
+        android:layout_alignTop="@+id/SlowButton"
+        android:layout_toEndOf="@+id/btn_timeattackhelpback" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/slowdown"
+        android:id="@+id/SlowButton"
+        android:layout_marginBottom="124dp"
+        android:layout_above="@+id/btn_timeattackhelpback"
+        android:layout_toEndOf="@+id/healthButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/freezetime"
+        android:id="@+id/FreezeButton"
+        android:layout_alignTop="@+id/SlowButton"
+        android:layout_toEndOf="@+id/SlowButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/health"
+        android:id="@+id/healthButton"
+        android:layout_alignTop="@+id/SlowButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="17dp" />
+
+
+    <TextView
+        android:id="@+id/Tdescriptionbox"
+        android:layout_width="500dp"
+        android:layout_height="50dp"
+        android:text=""
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        android:layout_above="@+id/btn_timeattackhelpback"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_timeattackhelpback"
@@ -50,7 +96,7 @@ Siam Traps
         android:background="@drawable/button"
         android:text="Back"
         android:textColor="#EDFFCF"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

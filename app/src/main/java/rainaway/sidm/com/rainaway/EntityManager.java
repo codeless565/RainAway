@@ -27,6 +27,10 @@ public class EntityManager
         view = _view;
     }
 
+    public LinkedList<EntityBase> getEntityList() {
+        return entityList;
+    }
+
     public void Update(float _dt)
     {
         //List for object that needs to be deleted.

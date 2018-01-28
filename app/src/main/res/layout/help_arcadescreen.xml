@@ -30,18 +30,91 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/Agamedes"
         android:layout_width="500dp"
         android:layout_height="300dp"
         android:layout_marginTop="100dp"
-        android:text="Get the highest score you can!
-
-Collect Powerups
-// insert image
-Siam Traps
-// insert image"
+        android:text="Complete the level within 3 lives! \n\n\n
+Touch left and right to move  \n\n\n
+Collect Powerup \t\t Dodge Trap"
         android:textSize="24sp"
         android:textAlignment="center" />
+
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/stone"
+        android:id="@+id/StoneButton"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/FreezeButton"
+        android:layout_toEndOf="@+id/btn_arcadehelpback" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/slowdown"
+        android:id="@+id/SlowButton"
+        android:layout_alignTop="@+id/FreezeButton"
+        android:layout_alignStart="@+id/textView" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/freezetime"
+        android:id="@id/FreezeButton"
+
+        android:layout_above="@+id/slowspeedButton"
+        android:layout_alignStart="@+id/slowspeedButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/shroud"
+        android:id="@+id/ShroudButton"
+
+        android:layout_below="@+id/SlowButton"
+        android:layout_toStartOf="@+id/FreezeButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/health"
+        android:id="@+id/healthButton"
+        android:layout_alignTop="@+id/SlowButton"
+
+        android:layout_alignStart="@+id/multiplierButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/multiplier"
+        android:id="@+id/multiplierButton"
+
+        android:layout_below="@+id/SlowButton"
+        android:layout_toStartOf="@+id/ShroudButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/slowspeed"
+        android:id="@+id/slowspeedButton"
+        android:layout_alignBottom="@+id/Agamedes"
+        android:layout_marginTop=""
+        android:layout_alignStart="@+id/btn_arcadehelpback" />
+
+
+    <TextView
+        android:id="@+id/Adescriptionbox"
+        android:layout_width="500dp"
+        android:layout_height="50dp"
+        android:text=""
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        android:layout_below="@+id/Agamedes"
+        android:layout_alignParentStart="true" />
+
 
     <Button
         android:id="@+id/btn_arcadehelpback"
@@ -50,9 +123,9 @@ Siam Traps
         android:background="@drawable/button"
         android:text="Back"
         android:textColor="#EDFFCF"
-        android:layout_marginBottom="19dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/SlowButton"
+        android:layout_marginBottom="10dp"/>
 
 
 </RelativeLayout>
