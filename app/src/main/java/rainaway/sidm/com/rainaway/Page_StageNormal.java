@@ -51,6 +51,7 @@ public class Page_StageNormal extends Activity implements OnClickListener {
         Intent intent = new Intent();
 
         if (_view == btn_start) {
+            Game_System.Instance.setGameChoice(Game_System.GameChoice.NORMAL);
             intent.setClass(this, Page_Game.class); // stageSelect Page
         } else if (_view == btn_back)//For other button like Helppage
         {

@@ -25,6 +25,17 @@
         />
 
     <Button
+        android:id="@+id/btn_highscore"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/button"
+        android:text="HighScore"
+        android:textColor="#EDFFCF"
+        android:layout_above="@+id/btn_start"
+        android:layout_alignStart="@+id/btn_start" />
+
+    <Button
         android:id="@+id/btn_start"
         android:layout_width="100dp"
         android:layout_height="50dp"

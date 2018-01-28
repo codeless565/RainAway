@@ -11,14 +11,16 @@ import java.util.HashMap;
 
 public class StateManager {
     public static final StateManager Instance = new StateManager();
+
     private SurfaceView view = null;
     // container to store all our states
-
     private HashMap<String,StateBase> stateMap = new HashMap<String,StateBase>();
 
+    //States holder
     private StateBase currState = null;
     private StateBase nextState = null;
 
+    //FUNCTIONS
     private StateManager()
     {
     }
@@ -67,14 +69,17 @@ public class StateManager {
         if (currState != null || nextState != null)
             return;
 
-        currState=stateMap.get(_newCurrent);
+        currState = stateMap.get(_newCurrent);
         if (currState != null)
         {
+            nextState = currState;
             currState.OnEnter(view);
-            nextState=currState;
         }
     }
 
+    //=========================================
+    //Getter
+    //=========================================
     String GetCurrentState()
     {
         if (currState == null)
@@ -82,4 +87,15 @@ public class StateManager {
 
         return currState.GetName();
     }
+
+    public StateBase getCurrState()
+    {
+        return currState;
+    }
+
+    public HashMap<String,StateBase> getHashMap()
+    {
+        return stateMap;
+    }
+
 }

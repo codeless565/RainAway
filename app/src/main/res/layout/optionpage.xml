@@ -42,9 +42,10 @@
         android:id="@+id/SFXSeekBar"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="50dp"
-        android:layout_above="@+id/BGMText"
+        android:layout_below="@+id/textView"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -57,31 +58,14 @@
         android:layout_alignTop="@+id/SFXSeekBar"
         android:layout_toStartOf="@+id/SFXSeekBar" />
 
-    <TextView
-        android:id="@+id/BGMText"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/BGMSeekBar"
-        android:layout_toStartOf="@+id/BGMSeekBar"
-        android:text="BGM"
-        android:textAlignment="center"
-        android:textSize="18sp" />
-
-    <SeekBar
-        android:id="@+id/BGMSeekBar"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/textView"
-        android:layout_toEndOf="@+id/SFXText"
-        android:layout_marginTop="113dp" />
 
     <CheckBox
         android:id="@+id/Vibration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/BGMSeekBar"
-        android:layout_marginTop="31dp"
-        android:layout_toEndOf="@+id/BGMText"
+        android:layout_below="@+id/SFXSeekBar"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/SFXText"
         android:text="Vibrate"
         android:checked="true"/>
 

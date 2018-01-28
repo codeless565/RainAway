@@ -40,7 +40,7 @@ public class SamplePauseButton implements EntityBase
             if(Collision.SphereToSphere(TouchManager.Instance.getCurrTouch().x, TouchManager.Instance.getCurrTouch().y, 0.0f,xPos,yPos,imgRadius))
             {
                 // Button Clicked!
-                Game_Normal.Instance.setIsPaused(!Game_Normal.Instance.getIsPaused());
+                Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
             }
         }
 

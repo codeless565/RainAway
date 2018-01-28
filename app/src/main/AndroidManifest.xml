@@ -4,6 +4,9 @@
 
 
     <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <meta-data android:name="com.facebook.sdk.ApplicationId"
+        android:value="1784441581857008"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +27,9 @@
             </intent-filter>
         </activity>
 
+        ////////////////////////////////////////////////////////////
         //Main Menu
+        ////////////////////////////////////////////////////////////
         <activity android:name=".Page_MainMenu"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
@@ -36,7 +41,9 @@
             </intent-filter>
         </activity>
 
+        ////////////////////////////////////////////////////////////
         //Options Menu
+        ////////////////////////////////////////////////////////////
         <activity android:name=".Page_Options"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
@@ -48,9 +55,22 @@
             </intent-filter>
         </activity>
 
+        ////////////////////////////////////////////////////////////
+        // HighScore
+        ////////////////////////////////////////////////////////////
+        <activity android:name=".Page_HighScore"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        ////////////////////////////////////////////////////////////
         //Stage Select
-
         ////////////////////////////////////////////////////////////
         <activity android:name=".Page_StageNormal" >
             <intent-filter>
@@ -79,12 +99,8 @@
         </activity>
 
         ////////////////////////////////////////////////////////////
-
         //Help Screen
-
         ////////////////////////////////////////////////////////////
-
-
         <activity android:name=".Page_HelpNormal" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -109,11 +125,9 @@
             </intent-filter>
         </activity>
 
-
-
-
-
+        ////////////////////////////////////////////////////////////
         //Game Screen
+        ////////////////////////////////////////////////////////////
         <activity android:name=".Page_Game"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
@@ -123,6 +137,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+
+        ////////////////////////////////////////////////////////////
+        //Test
+        ////////////////////////////////////////////////////////////
     </application>
 
 </manifest>
