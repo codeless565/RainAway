@@ -10,6 +10,15 @@
 
     tools:context="rainaway.sidm.com.rainaway.Page_MainMenu">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:alpha="0.6"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        app:srcCompat="@drawable/player"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/MenuTitle"
         android:layout_width="wrap_content"
@@ -17,6 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="RAIN AWAY"
+        android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -39,12 +49,12 @@
         android:id="@+id/btn_start"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/btn_option"
-        android:layout_alignStart="@+id/btn_option"
-        android:layout_marginBottom="13dp"
         android:background="@drawable/button"
         android:text="Start"
-        android:textColor="#EDFFCF" />
+        android:textColor="#EDFFCF"
+        android:layout_below="@+id/MenuTitle"
+        android:layout_alignStart="@+id/btn_option"
+        android:layout_marginTop="93dp" />
 
     <Button
         android:id="@+id/btn_option"
@@ -53,9 +63,9 @@
         android:background="@drawable/button"
         android:text="Option"
         android:textColor="#EDFFCF"
-        android:layout_above="@+id/btn_exit"
+        android:layout_below="@+id/btn_start"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="9dp" />
+        android:layout_marginTop="45dp" />
 
     <Button
         android:id="@+id/btn_exit"
@@ -64,8 +74,26 @@
         android:background="@drawable/button"
         android:text="Exit"
         android:textColor="#EDFFCF"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/btn_option"
         android:layout_alignStart="@+id/btn_option"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginTop="33dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/nyp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/sidmlogo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp" />
+
 
 </RelativeLayout>

@@ -22,7 +22,6 @@ public class PauseconfirmDialogFragment extends DialogFragment
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //todo -trigger pause
                         // GameSystem.Instance.SetIsPaused
                         Game_System.Instance.setIsPaused(!Game_System.Instance.getIsPaused());
                         isShown=false;
@@ -32,7 +31,6 @@ public class PauseconfirmDialogFragment extends DialogFragment
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO -> for example Page_Game.Instance.finish();
                         isShown=false;
                     }
                 });

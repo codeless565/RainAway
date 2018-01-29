@@ -24,7 +24,6 @@ public class SamplePauseButton implements EntityBase
 
     @Override
     public void Init(SurfaceView _view) {
-        // TODO
         // Resource Manager
         //bmp = ResourceManager.Instance.GetbitMap
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.button);

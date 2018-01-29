@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -89,8 +88,6 @@ public class GameState_Arcade implements StateBase
 
     @Override
     public void OnEnter(SurfaceView _view) {
-        Log.d("GameState_Arcade", "onEnter");
-
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
         view = _view;
@@ -98,11 +95,7 @@ public class GameState_Arcade implements StateBase
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(), 0.1f * _view.getHeight());
         Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0, 0));
         movementSpeed = 50.f;
-        /********************
-         TODO
-         - Countdown
-         - Update Score as player keep playing for pickup
-         *********************/
+
         gameTime = 0.f;
         pauseBounceTime = 0.f;
         ResumeTimer = 3.5f;
@@ -132,10 +125,6 @@ public class GameState_Arcade implements StateBase
 
     @Override
     public void OnExit() {
-        Log.d("GameState_Arcade", "onExit ");
-        // TODO
-        // Step 1: Write all the delete and clean up functions for all other managers
-        // Step 2: Call them here
         EntityManager.Instance.Terminate();
         AudioManager.Instance.StopAllAudio();
     }
@@ -319,6 +308,18 @@ public class GameState_Arcade implements StateBase
         paint.setColor(Color.BLACK);
         paint.setTextSize(60);
         _canvas.drawText("Lives: " + String.valueOf(Player.Life), paint.getTextSize(), paint.getTextSize(), paint);
+
+        //Show Powerup indicator
+        Paint powerup = new Paint();
+        powerup.setColor(Color.BLACK);
+        powerup.setTextSize(60);
+        powerup.setTypeface(myfont);
+        if(freezeTimer > 0.f)
+            _canvas.drawText("Freeze active", powerup.getTextSize(), powerup.getTextSize() + powerup.getTextSize(), powerup);
+        else if (slowplayerTimer > 0.f)
+            _canvas.drawText("Movement Slowed", powerup.getTextSize(), powerup.getTextSize() + powerup.getTextSize(), powerup);
+        else if (shroudTimer > 0.f)
+            _canvas.drawText("Shroud active", powerup.getTextSize(), powerup.getTextSize() + powerup.getTextSize(), powerup);
 
         //Show Player Score
         Paint score = new Paint();

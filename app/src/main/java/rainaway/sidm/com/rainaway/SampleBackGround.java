@@ -13,7 +13,6 @@ public class SampleBackGround implements EntityBase
     private float xPos, yPos, offset;
     private SurfaceView view = null;
     private int EntityLayer;
-    // TODO
     // private int EntityLayer = ConstantLayout.BKGRD
 
     // Screen resizing
@@ -42,7 +41,6 @@ public class SampleBackGround implements EntityBase
 
     @Override
     public void Init(SurfaceView _view) {
-        // TODO RESOURCE MANAGER
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.gamescene);
 
         // Retrieve information of your surface view or any device size view WEEK 9???

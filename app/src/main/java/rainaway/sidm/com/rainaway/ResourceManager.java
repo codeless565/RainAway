@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.view.SurfaceView;
 import java.util.HashMap;
 
-// TODO RESOURCE MANAGER
 /**
  * Created by 164353M on 12/11/2017.
  */

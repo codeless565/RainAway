@@ -32,8 +32,8 @@
         android:layout_width="500dp"
         android:layout_height="400dp"
         android:layout_marginTop="100dp"
-        android:text="Complete the level within 3 lives! \n\n\n
-Touch left and right to move \n\n\n
+        android:text="Complete the level within 3 lives! \n\n
+Touch left and right to move \n\n
 Collect Powerup \t\t Dodge Trap"
         android:textSize="24sp"
         android:textAlignment="center" />

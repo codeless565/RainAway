@@ -1,10 +1,8 @@
 package rainaway.sidm.com.rainaway;
-// TODO on touch hold image wil lshow information
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.Touch;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -55,7 +53,7 @@ public class Page_HelpNormal extends Activity implements OnClickListener,View.On
         else if (_view == btn_stone)
             text.setText("Decreases the player's health");
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        if (event.getAction() != MotionEvent.ACTION_UP)
             text.setVisibility(View.VISIBLE);
         else
             text.setVisibility(View.INVISIBLE);

@@ -85,7 +85,7 @@ public class Page_HelpTimeAttack extends Activity implements OnClickListener, Vi
         else if (_view == btn_stone)
             text.setText("Decreases the player's health");
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        if (event.getAction() != MotionEvent.ACTION_UP)
             text.setVisibility(View.VISIBLE);
         else
             text.setVisibility(View.INVISIBLE);

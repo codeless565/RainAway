@@ -1,5 +1,4 @@
 package rainaway.sidm.com.rainaway;
-//TODO sensitivity, control(by touch/tilt)?
 
 import android.app.Activity;
 import android.content.Context;

@@ -30,7 +30,6 @@ public class GameState_Intro implements StateBase
 
     @Override
     public void OnEnter(SurfaceView _view) {
-        //TODO  resource manager
         timer = 5.f;
         logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.player);
     }

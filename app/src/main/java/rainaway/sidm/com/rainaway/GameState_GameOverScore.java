@@ -36,7 +36,7 @@ public class GameState_GameOverScore implements StateBase{
     @Override
     public void OnEnter(SurfaceView _view) {
         view = _view;
-        timer = 5.f;
+        timer = 1.f;
         logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.backgnd);
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
     }
@@ -48,6 +48,10 @@ public class GameState_GameOverScore implements StateBase{
 
     @Override
     public void Update(float _dt) {
+        timer -= _dt;
+        if (timer >= 0.f)
+            return;
+
         if (TouchManager.Instance.HasTouch())
             Page_Game.Instance.ExitGame();
     }
@@ -67,6 +71,13 @@ public class GameState_GameOverScore implements StateBase{
         multiplier.setTextSize(60);
         multiplier.setTypeface(myfont);
         _canvas.drawText("Tap screen to return to main menu", view.getWidth() * 0.1f, view.getHeight() * 0.7f, multiplier);
+
+        Paint GameOver = new Paint();
+        GameOver.setColor(Color.WHITE);
+        GameOver.setTextSize(100);
+        GameOver.setTypeface(myfont);
+        _canvas.drawText("GAME OVER", view.getWidth() * 0.5f - GameOver.getTextSize() * 2.5f, view.getWidth() * 0.4f + GameOver.getTextSize(), GameOver);
+
     }
     // logo width and height
 }

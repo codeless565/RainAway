@@ -57,7 +57,7 @@ Collect Powerup \t\t Dodge Trap"
         android:id="@+id/SlowButton"
         android:layout_alignTop="@+id/FreezeButton"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginStart="65dp" />
+        android:layout_marginStart="70dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -90,12 +90,12 @@ Collect Powerup \t\t Dodge Trap"
         android:id="@+id/multiplierButton"
         android:layout_alignTop="@+id/ShroudButton"
         android:layout_alignStart="@+id/healthButton" />
+
     <ImageButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/slowspeed"
         android:id="@+id/slowspeedButton"
-
         android:layout_below="@+id/SlowButton"
         android:layout_toEndOf="@+id/ShroudButton" />
 

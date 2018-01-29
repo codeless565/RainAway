@@ -1,8 +1,5 @@
 package rainaway.sidm.com.rainaway;
-// TODO
-// FONT
-// AUDIO
-// PAUSE
+
 /**
  * Created by 164347E on 12/4/2017.
  */
@@ -69,21 +66,27 @@ public class Game_System{
     }
 
 
+    //******************************
+    //SharedPRef
+    //******************************
     //Save Record
     public void SaveRecord(String _key, float _value)
     {
         SaveEditBegin();
         if(gameChoice == GameChoice.TIMEATTACK)
-            SetfloatToSave(_key, _value);
+        {
+            if (_value > GetfloatFromSave(_key))
+                SetfloatToSave(_key, _value);
+        }
         else
-            SetintToSave(_key, (int)_value);
+        {
+            if (_value > GetintFromSave(_key))
+                SetintToSave(_key, (int) _value);
+        }
 
         SaveEditEnd();
     }
 
-    //******************************
-    //SharedPRef
-    //******************************
     public void InitSharedPref()
     {
         sharedPref = Page_MainMenu.Instance.getSharedPreferences(SHARED_PREF_ID, 0);

@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -53,9 +52,6 @@ public class GameState_Normal extends Activity implements StateBase
 
     @Override
     public void OnEnter(SurfaceView _view) {
-        Log.d("GameState_Normal","onEnter");
-
-
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
         view = _view;
@@ -63,11 +59,7 @@ public class GameState_Normal extends Activity implements StateBase
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(), 0.1f * _view.getHeight());
         Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0, 0));
         MovementSpeed = 10.f;
-        /********************
-         TODO
-         - Countdown
-         - Update Score as player keep playing for pickup
-         *********************/
+
         gameTime = 0.f;
         pauseBounceTime = 0.f;
         goalTimer = 0.f;
@@ -88,10 +80,6 @@ public class GameState_Normal extends Activity implements StateBase
 
     @Override
     public void OnExit() {
-        Log.d("GameState_Normal","onExit");
-        // TODO
-        // Step 1: Write all the delete and clean up functions for all other managers
-        // Step 2: Call them here
         EntityManager.Instance.Terminate();
         AudioManager.Instance.StopAllAudio();
     }

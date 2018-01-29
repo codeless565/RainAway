@@ -106,7 +106,7 @@ public class Page_HelpArcade extends Activity implements OnClickListener,View.On
         else if (_view == btn_stone)
             text.setText("Decreases the player's health");
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        if (event.getAction() != MotionEvent.ACTION_UP)
             text.setVisibility(View.VISIBLE);
         else
             text.setVisibility(View.INVISIBLE);
