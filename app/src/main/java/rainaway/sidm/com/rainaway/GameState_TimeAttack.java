@@ -15,27 +15,35 @@ import java.util.Random;
 public class GameState_TimeAttack implements StateBase
 {
     public final static GameState_TimeAttack Instance = new GameState_TimeAttack();
-    private float pauseBounceTime, ResumeTimer;
-    private float gameTime;
     SurfaceView view;
-    Entity Player;
 
+    //Player
+    Entity Player;       //Player Object
+    float movementSpeed; //Player movement Speed
+
+    //Record Time
     private float ClockSec;
     private float ClockMin;
 
-    float movementSpeed;
+    //Timers
+    private float pauseBounceTime, ResumeTimer; //Resumer button timer
+    private float gameTime;             //Gameplay timer, affected by Pause
+    private float Score, S_Multiplier;  //Score
 
     // FONT
     Typeface myfont;
 
-    //Object
+    //Object variable
     private float objectSpeed;
     private float objectSpawnDelay, objectBounceTimer;
 
     //Buff Timers
-    private float buffSpawnDelay, buffBounceTimer;
+    private float buffSpawnDelay;   //Interval between each buff spawning
+    private float buffBounceTimer;  //Timer for buff spawn
+    private float slowplayerTimer, freezeTimer, shroudTimer; //Buff Activation time
+
+    //Simulation/Game speed
     private float m_speed;
-    private float slowplayerTimer, freezeTimer;
 
     @Override
     public String GetName() {
@@ -45,24 +53,24 @@ public class GameState_TimeAttack implements StateBase
     @Override
     public void CollisionResponse(Entity.ENTITYTYPE type) {
         switch (type) {
-            case OBSTACLE_ROCK:
+            case OBSTACLE_ROCK: //Damage Player
             {
                 --Player.Life;
                 break;
             }
-            case POWERUP_SLOWDOWN:
+            case POWERUP_SLOWDOWN: //Slow down obstacles
             {
-                objectSpeed *= 0.9f; //Decrease speed
-                objectSpawnDelay *= 1.05f; //increase spawn delay
+                objectSpeed *= 0.8f; //Decrease speed
+                objectSpawnDelay *= 1.1f; //increase spawn delay
                 break;
             }
-            case POWERUP_FREEZE: //slow m_speed for awhile
+            case POWERUP_FREEZE: //slow Game speed for awhile
             {
                 freezeTimer = 5.f;
                 m_speed = 0.5f;
                 break;
             }
-            case POWERUP_ADDHP: //Add hp
+            case POWERUP_ADDHP: //Add hp to player
             {
                 ++Player.Life;
                 break;
@@ -75,9 +83,16 @@ public class GameState_TimeAttack implements StateBase
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
         view = _view;
-        // now can create
+
+        //Creates Player for the Game
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(), 0.1f * _view.getHeight());
         Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0, 0));
+
+        /********************************************
+         //Initiallise all variable to start values
+         ********************************************/
+        Player.Life = 3;
+        Player.isShrouded = false;
         movementSpeed = 50.f;
 
         gameTime = 0.f;
@@ -96,6 +111,7 @@ public class GameState_TimeAttack implements StateBase
         buffSpawnDelay = 5.f;
         buffBounceTimer = 0.f;
 
+        //Buff elapse timers
         slowplayerTimer = 0.f;
         freezeTimer = 0.f;
 
@@ -114,15 +130,21 @@ public class GameState_TimeAttack implements StateBase
     }
 
     @Override
-    public void Update(float _dt) {
+    public void Update(float _dt)
+    {
+        /****************************************
+         * GAME OVER *
+         *****************************************/
         if (Player.Life <= 0) // player dies, go to game over screen
-        {//Saves data over to scene_Data
-                Game_Data.Instance.setGameTime(gameTime);
+        {
+            //Saves data over to scene_Data
+            Game_Data.Instance.setGameTime(gameTime);
+
+            //Save Record
+            Game_System.Instance.SaveRecord("TimeAttack", gameTime);
 
             //Go to GameOverScreen
-            Game_System.Instance.SaveRecord("TimeAttack", gameTime);
             StateManager.Instance.ChangeState("GameState_GameOverTime");
-
             return;
         }
 
@@ -144,57 +166,54 @@ public class GameState_TimeAttack implements StateBase
         if (Game_System.Instance.getIsPaused())
             return;
 
-        //if not paused but resume time is yet to count finish
-
+        ResumeTimer -= _dt; //Countdown resumes when it is unpaused
         if (ResumeTimer > 0.f)
-        {
-            ResumeTimer -= _dt;
             return;
-        }
 
         /****************************************
          * RUNNING TIMER *
          *****************************************/
-        gameTime += _dt * m_speed;
-        buffBounceTimer += _dt * m_speed;
-        buffSpawnDelay += 0.01 * _dt * m_speed;
-        objectBounceTimer += _dt * m_speed;
-        objectSpeed += 0.01 * _dt * m_speed;
-        objectSpawnDelay -= 0.01 * _dt * m_speed;
-        ClockSec += _dt * m_speed;
+        gameTime += _dt;                         //Elasped play time - not affected by freeze
+        buffBounceTimer += _dt * m_speed;        //Buff Spawning bounceTime
+        buffSpawnDelay  += 0.01 * _dt * m_speed; //Increase delay between spawn as game progresses
+        objectBounceTimer += _dt * m_speed;      //Object Spawning bounceTime
+        objectSpeed += 0.01 * _dt * m_speed;     //Increase Object's Speed as game progresses
+        objectSpawnDelay -= 0.01 * _dt * m_speed;//Increase the rate of object spawning as game progresses
 
         /****************************************
          * RUNNING Clock *
          *****************************************/
+        ClockSec += _dt;  //Add sec to timer
         if (ClockSec>=60.f)
-        {
+        {//increase the min and reset sec to 0
             ++ClockMin;
             ClockSec=0;
         }
 
         //Buff Timer
-        if (slowplayerTimer >= 0.f)
+        if (slowplayerTimer >= 0.f) //Slow Debuff is Active
             slowplayerTimer -= _dt;
-        else if (slowplayerTimer < 0.f && movementSpeed != 50.f)
+        else if (slowplayerTimer < 0.f && movementSpeed != 50.f) //Reset the player movement speed back to normal
             movementSpeed = 50.f;
 
-        if (freezeTimer >= 0.f)
+        if (freezeTimer >= 0.f) //Freeze time buff is Active
             freezeTimer -= _dt;
-        else if (freezeTimer < 0.f && m_speed < 1.f)
+        else if (freezeTimer < 0.f && m_speed < 1.f) // Reset the Game Speed
             m_speed = 1.f;
 
         /****************************************
          * OBJECT * (Spawns only 1 obj at 1 time)
          *****************************************/
-        //Random Object Spawn
+        //Obstacle Spawn
         if (objectBounceTimer >= objectSpawnDelay) {
             Random ranGen = new Random();
             Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                     new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
-            objectBounceTimer = 0.f;
+            objectBounceTimer = 0.f;//reset timer
         }
 
+        //Random buff Spawn
         if (buffBounceTimer >= buffSpawnDelay) {
             Random ranGen = new Random(); //random x position
 
@@ -214,9 +233,10 @@ public class GameState_TimeAttack implements StateBase
                         new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                         new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
             }
-            buffSpawnDelay -= 0.1f;
+            else
+                buffSpawnDelay -= 0.1f; //reduce spawnDelay if nothing is spawned
 
-            buffBounceTimer = 0.f;
+            buffBounceTimer = 0.f;//reset timer
         }
 
         /****************************************
@@ -272,10 +292,6 @@ public class GameState_TimeAttack implements StateBase
          *****************************************/
         //Update all the Entity in the List
         EntityManager.Instance.Update(_dt * m_speed);
-
-        /****************************************
-         * TRANSITION *
-         *****************************************/
     }
 
     @Override
@@ -295,13 +311,14 @@ public class GameState_TimeAttack implements StateBase
         score.setTypeface(myfont);
         _canvas.drawText("Time: " + String.valueOf((int) ClockMin), view.getWidth() * 0.6f, score.getTextSize(), score);
 
-        //Show Multiplier
+        //Show Time elasped
         Paint multiplier = new Paint();
         multiplier.setColor(Color.BLACK);
         multiplier.setTextSize(60);
         multiplier.setTypeface(myfont);
         _canvas.drawText("       :" + String.valueOf((int) ClockSec), view.getWidth() * 0.6f, multiplier.getTextSize(), multiplier);
 
+        //Show Resume Timer
         if(ResumeTimer >= 0.f)
         {
             Paint Resume = new Paint();
@@ -311,6 +328,7 @@ public class GameState_TimeAttack implements StateBase
             _canvas.drawText(String.valueOf((int) ResumeTimer), view.getWidth() * 0.5f, view.getWidth() * 0.4f + Resume.getTextSize(), Resume);
         }
 
+        //Print "PAUSED" on screen
         if(Game_System.Instance.getIsPaused())
         {
             Paint Pause = new Paint();
@@ -320,6 +338,7 @@ public class GameState_TimeAttack implements StateBase
             _canvas.drawText("Paused" , view.getWidth() * 0.5f - Pause.getTextSize(), view.getWidth() * 0.4f + Pause.getTextSize(), Pause);
         }
 
+        //Print "GAME OVER" on screen
         if(Player.Life <= 0.f)
         {
             Paint GameOver = new Paint();

@@ -1,13 +1,18 @@
 package rainaway.sidm.com.rainaway;
 
-import android.util.Log;
 import android.view.MotionEvent;
+
+
+/**
+ * Created by 164353M on 12/4/2017.
+ */
 
 public class TouchManager
 {
     //Singleton
     public final static TouchManager Instance = new TouchManager();
 
+    // Possible Results from TouchManager
     public enum TouchResult
     {
         NONE,
@@ -51,6 +56,7 @@ public class TouchManager
 
     public void Update(MotionEvent event)
     {
+        // Boolean to receive touch on screen
         if (event.getAction() == MotionEvent.ACTION_UP)
             Touching=false;
         else
@@ -87,6 +93,8 @@ public class TouchManager
             ResetTouch();                                                               // Reset Touch Positions, Status and Touch on screen
     }
 
+
+    // Reset Touch Positions, Status and Touch on screen
     public void ResetTouch()
     {
         CurrTouch=new Vector2(0,0);

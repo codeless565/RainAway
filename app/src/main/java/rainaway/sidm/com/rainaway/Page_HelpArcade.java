@@ -37,42 +37,38 @@ public class Page_HelpArcade extends Activity implements OnClickListener,View.On
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want!
-        setContentView(R.layout.help_arcadescreen); //We will use GameView instead
-        //setContentView(new GameView(this));
+        setContentView(R.layout.help_arcadescreen);
 
         //Set Listener to button
-        btn_back = (Button)findViewById(R.id.btn_arcadehelpback);
-        btn_back.setOnClickListener(this);
+        btn_back = (Button)findViewById(R.id.btn_arcadehelpback);   // Back Button
+        btn_back.setOnClickListener(this);                          // Set ClickListener to Back Button
 
-        text = (TextView)findViewById(R.id.Adescriptionbox);
+        text = (TextView)findViewById(R.id.Adescriptionbox);        // Description TextBox
 
-        btn_slow = (ImageButton)findViewById(R.id.SlowButton);
-        btn_slow.setOnTouchListener(this);
-        btn_freeze = (ImageButton)findViewById(R.id.FreezeButton);
-        btn_freeze.setOnTouchListener(this);
-        btn_hp = (ImageButton)findViewById(R.id.healthButton);
-        btn_hp.setOnTouchListener(this);
-        btn_shroud = (ImageButton)findViewById(R.id.ShroudButton);
-        btn_shroud.setOnTouchListener(this);
-        btn_multiplier = (ImageButton)findViewById(R.id.multiplierButton);
-        btn_multiplier.setOnTouchListener(this);
-        btn_slowspeed = (ImageButton)findViewById(R.id.slowspeedButton);
-        btn_slowspeed.setOnTouchListener(this);
-        btn_stone = (ImageButton)findViewById(R.id.StoneButton);
-        btn_stone.setOnTouchListener(this);
+        btn_slow = (ImageButton)findViewById(R.id.SlowButton);      // Slow Button
+        btn_slow.setOnTouchListener(this);                          // Set TouchListener to Slow Button
+        btn_freeze = (ImageButton)findViewById(R.id.FreezeButton);  // Freeze Button
+        btn_freeze.setOnTouchListener(this);                        // Set TouchListener to Freeze Button
+        btn_hp = (ImageButton)findViewById(R.id.healthButton);      // Health Button
+        btn_hp.setOnTouchListener(this);                            // Set TouchListener to Health Button
+        btn_shroud = (ImageButton)findViewById(R.id.ShroudButton);  // Shroud Button
+        btn_shroud.setOnTouchListener(this);                        // Set TouchListener to Shroud Button
+        btn_multiplier = (ImageButton)findViewById(R.id.multiplierButton);// Multiplier Button
+        btn_multiplier.setOnTouchListener(this);                    // Set TouchListener to Multiplier Button
+        btn_slowspeed = (ImageButton)findViewById(R.id.slowspeedButton);// Slow Speed Button
+        btn_slowspeed.setOnTouchListener(this);                     // Set TouchListener to Slow Speed Button
+        btn_stone = (ImageButton)findViewById(R.id.StoneButton);    // Stone Button
+        btn_stone.setOnTouchListener(this);                         // Set TouchListener to Stone Button
     }
 
     //Invoke a callback on clicked event on a view
     public void onClick(View _view)
     {
-        Intent intent = new Intent();
 
-        if(_view == btn_back)
+        if(_view == btn_back)                               // If click is on Back Button
         {
-            intent.setClass(this, Page_StageArcade.class);
+            finish();
         }
-        startActivity(intent);
     }
 
     @Override
@@ -91,27 +87,32 @@ public class Page_HelpArcade extends Activity implements OnClickListener,View.On
 
     @Override
     public boolean onTouch(View _view, MotionEvent event) {
-        if (_view == btn_slow)
-            text.setText("Slows down time");
-        else if (_view == btn_freeze)
-            text.setText("Freezes time");
-        else if (_view == btn_hp)
-            text.setText("Increases player life");
-        else if (_view == btn_shroud)
-            text.setText("Gives player invulnerability");
-        else if (_view == btn_multiplier)
-            text.setText("Increases multiplier");
-        else if (_view == btn_slowspeed)
-            text.setText("Slows player speed");
-        else if (_view == btn_stone)
-            text.setText("Decreases the player's health");
+        if (_view == btn_slow)                              // If touch is on Slow Button
+            text.setText("Slows down time");                // Set text value
+        else if (_view == btn_freeze)                       // If touch is on Freeze Button
+            text.setText("Freezes time");                   // Set text value
+        else if (_view == btn_hp)                           // If touch is on Health Button
+            text.setText("Increases player life");          // Set text value
+        else if (_view == btn_shroud)                       // If touch is on Shroud Button
+            text.setText("Gives player invulnerability");   // Set text value
+        else if (_view == btn_multiplier)                   // If touch is on Multipler Button
+            text.setText("Increases multiplier");           // Set text value
+        else if (_view == btn_slowspeed)                    // If touch is on Slow Speed Button
+            text.setText("Slows player speed");             // Set text value
+        else if (_view == btn_stone)                        // If touch is on Stone Button
+            text.setText("Decreases the player's health");  // Set text value
 
-        if (event.getAction() != MotionEvent.ACTION_UP)
-            text.setVisibility(View.VISIBLE);
+        if (event.getAction() != MotionEvent.ACTION_UP)     // If There is touch
+            text.setVisibility(View.VISIBLE);               // Set Text Visibility(boolean) to true
         else
-            text.setVisibility(View.INVISIBLE);
+            text.setVisibility(View.INVISIBLE);             // Set Text Visibility(boolean) to false
 
 
         return false;
     }
+
+    public void onBackPressed() {
+        finish();
+    }
+
 }

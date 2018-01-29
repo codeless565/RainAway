@@ -10,8 +10,10 @@ import java.util.LinkedList;
 public class EntityManager
 {
     public final static EntityManager Instance = new EntityManager();
+
     private SurfaceView view = null;
-    private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
+
+    private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();   //Game Object List
 
     // If constructor of a singelton class is not private, the constuctor can be called multiple times and multiple instance which is not how a singelton should work
     private EntityManager()
@@ -36,10 +38,12 @@ public class EntityManager
         //List for object that needs to be deleted.
         LinkedList<EntityBase> removalList = new LinkedList<EntityBase>();
 
+        //Update all game object in the list
         for (EntityBase currEntity :entityList)
         {
             currEntity.Update(_dt);
 
+            //Remove any object that isDone
             if(currEntity.IsDone())
             {
                 //We need to remove this object, but since we cannot remove while iterating, we add it to a removalList
@@ -47,19 +51,20 @@ public class EntityManager
             }
         }
 
-        //Remove everything from removalList
+        //Remove everything from removalList in the entityList
         for (EntityBase currEntity :removalList)
         {
             entityList.remove(currEntity);
         }
         removalList.clear(); //Keeping things clean and tidy
 
-        //Resolve some collision
+        //Collision Checkers
         for (int i = 0; i < entityList.size(); ++i)
         {
             EntityBase currEntity = entityList.get(i);
 
-            if(currEntity instanceof EntityCollidable) // if 1st object is collidable
+            //Check if 1st object is collidable
+            if(currEntity instanceof EntityCollidable)
             {
                 EntityCollidable first = (EntityCollidable) currEntity; //Casting to a collidable
 
@@ -67,7 +72,8 @@ public class EntityManager
                 {
                     EntityBase otherEntity = entityList.get(j);
 
-                    if(otherEntity instanceof EntityCollidable) // if 2nd object is a collidable
+                    //Check if 2nd object is a collidable
+                    if(otherEntity instanceof EntityCollidable)
                     {
                         EntityCollidable second = (EntityCollidable) otherEntity;
 
@@ -81,11 +87,12 @@ public class EntityManager
                     }
                 }
 
-                //Out Of Bound
+                //1st Object is Out Of Bound
                 if(first.GetPosX() > view.getWidth() + first.GetRadius() || first.GetPosX() < -first.GetRadius() || first.GetPosY() > view.getHeight() * 2 + first.GetRadius() || first.GetPosY() < -first.GetRadius())
                     currEntity.SetIsDone(true);
             }
 
+            //check if object isDone after resolving collision
             if(currEntity.IsDone())
             {
                 //We need to remove this object, but since we cannot remove while iterating, we add it to a removalList
@@ -93,7 +100,7 @@ public class EntityManager
             }
         }
 
-        //Remove everything from removalList
+        //Remove everything from removalList in the entityList
         for (EntityBase currEntity :removalList)
         {
             entityList.remove(currEntity);
@@ -118,6 +125,7 @@ public class EntityManager
         }
     }
 
+    //Add entity to the entityList
     public void AddEntity(EntityBase _newEntity)
     {
         _newEntity.Init(view);

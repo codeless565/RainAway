@@ -1,7 +1,6 @@
 package rainaway.sidm.com.rainaway;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,19 +12,24 @@ import java.util.Random;
 public class GameState_Normal extends Activity implements StateBase
 {
     public final static GameState_Normal Instance = new GameState_Normal();
-    private float obstacleSpawnTimer, goalTimer, pauseBounceTime, ResumeTimer;
+    SurfaceView view;
+
+    private float objectSpawnDelay, objectBounceTimer, objectSpeed;
+    private float pauseBounceTime;
+    private float ResumeTimer;
     private float gameTime;
     private float Score, S_Multiplier;
-    SurfaceView view;
-    Entity Player;
 
-    float MovementSpeed;
+    //Player Info
+    Entity Player;
+    private float movementSpeed;
 
     // FONT
     Typeface myfont;
 
-    //Game Indicator
+    //Goal & Goal Indicator
     Entity Indicator, Goal;
+    private float goalTimer;
 
     @Override
     public String GetName() {
@@ -55,19 +59,32 @@ public class GameState_Normal extends Activity implements StateBase
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
         view = _view;
-        // now can create
+
+        //Creates Player for the Game
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(), 0.1f * _view.getHeight());
         Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0, 0));
-        MovementSpeed = 10.f;
 
+        /********************************************
+         //Initiallise all variable to start values
+         ********************************************/
+        //Player Info
+        Player.Life = 3;
+        Player.isShrouded = false;
+        movementSpeed = 20.f;
+
+        //Game Info
+        Score = 0;
+        S_Multiplier = 1; //Score Multiplier
+
+        //OBJ Info
+        objectSpawnDelay = 1.f; //Delay between Spawn
+        objectBounceTimer = 0.f; //Elasped Time for object Spawn
+        objectSpeed = 0.5f;
+
+        //Timers
         gameTime = 0.f;
         pauseBounceTime = 0.f;
-        goalTimer = 0.f;
         ResumeTimer = 3.5f;
-
-        Player.Life = 1;
-        Score = 0;
-        S_Multiplier = 1;
 
         //OBJ
         Indicator = null;
@@ -86,16 +103,19 @@ public class GameState_Normal extends Activity implements StateBase
 
     @Override
     public void Update(float _dt) {
+        /****************************************
+         * GAME OVER *
+         *****************************************/
         if (Player.Life <= 0) // player dies, go to game over screen
-        {//Saves data over to scene_Data
-                Game_Data.Instance.setScore(Score);
-
+        {
+            //Saves data over to scene_Data
+            Game_Data.Instance.setScore(Score);
             Game_Data.Instance.setGameTime(gameTime);
-            Game_Data.Instance.setScoreMultiplier(S_Multiplier);
+
+            //Save Record
+            Game_System.Instance.SaveRecord("Normal", Score);
 
             //Go to GameOverScreen
-            Game_System.Instance.SaveRecord("Normal", Score);
-            //Page_Game.Instance.ExitGame();
             StateManager.Instance.ChangeState("GameState_GameOverScore");
             return;
         }
@@ -118,7 +138,7 @@ public class GameState_Normal extends Activity implements StateBase
         if (Game_System.Instance.getIsPaused())
             return;
 
-        ResumeTimer -= _dt;
+        ResumeTimer -= _dt; //Countdown resumes when it is unpaused
         if (ResumeTimer > 0.f)
             return;
 
@@ -126,7 +146,7 @@ public class GameState_Normal extends Activity implements StateBase
          * RUNNING TIMER *
          *****************************************/
         gameTime += _dt;
-        obstacleSpawnTimer += _dt;
+        objectBounceTimer += _dt;
         goalTimer += _dt;
 
         if (ResumeTimer > 0.f)
@@ -141,7 +161,7 @@ public class GameState_Normal extends Activity implements StateBase
             Random ranGen = new Random();
             Goal = Entity.Create(Entity.ENTITYTYPE.OBSTACLE_GOAL,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight() * 1.5f),
-                    new Vector2(0, -view.getHeight() * 0.5f)); //type, pos, dir
+                    new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir
 
             //Indicator
             Indicator = Entity.Create(Entity.ENTITYTYPE.GHOST_INDICATOR,
@@ -149,50 +169,61 @@ public class GameState_Normal extends Activity implements StateBase
                     new Vector2(0, 0)); //type, pos, dir
 
             goalTimer = 0.f;
-            obstacleSpawnTimer = -1.f;
+            objectBounceTimer= -1.f;
         }
 
         //Random Object Spawn
-        if (obstacleSpawnTimer >= 1.f) {
+        if (objectBounceTimer >= objectSpawnDelay) {
             Random ranGen = new Random();
             Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
-                    new Vector2(0, -view.getHeight() * 0.5f)); //type, pos, dir
+                    new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir
 
-            obstacleSpawnTimer = 0.f;
+            objectBounceTimer = 0.f;
         }
 
-        Score += 10 * _dt * S_Multiplier;
+        Score += 10 * _dt * S_Multiplier; //Score per second x deltaTime x Score multiplier
 
         /****************************************
          * CONTROLS *
          *****************************************/
         //Start Accelerating towards direction
         if (TouchManager.Instance.HasTouch()) {
+            //Speed up towards Right
             if (TouchManager.Instance.getCurrTouch().x >= view.getWidth() * 0.5f)
-                Player.Dir.x += MovementSpeed * _dt;
-
+                Player.Dir.x += movementSpeed * _dt;
+            //Speed up towards Left
             if (TouchManager.Instance.getCurrTouch().x < view.getWidth() * 0.5f)
-                Player.Dir.x -= MovementSpeed * _dt;
+                Player.Dir.x -= movementSpeed * _dt;
 
-            //Lock to not go over speed limit
-            if (Player.Dir.x >= MovementSpeed)
-                Player.Dir.x = MovementSpeed;
-
-            if (Player.Dir.x <= -MovementSpeed)
-                Player.Dir.x = -MovementSpeed;
+            //Speed Limit - so player cannot go over speed limit of 50
+            if (Player.Dir.x >= movementSpeed)
+                Player.Dir.x = movementSpeed;
+            if (Player.Dir.x <= -movementSpeed)
+                Player.Dir.x = -movementSpeed;
         }
         else {
-            //Decelerate to 0
+            //Decelerate to 0 when there is no touch
             if (Player.Dir.x > 0.f)
-                Player.Dir.x -= MovementSpeed * _dt;
+            {
+                if (Player.Dir.x - movementSpeed * _dt <= 0.f)
+                    Player.Dir.x = 0.f;
+                else
+                    Player.Dir.x -= movementSpeed * _dt;
+            }
             else if (Player.Dir.x < 0.f)
-                Player.Dir.x += MovementSpeed * _dt;
+            {
+                if (Player.Dir.x + movementSpeed * _dt >= 0.f)
+                    Player.Dir.x = 0.f;
+                else
+                    Player.Dir.x += movementSpeed * _dt;
+            }
         }
 
         //Update Player Position
         Player.Pos.x += Player.Dir.x;
-        //Boundary for Player
+
+        //Boundary for Player - so player cannot move out of bound
         if (Player.Pos.x > view.getWidth() - Player.GetRadius()) {
             Player.Pos.x = view.getWidth() - Player.GetRadius();
             Player.Dir.x = 0;
@@ -207,12 +238,12 @@ public class GameState_Normal extends Activity implements StateBase
          ****************************************/
         if(Goal != null)
             if(Goal.GetPosY() < Goal.GetRadius()) //Player missed the goal
-            {
+            {//player loses a life if he misses a goal
                 --Player.Life;
                 Goal.startVibrate();
                 Goal.SetIsDone(true);
             }
-
+        //Remove indicator once goal is on screen
         if(Indicator != null)
             if(Goal.GetPosY() < view.getHeight())
                 Indicator.SetIsDone(true);
@@ -222,10 +253,6 @@ public class GameState_Normal extends Activity implements StateBase
          *****************************************/
         //Update all the Entity in the List
         EntityManager.Instance.Update(_dt);
-
-        /****************************************
-         * TRANSITION *
-         *****************************************/
     }
 
     @Override
@@ -252,6 +279,7 @@ public class GameState_Normal extends Activity implements StateBase
         multiplier.setTypeface(myfont);
         _canvas.drawText("    X: " + String.valueOf((int) S_Multiplier), view.getWidth() * 0.6f, score.getTextSize() + multiplier.getTextSize(), multiplier);
 
+        //Show Resume Timer
         if(ResumeTimer >= 0.f)
         {
             Paint Resume = new Paint();
@@ -261,6 +289,7 @@ public class GameState_Normal extends Activity implements StateBase
             _canvas.drawText(String.valueOf((int) ResumeTimer), view.getWidth() * 0.5f, view.getWidth() * 0.4f + Resume.getTextSize(), Resume);
         }
 
+        //Print "PAUSED" on screen
         if(Game_System.Instance.getIsPaused())
         {
             Paint Pause = new Paint();
@@ -270,6 +299,7 @@ public class GameState_Normal extends Activity implements StateBase
             _canvas.drawText("Paused" , view.getWidth() * 0.5f - Pause.getTextSize(), view.getWidth() * 0.4f + Pause.getTextSize(), Pause);
         }
 
+        //Print "GAME OVER" on screen
         if(Player.Life <= 0.f)
         {
             Paint GameOver = new Paint();

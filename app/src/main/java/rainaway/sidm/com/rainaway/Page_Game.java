@@ -23,7 +23,6 @@ public class Page_Game extends Activity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             Instance = this;
-            //GameView thingy
             setContentView(new GameView(this));
         }
 
@@ -33,7 +32,7 @@ public class Page_Game extends Activity {
             int x = (int) event.getX();
             int y = (int) event.getY();
 
-            TouchManager.Instance.Update(event);
+            TouchManager.Instance.Update(event); // Update Touch Manager on this page
 
             return true;
         }
@@ -41,24 +40,28 @@ public class Page_Game extends Activity {
     @Override
     protected void onDestroy()
     {
-        StateManager.Instance.ChangeState("GameState_Intro");
+        StateManager.Instance.ChangeState("GameState_Intro");   // Reset All the Games
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-        StateManager.Instance.ChangeState("GameState_Intro");
-        super.onBackPressed();
+        if (!Game_System.Instance.getIsPaused())
+            Game_System.Instance.setIsPaused(true);
+        else
+        {
+            ExitGame();
+        }
     }
 
     public void ExitGame()
     {
-        StateManager.Instance.ChangeState("GameState_Intro");
+        StateManager.Instance.ChangeState("GameState_Intro");   // Reset All the Games
 
         Intent intent = new Intent();
-        intent.setClass(this, Page_MainMenu.class);
+        intent.setClass(this, Page_MainMenu.class);             // Move to MainMenu
         startActivity(intent);
 
-        finish();
+        finish();         // Kill current page
     }
 }

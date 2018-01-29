@@ -27,22 +27,24 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want
-        setContentView(R.layout.mainmenu); //We will use GameView instead
-        //setContentView(new GameView(this));
+        setContentView(R.layout.mainmenu);
 
         Instance = this;
         Game_System.Instance.InitSharedPref();
 
+        //=========================================
+        // HighScore button but not working
+        //=========================================
         //Set Listener to button
-//        btn_highscore = (Button)findViewById(R.id.btn_highscore);
-//        btn_highscore.setOnClickListener(this);
-        btn_start = (Button)findViewById(R.id.btn_start);
-        btn_start.setOnClickListener(this);
-        btn_option = (Button)findViewById(R.id.btn_option);
-        btn_option.setOnClickListener(this);
-        btn_exit = (Button)findViewById(R.id.btn_exit);
-        btn_exit.setOnClickListener(this);
+        //btn_highscore = (Button)findViewById(R.id.btn_highscore);
+        //btn_highscore.setOnClickListener(this);
+
+        btn_start = (Button)findViewById(R.id.btn_start);   // Start Button
+        btn_start.setOnClickListener(this);                 // Set Clicklistener to Start Button
+        btn_option = (Button)findViewById(R.id.btn_option); // Option Button
+        btn_option.setOnClickListener(this);                // Set Clicklistener to Option Button
+        btn_exit = (Button)findViewById(R.id.btn_exit);     // Exit Button
+        btn_exit.setOnClickListener(this);                  // Set Clicklistener to Exit Button
     }
 
     //Invoke a callback on clicked event on a view
@@ -51,19 +53,22 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         Intent intent = new Intent();
 
         if (_view == btn_start)
-        {
-            intent.setClass(this, Page_StageNormal.class); // stageSelect Page
-        }
+            intent.setClass(this, Page_StageNormal.class);  // Move from MainMenu to StageNormal
         else if (_view == btn_option)
-        {
-            intent.setClass(this, Page_Options.class);
-        }
+            intent.setClass(this, Page_Options.class);      // Move from MainMenu to Options
         else if (_view == btn_exit)
-        {
-            System.exit(1); // exits the app
+        {//Close all Activity and exit application
+            finishAffinity();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
-//        else if (_view == btn_highscore)
-//            intent.setClass(this, Page_HighScore.class);
+
+        //=========================================
+        // HighScore button but not working
+        //=========================================
+        //else if (_view == btn_highscore)
+        //intent.setClass(this, Page_HighScore.class);
 
         startActivity(intent);
     }
@@ -80,6 +85,14 @@ public class Page_MainMenu extends Activity implements OnClickListener {
     @Override
     protected void onDestroy(){
         super.onDestroy();
+    }
+
+    public void onBackPressed() {
+        //Close all Activity and exit application
+        finishAffinity();
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }
 

@@ -6,13 +6,13 @@ import android.view.SurfaceView;
 import java.util.HashMap;
 
 /**
- * Created by Administrator on 3/12/2017.
+ * Created by 164353M on 3/12/2017.
  */
 
 public class AudioManager {
     public final static AudioManager Instance = new AudioManager();
 
-    private HashMap<Integer,MediaPlayer> audioMap = new HashMap<Integer, MediaPlayer>();
+    private HashMap<Integer,MediaPlayer> audioMap = new HashMap<Integer, MediaPlayer>();    // Container
     private SurfaceView view = null;
 
     private AudioManager()
@@ -24,6 +24,7 @@ public class AudioManager {
         view = _view;
     }
 
+    //Params: song to play(int), continuous playing(boolean)
     public void PlayAudio(int _id, boolean looping)
     {
         // Check if the audio is loaded or not
@@ -48,6 +49,7 @@ public class AudioManager {
         return false;
     }
 
+    // Stop Specific Audio
     public void StopAudio(int _id)
     {
         if (audioMap.containsKey(_id))
@@ -57,6 +59,7 @@ public class AudioManager {
         }
     }
 
+    // Stop All Audio
     public void StopAllAudio()
     {
         if (!audioMap.isEmpty())

@@ -69,5 +69,14 @@
         android:text="Vibrate"
         android:checked="true"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/ResetSP"
+        android:text="Reset HighScore"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/Vibration"
+        android:layout_alignEnd="@+id/btn_mainmenu" />
+
 
 </RelativeLayout>

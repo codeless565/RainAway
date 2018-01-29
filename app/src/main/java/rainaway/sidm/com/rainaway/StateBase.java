@@ -9,10 +9,12 @@ import android.view.SurfaceView;
 
 public interface StateBase
 {
-    String GetName();
-    void CollisionResponse(Entity.ENTITYTYPE type);
-    void OnEnter(SurfaceView _view);
-    void OnExit();
-    void Update(float _dt);
-    void Render(Canvas _canvas);
+    String GetName();    //Returns name/String of the State for stateManager
+    void CollisionResponse(Entity.ENTITYTYPE type);    //Collision Responses in that state for Player v Other object
+
+    void OnEnter(SurfaceView _view);//"Init"
+    void OnExit();                  //"Destructor"
+
+    void Update(float _dt);     //Per Frame Update
+    void Render(Canvas _canvas);//Per Frame Rendering
 }

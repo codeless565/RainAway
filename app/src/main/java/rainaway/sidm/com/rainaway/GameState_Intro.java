@@ -3,7 +3,10 @@ package rainaway.sidm.com.rainaway;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Debug;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -15,6 +18,9 @@ import android.view.SurfaceView;
 public class GameState_Intro implements StateBase
 {
     private final String Tag = "GameState_Intro";
+    SurfaceView view;
+    Typeface myfont;
+
     private float timer;
     private Bitmap logo = null;
 
@@ -30,8 +36,11 @@ public class GameState_Intro implements StateBase
 
     @Override
     public void OnEnter(SurfaceView _view) {
-        timer = 5.f;
+        timer = 3.f;
         logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.player);
+
+        view = _view;
+        myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
     }
 
     @Override
@@ -43,6 +52,7 @@ public class GameState_Intro implements StateBase
     @Override
     public void Update(float _dt) {
         timer -= _dt;
+        //Delay to the Game to prepare player
         if (timer <= 0.0f)
         {
             //we are done change to next state
@@ -66,6 +76,14 @@ public class GameState_Intro implements StateBase
         transform.postScale(timer,timer);
         transform.postTranslate(_canvas.getWidth()*0.5f,_canvas.getHeight()*0.5f);
         _canvas.drawBitmap(logo,transform,null);
+
+        //Print "GET READY" on screen
+        Paint GameOver = new Paint();
+        GameOver.setColor(Color.WHITE);
+        GameOver.setTextSize(100);
+        GameOver.setTypeface(myfont);
+        _canvas.drawText("GET READY!", view.getWidth() * 0.5f - GameOver.getTextSize() * 2.5f, view.getWidth() * 0.4f + GameOver.getTextSize(), GameOver);
+
     }
 }
 

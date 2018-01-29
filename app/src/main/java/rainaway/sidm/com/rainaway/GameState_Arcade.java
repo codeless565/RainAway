@@ -15,25 +15,31 @@ import java.util.Random;
 public class GameState_Arcade implements StateBase
 {
     public final static GameState_Arcade Instance = new GameState_Arcade();
-    private float pauseBounceTime, ResumeTimer;
-    private float gameTime;
-    private float Score, S_Multiplier;
     SurfaceView view;
-    Entity Player;
 
-    float movementSpeed;
+    //Player
+    Entity Player;       //Player Object
+    float movementSpeed; //Player movement Speed
+
+    //Timers
+    private float pauseBounceTime, ResumeTimer; //Resumer button timer
+    private float gameTime;             //Gameplay timer, affected by Pause
+    private float Score, S_Multiplier;  //Score
 
     // FONT
     Typeface myfont;
 
-    //Object
+    //Object variable
     private float objectSpeed;
     private float objectSpawnDelay, objectBounceTimer;
 
     //Buff Timers
-    private float buffSpawnDelay, buffBounceTimer;
+    private float buffSpawnDelay;   //Interval between each buff spawning
+    private float buffBounceTimer;  //Timer for buff spawn
+    private float slowplayerTimer, freezeTimer, shroudTimer; //Buff Activation time
+
+    //Simulation/Game speed
     private float m_speed;
-    private float slowplayerTimer, freezeTimer, shroudTimer;
 
     @Override
     public String GetName() {
@@ -43,16 +49,16 @@ public class GameState_Arcade implements StateBase
     @Override
     public void CollisionResponse(Entity.ENTITYTYPE type) {
         switch (type) {
-            case OBSTACLE_ROCK:
+            case OBSTACLE_ROCK: //Damage Player and Reset Score Multiplier
             {
                 --Player.Life;
                 S_Multiplier = 1.f;
                 break;
             }
-            case POWERUP_SLOWDOWN:
+            case POWERUP_SLOWDOWN: //Slow down obstacles
             {
-                objectSpeed *= 0.9f; //Decrease speed
-                objectSpawnDelay *= 1.05f; //increase spawn delay
+                objectSpeed *= 0.8f; //Decrease speed
+                objectSpawnDelay *= 1.1f; //increase spawn delay
                 break;
             }
             case POWERUP_SLOWSPEED: //slow player move speed by half for period of time
@@ -61,7 +67,7 @@ public class GameState_Arcade implements StateBase
                 movementSpeed = 30.f;
                 break;
             }
-            case POWERUP_FREEZE: //slow m_speed for awhile
+            case POWERUP_FREEZE: //slow Game speed for awhile
             {
                 freezeTimer = 5.f;
                 m_speed = 0.5f;
@@ -73,7 +79,7 @@ public class GameState_Arcade implements StateBase
                 Player.isShrouded = true;
                 break;
             }
-            case POWERUP_ADDHP: //Add hp
+            case POWERUP_ADDHP: //Add hp to player
             {
                 ++Player.Life;
                 break;
@@ -91,34 +97,43 @@ public class GameState_Arcade implements StateBase
         EntityManager.Instance.Init(_view);
         SampleBackGround.Create();
         view = _view;
-        // now can create
+
+        //Creates Player for the Game
         Vector2 PlayerPos = new Vector2(0.5f * _view.getWidth(), 0.1f * _view.getHeight());
         Player = Player.Create(Entity.ENTITYTYPE.ENTITY_PLAYER, PlayerPos, new Vector2(0, 0));
-        movementSpeed = 50.f;
 
-        gameTime = 0.f;
-        pauseBounceTime = 0.f;
-        ResumeTimer = 3.5f;
-
+        /********************************************
+        //Initiallise all variable to start values
+        ********************************************/
+        //Player Info
         Player.Life = 3;
         Player.isShrouded = false;
+        movementSpeed = 50.f;
+
+        //Game Info
         Score = 0;
         S_Multiplier = 1;
         m_speed = 1.f;
 
-        //OBJ
+        //OBJ Info
         objectSpawnDelay = 1.5f;
         objectSpeed = 0.3f;
 
-        //Buff timers
+        //Timers
+        gameTime = 0.f;
+        pauseBounceTime = 0.f;
+        ResumeTimer = 3.5f;
+
+        //Buff Spawn timers
         buffSpawnDelay = 5.f;
         buffBounceTimer = 0.f;
 
+        //Buff elapse timers
         slowplayerTimer = 0.f;
         freezeTimer = 0.f;
         shroudTimer = 0.f;
 
-        //Audio
+        //Audio & Fonts
         AudioManager.Instance.PlayAudio(R.raw.ssr,true);
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
     }
@@ -130,16 +145,18 @@ public class GameState_Arcade implements StateBase
     }
 
     @Override
-    public void Update(float _dt) {
+    public void Update(float _dt)
+    {
+        /****************************************
+         * GAME OVER *
+         *****************************************/
         if (Player.Life <= 0) // player dies, go to game over screen
         {//Saves data over to scene_Data
             Game_Data.Instance.setGameTime(gameTime);
             Game_Data.Instance.setScore(Score);
-            Game_Data.Instance.setScoreMultiplier(S_Multiplier);
 
             //Save Record
             Game_System.Instance.SaveRecord("Arcade", Score);
-
 
             //Go to GameOverScreen
             StateManager.Instance.ChangeState("GameState_GameOverScore");
@@ -173,42 +190,45 @@ public class GameState_Arcade implements StateBase
         }
 
         /****************************************
-         * RUNNING TIMER *
+         * RUNNING TIMER * Affected by Pause
          *****************************************/
-        gameTime += _dt * m_speed;
-        buffBounceTimer += _dt * m_speed;
-        buffSpawnDelay += 0.01 * _dt * m_speed;
-        objectBounceTimer += _dt * m_speed;
-        objectSpeed += 0.01 * _dt * m_speed;
-        objectSpawnDelay -= 0.01 * _dt * m_speed;
+        gameTime += _dt * m_speed;               //Elasped play time
+        buffBounceTimer += _dt * m_speed;        //Buff Spawning bounceTime
+        buffSpawnDelay  += 0.01 * _dt * m_speed; //Increase delay between spawn as game progresses
+        objectBounceTimer += _dt * m_speed;      //Object Spawning bounceTime
+        objectSpeed += 0.01 * _dt * m_speed;     //Increase Object's Speed as game progresses
+        objectSpawnDelay -= 0.01 * _dt * m_speed;//Increase the rate of object spawning as game progresses
 
         //Buff Timer
-        if (slowplayerTimer >= 0.f)
+        if (slowplayerTimer >= 0.f) //Slow Debuff is Active
             slowplayerTimer -= _dt;
-        else if (slowplayerTimer < 0.f && movementSpeed != 50.f)
+        else if (slowplayerTimer < 0.f && movementSpeed != 50.f) //Reset the player movement speed back to normal
             movementSpeed = 50.f;
 
-        if (freezeTimer >= 0.f)
+        if (freezeTimer >= 0.f) //Freeze time buff is Active
             freezeTimer -= _dt;
-        else if (freezeTimer < 0.f && m_speed < 1.f)
+        else if (freezeTimer < 0.f && m_speed < 1.f) // Reset the Game Speed
             m_speed = 1.f;
 
-        if (shroudTimer >= 0.f)
+        if (shroudTimer >= 0.f) //Shroud buff is Active
             shroudTimer -= _dt;
-        else if (shroudTimer < 0.f && Player.isShrouded)
+        else if (shroudTimer < 0.f && Player.isShrouded) //Remove the buff off the player
             Player.isShrouded = false;
+
         /****************************************
          * OBJECT * (Spawns only 1 obj at 1 time)
          *****************************************/
-        //Random Object Spawn
-        if (objectBounceTimer >= objectSpawnDelay) {
+        //Obstacle Spawn
+        if (objectBounceTimer >= objectSpawnDelay)
+        {
             Random ranGen = new Random();
             Entity.Create(Entity.ENTITYTYPE.OBSTACLE_ROCK,
                     new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                     new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
-            objectBounceTimer = 0.f;
+            objectBounceTimer = 0.f; //reset timer
         }
 
+        //Random buff Spawn
         if (buffBounceTimer >= buffSpawnDelay) {
             Random ranGen = new Random(); //random x position
 
@@ -233,33 +253,34 @@ public class GameState_Arcade implements StateBase
                         new Vector2(ranGen.nextFloat() * view.getWidth(), view.getHeight()),
                         new Vector2(0, -view.getHeight() * objectSpeed)); //type, pos, dir-speed
             }
-            buffSpawnDelay -= 0.1f;
+            else
+                buffSpawnDelay -= 0.1f; //reduce spawnDelay if nothing is spawned
 
-            buffBounceTimer = 0.f;
+            buffBounceTimer = 0.f; //reset timer
         }
 
-        Score += (10 + objectSpeed) * S_Multiplier  * _dt * m_speed;
+        Score += (10 + objectSpeed) * S_Multiplier  * _dt * m_speed; //Score per second x Score Multiplier x deltaTime x game speed
 
         /****************************************
          * CONTROLS * not affected Freeze
          *****************************************/
         //Start Accelerating towards direction
         if (TouchManager.Instance.HasTouch()) {
+            //Speed up towards Right
             if (TouchManager.Instance.getCurrTouch().x >= view.getWidth() * 0.5f)
                 Player.Dir.x += movementSpeed * _dt;
-
+            //Speed up towards Left
             if (TouchManager.Instance.getCurrTouch().x < view.getWidth() * 0.5f)
                 Player.Dir.x -= movementSpeed * _dt;
 
-            //Lock to not go over speed limit
+            //Speed Limit - so player cannot go over speed limit of 50
             if (Player.Dir.x >= movementSpeed)
                 Player.Dir.x = movementSpeed;
-
             if (Player.Dir.x <= -movementSpeed)
                 Player.Dir.x = -movementSpeed;
         }
         else {
-            //Decelerate to 0
+            //Decelerate to 0 when there is no touch
             if (Player.Dir.x > 0.f)
             {
                 if (Player.Dir.x - movementSpeed * _dt <= 0.f)
@@ -278,7 +299,8 @@ public class GameState_Arcade implements StateBase
 
         //Update Player Position
         Player.Pos.x += Player.Dir.x;
-        //Boundary for Player
+
+        //Boundary for Player - so player cannot go out of bound
         if (Player.Pos.x > view.getWidth() - Player.GetRadius()) {
             Player.Pos.x = view.getWidth() - Player.GetRadius();
             Player.Dir.x = 0;
@@ -293,10 +315,6 @@ public class GameState_Arcade implements StateBase
          *****************************************/
         //Update all the Entity in the List
         EntityManager.Instance.Update(_dt * m_speed);
-
-        /****************************************
-         * TRANSITION *
-         *****************************************/
     }
 
     @Override
@@ -335,6 +353,7 @@ public class GameState_Arcade implements StateBase
         multiplier.setTypeface(myfont);
         _canvas.drawText("    X: " + String.valueOf((int) S_Multiplier), view.getWidth() * 0.6f, score.getTextSize() + multiplier.getTextSize(), multiplier);
 
+        //Show Resume Timer
         if(ResumeTimer >= 0.f)
         {
             Paint Resume = new Paint();
@@ -344,6 +363,7 @@ public class GameState_Arcade implements StateBase
             _canvas.drawText(String.valueOf((int) ResumeTimer), view.getWidth() * 0.5f, view.getWidth() * 0.4f + Resume.getTextSize(), Resume);
         }
 
+        //Print "PAUSED" on screen
         if(Game_System.Instance.getIsPaused())
         {
             Paint Pause = new Paint();
@@ -353,6 +373,7 @@ public class GameState_Arcade implements StateBase
             _canvas.drawText("Paused" , view.getWidth() * 0.5f - Pause.getTextSize(), view.getWidth() * 0.4f + Pause.getTextSize(), Pause);
         }
 
+        //Print "GAME OVER" on screen
         if(Player.Life <= 0.f)
         {
             Paint GameOver = new Paint();

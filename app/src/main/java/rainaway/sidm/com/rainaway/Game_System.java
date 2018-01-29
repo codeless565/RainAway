@@ -7,6 +7,7 @@ package rainaway.sidm.com.rainaway;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 
+import android.util.Log;
 import android.view.SurfaceView;
 
 public class Game_System{
@@ -138,5 +139,12 @@ public class Game_System{
         sharedPrefEditor.commit();
         sharedPrefEditor = null; // clean up editor so that system will work.
         //eg. Begin > toSave > Commit > delete >cont.
+    }
+
+    public void ResetSharedPreference()
+    {
+        SaveEditBegin();
+        sharedPrefEditor.clear();
+        SaveEditEnd();
     }
 }

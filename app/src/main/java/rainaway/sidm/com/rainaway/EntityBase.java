@@ -12,6 +12,7 @@ public interface EntityBase
     void Update(float _dt);
     void Render (Canvas _canvas);
 
+    //Variable Getter and Setter
     boolean IsDone();
     void SetIsDone(boolean _IsDone);
     int getEntityLayer();

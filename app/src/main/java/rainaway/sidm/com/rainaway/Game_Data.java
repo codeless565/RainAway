@@ -10,58 +10,36 @@ public class Game_Data {
     //Variables
     private float gameTime;
     private float score;
-    private float scoreMultiplier;
-    private int enemiesDefeated;
-    private int goalPassed;
 
     //=========================================
     //Setters
     //=========================================
-
-
+    //Set GameTime of Previous Game played
     public void setGameTime(float newValue)
     {gameTime = newValue;}
 
+    //Set Score of Previous Game played
     public void setScore(float newValue)
     {score = newValue;}
-
-    public void setScoreMultiplier (float newValue)
-    {scoreMultiplier = newValue;}
-
-    public void setEnemiesDefeated(int newValue)
-    {enemiesDefeated = newValue;}
-
-    public void setGoalPassed(int newValue)
-    {goalPassed = newValue;}
 
     //=========================================
     //Getters
     //=========================================
-
-
+    //Get GameTime of Previous Game played
     public float getGameTime ()
     {return gameTime;}
 
+    //Get GameTime of Previous Game played
     public float getScore ()
     {return score;}
 
-    public float getScoreMultiplier ()
-    {return scoreMultiplier;}
-
-    public int getEnemiesDefeated()
-    {return enemiesDefeated;}
-
-    public int getGoalPassed()
-    {return goalPassed;}
 
     //=========================================
     //RESET DATA
     //=========================================
     public void resetData()
-    {
+    {//Resets all values to 0
         gameTime = 0;
         score = 0;
-        enemiesDefeated = 0;
-        goalPassed = 0;
     }
 }

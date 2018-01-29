@@ -30,10 +30,9 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want!
-        setContentView(R.layout.stage_arcadescreen); //We will use GameView instead
-        //setContentView(new GameView(this));
+        setContentView(R.layout.stage_arcadescreen);
 
+        // Define Button by ID
         //Set Listener to button
         btn_start = (Button) findViewById(R.id.btn_arcadestart);
         btn_start.setOnClickListener(this);
@@ -43,53 +42,64 @@ public class Page_StageArcade extends Activity implements OnClickListener{
 
         btn_help = (Button) findViewById(R.id.btn_arcadehelp);
         btn_help.setOnClickListener(this);
+
+        // Define Text By ID
+        // Set HighScore to text
         text= (TextView)findViewById(R.id.AHighscore1);
         text.setText(String.valueOf(Game_System.Instance.GetintFromSave("Arcade")));
-
     }
+
     //Invoke a callback on clicked event on a view
-
     public void onClick(View _view) {
-        Intent intent = new Intent();
 
-        if (_view == btn_start) {//Start Game here
+        if (_view == btn_start)
+        { // Set GameSystem to run Arcade Game
+            Intent intent = new Intent();
             Game_System.Instance.setGameChoice(Game_System.GameChoice.ARCADE);
-            intent.setClass(this, Page_Game.class); // stageSelect Page
-        } else if (_view == btn_back)//For other button like Helppage
+            intent.setClass(this, Page_Game.class);
+            startActivity(intent);
+            finish();
+        }
+        else if (_view == btn_back)
         {
+            finish();
+            Intent intent = new Intent();
             intent.setClass(this, Page_MainMenu.class);
+            startActivity(intent);
         }
-        else if(_view == btn_help)//For other button like Helppage
-        {
+        else if(_view == btn_help) {
+            Intent intent = new Intent();
             intent.setClass(this, Page_HelpArcade.class);
+            startActivity(intent);
+            finish();
         }
-
-
-        startActivity(intent);
     }
 
     public boolean onTouchEvent(MotionEvent event)
     {
-        Intent intent = new Intent();
-
+        // Update the TouchManager to read Touches
         TouchManager.Instance.Update(event);
-
 
         // SWITCH ACTIVITY
         if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {
+            Intent intent = new Intent();
+            // On Left Swipe
             intent.setClass(this, Page_StageTimeAttack.class);
             startActivity(intent);
+            finish();
         }
         else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
         {
+            Intent intent = new Intent();
+            // On Right Swipe
             intent.setClass(this, Page_StageNormal.class);
             startActivity(intent);
+            finish();
         }
 
         return true;
     }
-
 
     @Override
     protected void onPause() {
@@ -104,4 +114,12 @@ public class Page_StageArcade extends Activity implements OnClickListener{
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent();
+        intent.setClass(this, Page_MainMenu.class);
+        startActivity(intent);
+    }
+
 }

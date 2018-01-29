@@ -23,11 +23,10 @@ public class Page_Options extends Activity implements OnClickListener {
     //define button as Object
     private Button btn_mainmenu;
     private SeekBar seekBar_volume;
+    private Button btn_reset;
 
     private AudioManager audioManager;
     private CheckBox vibration;
-
-    final int MAX_VOLUME = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,43 +37,45 @@ public class Page_Options extends Activity implements OnClickListener {
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want!
-        setContentView(R.layout.optionpage); //We will use GameView instead
-        //setContentView(new GameView(this));
+        setContentView(R.layout.optionpage);
 
         //Set Listener to button
-        btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu);
-       btn_mainmenu.setOnClickListener(this);
+        btn_mainmenu = (Button)findViewById(R.id.btn_mainmenu); // Main Menu Button
+        btn_mainmenu.setOnClickListener(this);                  // Set Clicklistener to MainMenu Button
+        btn_reset = (Button)findViewById(R.id.ResetSP);         // Reset Shared Preference Button
+        btn_reset.setOnClickListener(this);                     // Set Clicklistener to Reset Button
 
-        vibration = (CheckBox)findViewById(R.id.Vibration);
-        if (TouchManager.Instance.getVibration())
-            vibration.setChecked(true);
+        vibration = (CheckBox)findViewById(R.id.Vibration);     // Vibration Checkbox
+        if (TouchManager.Instance.getVibration())               // Default Value of checkbox onCreate based on TouchManager.Vibration(Boolean)
+            vibration.setChecked(true);                         // If Vibration Enabled, Tick CheckBox
         else
-            vibration.setChecked(false);
+            vibration.setChecked(false);                        // If Vibration Enabled, Untick CheckBox
 
 
-
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        initControls();
+        seekBar_volume = (SeekBar)findViewById(R.id.SFXSeekBar);// AudioVolume SeekBar
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);      // Set AudioStream to modify
+        initControls();                                         // Function for Audio Volume
     }
     //Invoke a callback on clicked event on a view
     public void onClick(View _view)
     {
-        Intent intent = new Intent();
-
-        if(_view == btn_mainmenu)
-
+        if(_view == btn_mainmenu)                               // If click is on Main Menu Button
         {
-            if (vibration.isChecked())
-                TouchManager.Instance.setVibration(true);
-            else
-                TouchManager.Instance.setVibration(false);
+            Intent intent = new Intent();
 
-            intent.setClass(this, Page_MainMenu.class);
+            if (vibration.isChecked())                          // Saving to Touch Manager when leaving the Activity
+                TouchManager.Instance.setVibration(true);       // If CheckBox is ticked, Save TouchManager.Vibration(Boolean) to true
+            else
+                TouchManager.Instance.setVibration(false);      // If CheckBox is ticked, Save TouchManager.Vibration(Boolean) to false
+
+            intent.setClass(this, Page_MainMenu.class);         // Move from Options to MainMenu
+            startActivity(intent);
+            finish();
         }
 
+        if (_view==btn_reset)                                   // If click is on Reset Button
+            Game_System.Instance.ResetSharedPreference();       // Reset Function for SharedPreference
 
-        startActivity(intent);
     }
 
     @Override
@@ -95,13 +96,12 @@ public class Page_Options extends Activity implements OnClickListener {
     {
         try
         {
-            seekBar_volume = (SeekBar)findViewById(R.id.SFXSeekBar);
-            audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            seekBar_volume.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
-            seekBar_volume.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);              // Get AudioStream to edit
+            seekBar_volume.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));  // Maximum Value for SeekBar based on Phone's AudioStream
+            seekBar_volume.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));// Current Value for SeekBar based on Phone's AudioStream
 
 
-            seekBar_volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+            seekBar_volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()     // Set SeekBarChangeListener to Seekbar
             {
                 @Override
                 public void onStopTrackingTouch(SeekBar arg0)
@@ -114,19 +114,15 @@ public class Page_Options extends Activity implements OnClickListener {
                 }
 
                 @Override
-                public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)
+                public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)         // If there is change in value aka progress
                 {
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);       // Set Phone's AudioStream Volume to progress
 
-                    String text="";
-                    if (!rainaway.sidm.com.rainaway.AudioManager.Instance.getAudioMap().isEmpty())
+                    if (!rainaway.sidm.com.rainaway.AudioManager.Instance.getAudioMap().isEmpty())  // Change the volume of every music in AudioManager
                     {
-                        for (int i:rainaway.sidm.com.rainaway.AudioManager.Instance.getAudioMap().keySet())
+                        for (int i:rainaway.sidm.com.rainaway.AudioManager.Instance.getAudioMap().keySet()) // Point to the StorageContainer(HashMap<K,V>) of Audio Manager Value(the audio)
                         {
-                            rainaway.sidm.com.rainaway.AudioManager.Instance.getAudio(i).setVolume(progress,progress);
-
-                            text = "Edited with volume " + String.valueOf(progress);
-                            Log.d(Tag,text);
+                            rainaway.sidm.com.rainaway.AudioManager.Instance.getAudio(i).setVolume(progress,progress);  // Set the Volume of the current Audio(V) based on the Key to the progress for both Left and Right
                         }
                     }
                 }
@@ -138,5 +134,9 @@ public class Page_Options extends Activity implements OnClickListener {
         {
             e.printStackTrace();
         }
+    }
+
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -32,15 +32,19 @@ public class StateManager {
 
     public void Update(float _dt)
     {
+        // Cleanly move to next state if there is one
         if (nextState != currState)
         {
             currState.OnExit();
             nextState.OnEnter(view);
             currState = nextState;
         }
+
+        // If currstate == null, no need to update anything
         if (currState == null)
             return;
 
+        // Update currstate
         currState.Update(_dt);
     }
 
@@ -80,6 +84,8 @@ public class StateManager {
     //=========================================
     //Getter
     //=========================================
+
+    //Get currState name
     String GetCurrentState()
     {
         if (currState == null)
@@ -88,14 +94,9 @@ public class StateManager {
         return currState.GetName();
     }
 
+    //Get currState StateBase
     public StateBase getCurrState()
     {
         return currState;
     }
-
-    public HashMap<String,StateBase> getHashMap()
-    {
-        return stateMap;
-    }
-
 }

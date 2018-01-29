@@ -30,33 +30,31 @@ public class Page_HelpNormal extends Activity implements OnClickListener,View.On
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want!
-        setContentView(R.layout.help_normalscreen); //We will use GameView instead
-        //setContentView(new GameView(this));
+        setContentView(R.layout.help_normalscreen);
 
         //Set Listener to button
-        btn_back = (Button)findViewById(R.id.btn_normalhelpback);
-        btn_back.setOnClickListener(this);
+        btn_back = (Button)findViewById(R.id.btn_normalhelpback); // Back Button
+        btn_back.setOnClickListener(this);                          // Set ClickListener to Back Button
 
-        text =(TextView)findViewById(R.id.descriptionbox);
+        text =(TextView)findViewById(R.id.descriptionbox);          // Description TextBox
 
-        btn_goal = (ImageButton)findViewById(R.id.GoalButton);
-        btn_goal.setOnTouchListener(this);
-        btn_stone = (ImageButton)findViewById(R.id.StoneButton);
-        btn_stone.setOnTouchListener(this);
+        btn_goal = (ImageButton)findViewById(R.id.GoalButton);      // Health Button
+        btn_goal.setOnTouchListener(this);                          // Set TouchListener to Health Button
+        btn_stone = (ImageButton)findViewById(R.id.StoneButton);    // Stone Button
+        btn_stone.setOnTouchListener(this);                         // Set TouchListener to Stone Button
     }
 
     @Override
     public boolean onTouch(View _view, MotionEvent event) {
-        if (_view == btn_goal)
-            text.setText("Gives players points and increase multiplier");
-        else if (_view == btn_stone)
-            text.setText("Decreases the player's health");
+        if (_view == btn_goal)                                              // If touch is on Goal Button
+            text.setText("Gives players points and increase multiplier");   // Set text value
+        else if (_view == btn_stone)                                        // If touch is on Stone Button
+            text.setText("Decreases the player's health");                  // Set text value
 
-        if (event.getAction() != MotionEvent.ACTION_UP)
-            text.setVisibility(View.VISIBLE);
+        if (event.getAction() != MotionEvent.ACTION_UP)                     // If There is touch
+            text.setVisibility(View.VISIBLE);                               // Set Text Visibility(boolean) to true
         else
-            text.setVisibility(View.INVISIBLE);
+            text.setVisibility(View.INVISIBLE);                             // Set Text Visibility(boolean) to false
 
         return false;
     }
@@ -64,12 +62,10 @@ public class Page_HelpNormal extends Activity implements OnClickListener,View.On
     //Invoke a callback on clicked event on a view
     public void onClick(View _view)
     {
-        Intent intent = new Intent();
-        if(_view == btn_back)
+        if(_view == btn_back)                               // If click is on Back Button
         {
-            intent.setClass(this, Page_StageNormal.class);
+            finish();
         }
-        startActivity(intent);
     }
 
     @Override
@@ -85,4 +81,9 @@ public class Page_HelpNormal extends Activity implements OnClickListener,View.On
     protected void onDestroy(){
         super.onDestroy();
     }
+
+    public void onBackPressed() {
+        finish();
+    }
+
 }

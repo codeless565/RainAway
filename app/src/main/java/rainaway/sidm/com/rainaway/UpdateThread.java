@@ -50,10 +50,6 @@ public class UpdateThread extends Thread
 
         //Scene.Init(view);
         StateManager.Instance.Start("GameState_Intro");
-        String Tag = "Update thread -- ";
-        String text = StateManager.Instance.GetCurrentState();
-        Log.d(Tag,text);
-
 
         while (isRunning)
         {

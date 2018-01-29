@@ -32,10 +32,9 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
         //Hide the top bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //This is using layout! Not what we want!
-        setContentView(R.layout.stage_timeattackscreen); //We will use GameView instead
-        //setContentView(new GameView(this));
+        setContentView(R.layout.stage_timeattackscreen);
 
+        // Define Button by ID
         //Set Listener to button
         btn_start = (Button) findViewById(R.id.btn_timeattackstart);
         btn_start.setOnClickListener(this);
@@ -46,52 +45,61 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
         btn_help = (Button) findViewById(R.id.btn_timeattackhelp);
         btn_help.setOnClickListener(this);
 
+        // Define Text By ID
+        // Set HighScore to text
         text = (TextView)findViewById(R.id.THighscore1);
+        // Split Recordtime aka Gametime to Mins and Seconds
         float RecordTime = Game_System.Instance.GetfloatFromSave("TimeAttack");
-        if (RecordTime >= 0.f)
+        if (RecordTime >= 0.f) // If there is a record/played
         {
-            float timemin = RecordTime/60;
-            float timesec = RecordTime-(60*(int)timemin);
+            float timemin = RecordTime/60;      // Evaluate the Minutes
+            float timesec = RecordTime-(60*(int)timemin); // Evaluate the Seconds
 
             text.setText(String.valueOf((int)timemin) + ":" + String.valueOf((int)timesec) + " mins");
         }
     }
+
     //Invoke a callback on clicked event on a view
-
     public void onClick(View _view) {
-        Intent intent = new Intent();
 
-        if (_view == btn_start) {
+        if (_view == btn_start) { // Set GameSystem to run TimeAttack Game
+            Intent intent = new Intent();
             Game_System.Instance.setGameChoice(Game_System.GameChoice.TIMEATTACK);
-            intent.setClass(this, Page_Game.class); // stageSelect Page
-        } else if (_view == btn_back)//For other button like Helppage
+            intent.setClass(this, Page_Game.class);
+            startActivity(intent);
+        }
+        else if (_view == btn_back)
         {
+            finish();
+            Intent intent = new Intent();
             intent.setClass(this, Page_MainMenu.class);
+            startActivity(intent);
         }
-        else if(_view == btn_help)//For other button like Helppage
+        else if(_view == btn_help)
         {
+            Intent intent = new Intent();
             intent.setClass(this, Page_HelpTimeAttack.class);
+            startActivity(intent);
         }
-
-
-        startActivity(intent);
     }
 
     public boolean onTouchEvent(MotionEvent event)
     {
-        Intent intent = new Intent();
-
+        // Update the TouchManager to read Touches
         TouchManager.Instance.Update(event);
-
 
         // SWITCH ACTIVITY
         if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPELEFT)
         {
+            Intent intent = new Intent();
+            // On Left Swipe
             intent.setClass(this, Page_StageNormal.class);
             startActivity(intent);
         }
         else if (TouchManager.Instance.getTouchResult() == TouchManager.TouchResult.SWIPERIGHT)
         {
+            Intent intent = new Intent();
+            // On Right Swipe
             intent.setClass(this, Page_StageArcade.class);
             startActivity(intent);
         }
@@ -112,6 +120,14 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void onBackPressed() {
+
+        finish();
+        Intent intent = new Intent();
+        intent.setClass(this, Page_MainMenu.class);
+        startActivity(intent);
     }
 
 }
