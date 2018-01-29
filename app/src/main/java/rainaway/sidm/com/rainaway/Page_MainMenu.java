@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 
 public class Page_MainMenu extends Activity implements OnClickListener {
+    public static Page_MainMenu Instance = null;
 
     //define button as Object
     //private Button btn_highscore;
@@ -29,6 +30,9 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         //This is using layout! Not what we want
         setContentView(R.layout.mainmenu); //We will use GameView instead
         //setContentView(new GameView(this));
+
+        Instance = this;
+        Game_System.Instance.InitSharedPref();
 
         //Set Listener to button
 //        btn_highscore = (Button)findViewById(R.id.btn_highscore);

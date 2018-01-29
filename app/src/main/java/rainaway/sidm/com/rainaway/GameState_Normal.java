@@ -107,6 +107,8 @@ public class GameState_Normal extends Activity implements StateBase
             Game_Data.Instance.setScoreMultiplier(S_Multiplier);
 
             //Go to GameOverScreen
+            Game_System.Instance.SaveRecord("Normal", Score);
+            Page_Game.Instance.ExitGame();
             return;
         }
 

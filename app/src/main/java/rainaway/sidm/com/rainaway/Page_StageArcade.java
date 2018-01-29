@@ -44,7 +44,7 @@ public class Page_StageArcade extends Activity implements OnClickListener{
         btn_help = (Button) findViewById(R.id.btn_arcadehelp);
         btn_help.setOnClickListener(this);
         text= (TextView)findViewById(R.id.AHighscore1);
-        text.setText(String.valueOf((int)Game_Data.Instance.getAscore()));
+        text.setText(String.valueOf(Game_System.Instance.GetintFromSave("Arcade")));
 
     }
     //Invoke a callback on clicked event on a view

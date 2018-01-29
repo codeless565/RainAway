@@ -7,6 +7,7 @@ package rainaway.sidm.com.rainaway;
  * Created by 164347E on 12/4/2017.
  */
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 
 import android.view.SurfaceView;
@@ -14,6 +15,7 @@ import android.view.SurfaceView;
 public class Game_System{
     //MEMBER VARIABLES
     public final static Game_System Instance = new Game_System();
+
     enum GameChoice
     {
         NORMAL,
@@ -26,9 +28,14 @@ public class Game_System{
 
     private GameChoice gameChoice = GameChoice.NORMAL;
 
+    //SharedPreferences
+    public final static String SHARED_PREF_ID = "HighScoresFile"; //Game Save File ID
+    SharedPreferences sharedPref = null;
+    SharedPreferences.Editor sharedPrefEditor = null;
+
     //FUNCTIONS
     public void setGameChoice(GameChoice _gameChoice)
-    {gameChoice=_gameChoice;}
+    {gameChoice = _gameChoice;}
 
     public GameChoice getGameChoice()
     {return gameChoice;}
@@ -58,5 +65,74 @@ public class Game_System{
     }
 
     public void Render(Canvas _canvas) {
+    }
+
+
+    //Save Record
+    public void SaveRecord(String _key, float _value)
+    {
+        SaveEditBegin();
+        if(gameChoice == GameChoice.TIMEATTACK)
+            SetfloatToSave(_key, _value);
+        else
+            SetintToSave(_key, (int)_value);
+
+        SaveEditEnd();
+    }
+
+    //******************************
+    //SharedPRef
+    //******************************
+    public void InitSharedPref()
+    {
+        sharedPref = Page_MainMenu.Instance.getSharedPreferences(SHARED_PREF_ID, 0);
+    }
+    public void SetintToSave(String _key, int _value)
+    {
+        //Only allow if there is an editor
+        if(sharedPrefEditor == null)
+            return;
+
+        sharedPrefEditor.putInt(_key,_value);
+    }
+    public int GetintFromSave(String _key)
+    {
+        //Attempt to get value from _key, if fail, will return default Variable
+        return sharedPref.getInt(_key, 0);
+    }
+
+    public void SetfloatToSave(String _key, float _value)
+    {
+        //Only allow if there is an editor
+        if(sharedPrefEditor == null)
+            return;
+
+        sharedPrefEditor.putFloat(_key,_value);
+    }
+    public float GetfloatFromSave(String _key)
+    {
+        //Attempt to get value from _key, if fail, will return default Variable
+        return sharedPref.getFloat(_key, 0.f);
+    }
+    //Begin and End
+    public void SaveEditBegin()
+    {
+        //Safety check, make sure no1 else is doing an edit (eg. have an editor)
+        if(sharedPrefEditor != null)
+            return;
+
+        //Start Editing
+        sharedPrefEditor = sharedPref.edit();
+
+    }
+    public void SaveEditEnd()
+    {
+        //Safety Check, only allow if there is and editor available
+        if(sharedPrefEditor == null)
+            return;
+
+        sharedPrefEditor.commit();
+        sharedPrefEditor = null; // clean up editor so that system will work.
+        //eg. Begin > toSave > Commit > delete >cont.
     }
 }

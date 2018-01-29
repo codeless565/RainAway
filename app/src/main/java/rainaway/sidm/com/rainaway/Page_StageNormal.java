@@ -48,7 +48,7 @@ public class Page_StageNormal extends Activity implements OnClickListener {
         btn_help.setOnClickListener(this);
 
         text= (TextView)findViewById(R.id.NHighscore1);
-        text.setText(String.valueOf((int)Game_Data.Instance.getScore()));
+        text.setText(String.valueOf(Game_System.Instance.GetintFromSave("Normal")));
     }
 
         //Invoke a callback on clicked event on a view

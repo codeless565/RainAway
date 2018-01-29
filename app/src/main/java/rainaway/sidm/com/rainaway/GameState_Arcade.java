@@ -149,7 +149,12 @@ public class GameState_Arcade implements StateBase
                 Game_Data.Instance.setAscore(Score);
             Game_Data.Instance.setScoreMultiplier(S_Multiplier);
 
+            //Save Record
+            Game_System.Instance.SaveRecord("Arcade", Score);
+
+
             //Go to GameOverScreen
+            Page_Game.Instance.ExitGame();
             return;
         }
 
