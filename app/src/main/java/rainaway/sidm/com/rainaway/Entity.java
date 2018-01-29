@@ -267,16 +267,6 @@ public class Entity implements EntityBase, EntityCollidable
                 }
 
             }
-
-            /***********************************************
-            TODO
-             - Collision Effect with Slow Time
-             - Collision Effect with Freeze Time
-             - Collision Effect with Shroud
-             - Collision Effect with Slow Speed
-             - Collision with
-            ***********************************************/
-
         }
     }
 }
