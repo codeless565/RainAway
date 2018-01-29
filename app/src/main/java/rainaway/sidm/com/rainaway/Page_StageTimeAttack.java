@@ -51,9 +51,9 @@ public class Page_StageTimeAttack extends Activity implements OnClickListener{
         if (RecordTime >= 0.f)
         {
             float timemin = RecordTime/60;
-            float timesec = RecordTime/(60*(int)timemin);
+            float timesec = RecordTime-(60*(int)timemin);
 
-            text.setText(String.valueOf((int)timemin) + ":" + String.valueOf((int)timesec*10) + " Mins");
+            text.setText(String.valueOf((int)timemin) + ":" + String.valueOf((int)timesec) + " mins");
         }
     }
     //Invoke a callback on clicked event on a view

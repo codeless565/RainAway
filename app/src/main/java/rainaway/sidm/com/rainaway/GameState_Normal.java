@@ -100,7 +100,6 @@ public class GameState_Normal extends Activity implements StateBase
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
         {//Saves data over to scene_Data
-            if (Score > Game_Data.Instance.getScore())
                 Game_Data.Instance.setScore(Score);
 
             Game_Data.Instance.setGameTime(gameTime);
@@ -108,7 +107,8 @@ public class GameState_Normal extends Activity implements StateBase
 
             //Go to GameOverScreen
             Game_System.Instance.SaveRecord("Normal", Score);
-            Page_Game.Instance.ExitGame();
+            //Page_Game.Instance.ExitGame();
+            StateManager.Instance.ChangeState("GameState_GameOverScore");
             return;
         }
 
