@@ -132,6 +132,8 @@ public class GameState_TimeAttack implements StateBase
                 Game_Data.Instance.setTgameTime(gameTime);
 
             //Go to GameOverScreen
+            Game_System.Instance.SaveRecord("TimeAttack", gameTime);
+            Page_Game.Instance.ExitGame();
             return;
         }
 

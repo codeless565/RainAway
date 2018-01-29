@@ -13,7 +13,7 @@ import android.view.WindowManager;
  */
 
 public class Page_Game extends Activity {
-    public static Page_Game Instance =null;
+    public static Page_Game Instance = null;
 
         @Override
         public void onCreate(Bundle instance)
@@ -22,7 +22,7 @@ public class Page_Game extends Activity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            Instance=this;
+            Instance = this;
             //GameView thingy
             setContentView(new GameView(this));
         }
@@ -38,17 +38,6 @@ public class Page_Game extends Activity {
             return true;
         }
 
-        public void Update(int Life)
-        {
-            Intent intent = new Intent();
-
-            if (Life <= 0)
-            {
-                intent.setClass(this, Page_MainMenu.class);
-            }
-            startActivity(intent);
-        }
-
     @Override
     protected void onDestroy()
     {
@@ -60,5 +49,16 @@ public class Page_Game extends Activity {
     public void onBackPressed() {
         StateManager.Instance.ChangeState("GameState_Intro");
         super.onBackPressed();
+    }
+
+    public void ExitGame()
+    {
+        StateManager.Instance.ChangeState("GameState_Intro");
+
+        Intent intent = new Intent();
+        intent.setClass(this, Page_MainMenu.class);
+        startActivity(intent);
+
+        finish();
     }
 }
