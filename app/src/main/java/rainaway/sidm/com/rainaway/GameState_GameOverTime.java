@@ -16,17 +16,16 @@ import android.widget.Button;
  * Created by 164353M on 1/29/2018.
  */
 
-public class GameState_GameOverNormal implements StateBase{
-    private final String Tag = "GameState_GameOverNormal";
+public class GameState_GameOverTime implements StateBase{
+    private final String Tag = "GameState_GameOverTime";
     private float timer;
     private Bitmap logo = null;
     Typeface myfont;
     SurfaceView view;
-    private Entity test;
 
     @Override
     public String GetName() {
-        return "GameState_GameOverNormal";
+        return "GameState_GameOverTime";
     }
 
     @Override
@@ -40,9 +39,6 @@ public class GameState_GameOverNormal implements StateBase{
         timer = 5.f;
         logo =  BitmapFactory.decodeResource(_view.getResources(), R.drawable.backgnd);
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
-
-
-
     }
 
     @Override
@@ -52,21 +48,29 @@ public class GameState_GameOverNormal implements StateBase{
 
     @Override
     public void Update(float _dt) {
-
+        if (TouchManager.Instance.HasTouch())
+            Page_Game.Instance.ExitGame();
     }
 
     @Override
     public void Render(Canvas _canvas) {
-        Matrix transform = new Matrix();
-        transform.postScale(-logo.getWidth()*0.5f, -logo.getHeight()*0.5f);
-        _canvas.drawBitmap(logo,transform,null);
+        //_canvas.drawBitmap(logo, 0,0,null);
+
+        Paint score = new Paint();
+        score.setColor(Color.WHITE);
+        score.setTextSize(70);
+        score.setTypeface(myfont);
+        float RecordTime = Game_Data.Instance.getGameTime();
+        float timemin = RecordTime/60;
+        float timesec = RecordTime-(60*(int)timemin);
+
+        _canvas.drawText("Time: " + String.valueOf((int) timemin) + ":" + String.valueOf((int) timesec) + " mins", view.getWidth() * 0.2f, view.getHeight() * 0.5f, score);
 
         Paint multiplier = new Paint();
         multiplier.setColor(Color.WHITE);
-        multiplier.setTextSize(70);
+        multiplier.setTextSize(60);
         multiplier.setTypeface(myfont);
-        _canvas.drawText("Score: " + String.valueOf((int) Game_Data.Instance.getScore()), view.getWidth() * 0.4f, view.getWidth() * 0.5f, multiplier);
+        _canvas.drawText("Tap screen to return to main menu", view.getWidth() * 0.1f, view.getHeight() * 0.7f, multiplier);
     }
     // logo width and height
-    // create gameobject that has collision with touch, and move to Page_Game.Instance.ExitGame();
 }

@@ -28,7 +28,7 @@ public class Entity implements EntityBase, EntityCollidable
         OBSTACLE_ROCK,
         OBSTACLE_GOAL,
 
-        GHOST_INDICATOR
+        GHOST_INDICATOR,
     }
     ENTITYTYPE m_type;
     private Bitmap bmp = null;
@@ -210,7 +210,7 @@ public class Entity implements EntityBase, EntityCollidable
                     OtherEntity.SetIsDone(true);
                     if (TouchManager.Instance.getVibration())
                         startVibrate();
-                    AudioManager.Instance.PlayAudio(R.raw.airhorn,false);
+
                     break;
                 }
                 case OBSTACLE_GOAL:
@@ -218,7 +218,7 @@ public class Entity implements EntityBase, EntityCollidable
                     StateManager.Instance.getCurrState().CollisionResponse(ENTITYTYPE.OBSTACLE_GOAL);
                     EntityBase OtherEntity = (EntityBase) _other;
                     OtherEntity.SetIsDone(true);
-                    AudioManager.Instance.PlayAudio(R.raw.ssr,false);
+
                     if (TouchManager.Instance.getVibration())
                         startVibrate();
                     break;

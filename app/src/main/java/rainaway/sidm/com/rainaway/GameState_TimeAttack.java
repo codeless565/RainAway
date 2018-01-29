@@ -128,12 +128,12 @@ public class GameState_TimeAttack implements StateBase
     public void Update(float _dt) {
         if (Player.Life <= 0) // player dies, go to game over screen
         {//Saves data over to scene_Data
-            if (gameTime > Game_Data.Instance.getTgameTime())
-                Game_Data.Instance.setTgameTime(gameTime);
+                Game_Data.Instance.setGameTime(gameTime);
 
             //Go to GameOverScreen
             Game_System.Instance.SaveRecord("TimeAttack", gameTime);
-            Page_Game.Instance.ExitGame();
+            StateManager.Instance.ChangeState("GameState_GameOverTime");
+
             return;
         }
 
@@ -315,7 +315,7 @@ public class GameState_TimeAttack implements StateBase
         multiplier.setColor(Color.BLACK);
         multiplier.setTextSize(60);
         multiplier.setTypeface(myfont);
-        _canvas.drawText("        :" + String.valueOf((int) ClockSec), view.getWidth() * 0.6f, multiplier.getTextSize(), multiplier);
+        _canvas.drawText("       :" + String.valueOf((int) ClockSec), view.getWidth() * 0.6f, multiplier.getTextSize(), multiplier);
 
         if(ResumeTimer >= 0.f)
         {

@@ -57,7 +57,8 @@ public class Game_System{
         StateManager.Instance.AddState(new GameState_TimeAttack());
         StateManager.Instance.AddState(new GameState_Arcade());
 
-        StateManager.Instance.AddState(new GameState_GameOverNormal());
+        StateManager.Instance.AddState(new GameState_GameOverTime());
+        StateManager.Instance.AddState(new GameState_GameOverScore());
     }
 
     public void Update(float _dt) {
