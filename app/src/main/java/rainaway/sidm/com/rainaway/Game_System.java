@@ -49,6 +49,8 @@ public class Game_System{
         StateManager.Instance.AddState(new GameState_Normal());
         StateManager.Instance.AddState(new GameState_TimeAttack());
         StateManager.Instance.AddState(new GameState_Arcade());
+
+        StateManager.Instance.AddState(new GameState_GameOverNormal());
     }
 
     public void Update(float _dt) {

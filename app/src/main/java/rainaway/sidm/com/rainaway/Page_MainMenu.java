@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 public class Page_MainMenu extends Activity implements OnClickListener {
 
     //define button as Object
-    private Button btn_highscore;
+    //private Button btn_highscore;
     private Button btn_start;
     private Button btn_option;
     private Button btn_exit;
@@ -31,8 +31,8 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         //setContentView(new GameView(this));
 
         //Set Listener to button
-        btn_highscore = (Button)findViewById(R.id.btn_highscore);
-        btn_highscore.setOnClickListener(this);
+//        btn_highscore = (Button)findViewById(R.id.btn_highscore);
+//        btn_highscore.setOnClickListener(this);
         btn_start = (Button)findViewById(R.id.btn_start);
         btn_start.setOnClickListener(this);
         btn_option = (Button)findViewById(R.id.btn_option);
@@ -58,8 +58,8 @@ public class Page_MainMenu extends Activity implements OnClickListener {
         {
             System.exit(1); // exits the app
         }
-        else if (_view == btn_highscore)
-            intent.setClass(this, Page_HighScore.class);
+//        else if (_view == btn_highscore)
+//            intent.setClass(this, Page_HighScore.class);
 
         startActivity(intent);
     }
